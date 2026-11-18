@@ -1,149 +1,184 @@
 /* ==========================================================================
-   F1 Singapore Marina Bay Grand Prix — 3D WebGL Design System
-   Theme: Night Race (Singapore Marina Bay) vs Day Qualifying Paddock
+   T.H.H. Thapase — Modern Portfolio Design System
+   Aesthetic: Editorial Elegance (Parivan Vansjalia) + Wensity UI Spotlight
    ========================================================================== */
 
-@import url('https://fonts.googleapis.com/css2?family=Chakra+Petch:ital,wght@0,400;0,600;0,700;1,700;1,800&family=JetBrains+Mono:wght@400;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap');
-
+/* Design Tokens */
 :root {
-  --font-f1: 'Chakra Petch', system-ui, -apple-system, sans-serif;
-  --font-mono: 'JetBrains Mono', monospace;
-  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
-
-  --bg-hud: rgba(10, 14, 22, 0.92);
-  --border-hud: rgba(255, 255, 255, 0.15);
-  --border-glow: rgba(0, 210, 190, 0.4);
-  --f1-red: #E10600;
-  --f1-cyan: #00D2BE;
-  --f1-gold: #F59E0B;
+  --bg-page: #0B0F17;
+  --bg-card: rgba(17, 23, 35, 0.75);
+  --bg-card-hover: rgba(24, 32, 48, 0.9);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-highlight: rgba(16, 185, 129, 0.4);
+  --text-main: #F8FAFC;
+  --text-muted: #94A3B8;
+  --text-dim: #64748B;
+  --accent: #10B981;
+  --accent-warm: #F59E0B;
+  --accent-strava: #FC4C02;
+  --mouse-x: 50%;
+  --mouse-y: 50%;
 }
 
+.light {
+  --bg-page: #FBFBFA;
+  --bg-card: rgba(255, 255, 255, 0.88);
+  --bg-card-hover: #FFFFFF;
+  --border-subtle: rgba(0, 0, 0, 0.08);
+  --border-highlight: rgba(5, 150, 105, 0.35);
+  --text-main: #0F172A;
+  --text-muted: #475569;
+  --text-dim: #94A3B8;
+  --accent: #059669;
+  --accent-warm: #D97706;
+  --accent-strava: #FC4C02;
+}
+
+/* Base resets & typography */
 html, body {
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  transition: background-color 0.3s ease, color 0.3s ease;
+  scroll-behavior: smooth;
   margin: 0;
   padding: 0;
-  width: 100%;
-  height: 100%;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 7px;
+  height: 7px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg-page);
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(148, 163, 184, 0.2);
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ==========================================================================
+   Wensity UI Spotlight Hover Card Effect
+   Follows cursor position to generate a subtle radial lighting glow
+   ========================================================================== */
+.spotlight-card {
+  position: relative;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: 1.5rem;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   overflow: hidden;
-  font-family: var(--font-sans);
-  background-color: #05070B;
-  color: #F8FAFC;
 }
 
-.font-f1 {
-  font-family: var(--font-f1);
-  letter-spacing: -0.01em;
-}
-
-.font-mono {
-  font-family: var(--font-mono);
-}
-
-.f1-slant {
-  transform: skewX(-10deg);
-}
-
-/* Fullscreen WebGL Container */
-#webgl-container {
+.spotlight-card::before {
+  content: '';
   position: absolute;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(16, 185, 129, 0.08),
+    transparent 40%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
   z-index: 1;
 }
 
-/* F1 Timing Tower (Top Strip) */
-.timing-item {
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
-  cursor: pointer;
+.light .spotlight-card::before {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(5, 150, 105, 0.06),
+    transparent 40%
+  );
 }
 
-.timing-item:hover {
-  background-color: rgba(255, 255, 255, 0.14);
-  transform: translateY(-2px);
+.spotlight-card:hover::before {
+  opacity: 1;
 }
 
-.timing-item.active {
-  background-color: rgba(0, 210, 190, 0.22);
-  border-bottom: 2px solid var(--f1-cyan);
+.spotlight-card:hover {
+  background: var(--bg-card-hover);
+  border-color: var(--border-highlight);
+  transform: translateY(-3px);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.25);
 }
 
-/* Side Telemetry Pit-Wall HUD */
-#telemetry-side-hud {
-  position: fixed;
-  top: 130px;
-  right: 20px;
-  width: 440px;
-  max-width: calc(100vw - 40px);
-  max-height: calc(100vh - 150px);
-  z-index: 40;
-  background: var(--bg-hud);
-  backdrop-filter: blur(28px);
-  -webkit-backdrop-filter: blur(28px);
-  border: 1px solid var(--border-hud);
-  border-radius: 24px;
-  box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 35px var(--hud-accent-glow, rgba(0, 210, 190, 0.25));
-  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+/* Ensure contents stay on top of spotlight pseudo-element */
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* ==========================================================================
+   Parivan-Style Polaroid Travel Vignette Tilt
+   ========================================================================== */
+.polaroid-card {
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease, border-color 0.3s ease;
+}
+
+.polaroid-card:hover {
+  transform: scale(1.04) rotate(0deg) !important;
+  z-index: 20;
+  border-color: var(--border-highlight);
+  box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.45);
+}
+
+/* ==========================================================================
+   Smooth Accordion Drawer
+   ========================================================================== */
+.accordion-content {
+  max-height: 0;
   overflow: hidden;
-  display: flex;
-  flex-direction: column;
+  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
+  opacity: 0;
 }
 
-#telemetry-side-hud.hidden {
-  display: none !important;
+.accordion-item.active .accordion-content {
+  max-height: 600px;
+  opacity: 1;
 }
 
-#telemetry-side-hud.slide-in {
-  animation: slideInHud 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+.accordion-item.active .accordion-icon {
+  transform: rotate(180deg);
 }
 
-@keyframes slideInHud {
-  0% { transform: translateX(110%); opacity: 0; }
-  100% { transform: translateX(0); opacity: 1; }
-}
-
-/* Start Lights Gantry UI */
-.gantry-light {
-  width: 14px;
-  height: 14px;
-  border-radius: 50%;
-  background-color: #27272a;
-  border: 2px solid #3f3f46;
-  transition: background-color 0.15s ease, box-shadow 0.15s ease;
-}
-
-.gantry-light.lit-red {
-  background-color: #ef4444;
-  box-shadow: 0 0 12px #ef4444, 0 0 20px #ef4444;
-}
-
-.gantry-light.lit-green {
-  background-color: #22c55e;
-  box-shadow: 0 0 12px #22c55e, 0 0 20px #22c55e;
-}
-
-/* Pulse Animation */
-@keyframes f1Pulse {
-  0% { opacity: 0.4; transform: scale(0.95); }
-  50% { opacity: 1; transform: scale(1.05); }
-  100% { opacity: 0.4; transform: scale(0.95); }
-}
-
-.f1-pulse {
-  animation: f1Pulse 1.8s infinite ease-in-out;
-}
-
-/* Custom Scrollbar for HUD */
-.hud-scroll::-webkit-scrollbar {
-  width: 5px;
-}
-.hud-scroll::-webkit-scrollbar-track {
-  background: rgba(0, 0, 0, 0.2);
-}
-.hud-scroll::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 3px;
-}
-.hud-scroll::-webkit-scrollbar-thumb:hover {
-  background: var(--f1-cyan);
+/* ==========================================================================
+   Print / PDF Optimization for Resume Modal
+   ========================================================================== */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  header, #site-toast, #connect, .no-print {
+    display: none !important;
+  }
+  #cv-modal {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  #cv-modal > div {
+    max-height: none !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #000000 !important;
+  }
+  #cv-modal * {
+    color: #000000 !important;
+    border-color: #E2E8F0 !important;
+  }
 }
