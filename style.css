@@ -674,18 +674,20 @@ a:hover {
 }
 
 /* ==========================================================================
-   Dossier Window Modal Overlay
+   Dossier Window Modal Overlay & CV Modal
+   Bulletproof Display Control with !important
    ========================================================================== */
 #dossier-window {
-  display: none;
+  display: none !important;
   opacity: 0;
+  pointer-events: none;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #dossier-window.open {
-  display: flex;
-  opacity: 1;
-  pointer-events: auto;
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
 }
 
 #dossier-window-content {
@@ -694,6 +696,28 @@ a:hover {
 }
 
 #dossier-window.open #dossier-window-content {
+  transform: scale(1) translateY(0);
+}
+
+#cv-modal {
+  display: none !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cv-modal.open {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#cv-modal > div {
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cv-modal.open > div {
   transform: scale(1) translateY(0);
 }
 

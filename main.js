@@ -6,27 +6,208 @@
  * ============================================================================
  */
 
-(function () {
-  if (window.__THAPASE_INITIALIZED__) return;
+// Global Folder Definitions
+const VALID_FOLDERS = [
+  "professional",
+  "education",
+  "extracurriculars",
+  "writings",
+  "travel"
+];
 
-  function init() {
-    if (window.__THAPASE_INITIALIZED__) return;
-    window.__THAPASE_INITIALIZED__ = true;
+const FOLDER_TITLES = {
+  professional: "01 / Professional Experience",
+  education: "02 / Academic Rigor & Education",
+  extracurriculars: "03 / Extra Curriculars & Social Impact",
+  writings: "04 / Articles & Thought Leadership",
+  travel: "05 / Travel & Expeditions"
+};
 
-    initClock();
-    initCopyEmail();
-    initThemeToggle();
-    initSpotlightHover();
-    initFolderDossier();
-    initCvModal();
+/**
+ * Open Folder Dossier Modal
+ * Exposed globally on window immediately so inline onclick and event listeners work 100%
+ */
+function openFolder(folderId) {
+  if (!VALID_FOLDERS.includes(folderId)) {
+    folderId = "professional";
   }
 
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
+  const dossierWindow = document.getElementById("dossier-window");
+  if (!dossierWindow) {
+    console.error("Dossier window element (#dossier-window) not found.");
+    return;
+  }
+
+  // 1. Toggle Content Visibility
+  VALID_FOLDERS.forEach((key) => {
+    const section = document.getElementById(`folder-content-${key}`);
+    if (section) {
+      if (key === folderId) {
+        section.classList.remove("hidden");
+        section.style.display = "block";
+      } else {
+        section.classList.add("hidden");
+        section.style.display = "none";
+      }
+    }
+  });
+
+  // 2. Update Nav Tabs State
+  const navTabs = document.querySelectorAll(".dossier-nav-tab");
+  navTabs.forEach((btn) => {
+    const isTarget = btn.getAttribute("data-folder") === folderId;
+    btn.classList.toggle("active-tab", isTarget);
+    if (isTarget) {
+      btn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+      btn.classList.remove("text-[#4C5848]", "dark:text-[#A4B39E]");
+    } else {
+      btn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+      btn.classList.add("text-[#4C5848]", "dark:text-[#A4B39E]");
+    }
+  });
+
+  // 3. Update Breadcrumb Title
+  const breadcrumbEl = document.getElementById("dossier-breadcrumb-title");
+  if (breadcrumbEl) {
+    breadcrumbEl.textContent = FOLDER_TITLES[folderId] || "Dossier Archive";
+  }
+
+  // 4. Reveal Window with Animation
+  dossierWindow.classList.add("open");
+  document.body.style.overflow = "hidden";
+
+  // 5. Reset Scroll Position
+  const scrollArea = document.getElementById("dossier-scroll-area");
+  if (scrollArea) {
+    scrollArea.scrollTop = 0;
+  }
+
+  // 6. Safe URL Hash Update (Protected against file:/// origin security errors)
+  try {
+    if (window.location.protocol !== "file:") {
+      history.replaceState(null, "", `#folder-${folderId}`);
+    } else {
+      window.location.hash = `folder-${folderId}`;
+    }
+  } catch (e) {
+    // Ignore security exceptions on local file protocol
+  }
+}
+
+/**
+ * Close Folder Dossier Modal
+ */
+function closeFolder() {
+  const dossierWindow = document.getElementById("dossier-window");
+  if (dossierWindow) {
+    dossierWindow.classList.remove("open");
+  }
+  document.body.style.overflow = "";
+
+  try {
+    if (window.location.protocol !== "file:") {
+      history.replaceState(null, "", window.location.pathname);
+    } else {
+      window.location.hash = "";
+    }
+  } catch (e) {
+    // Ignore security exceptions on local file protocol
+  }
+}
+
+/**
+ * Travel Sub-Tabs Switcher (Treks & Adventures vs Vacations)
+ */
+function switchTravelTab(tabName) {
+  const treksView = document.getElementById("travel-view-treks");
+  const vacationsView = document.getElementById("travel-view-vacations");
+  const treksBtn = document.getElementById("tab-btn-treks");
+  const vacationsBtn = document.getElementById("tab-btn-vacations");
+
+  if (tabName === "treks") {
+    if (treksView) {
+      treksView.classList.remove("hidden");
+      treksView.style.display = "block";
+    }
+    if (vacationsView) {
+      vacationsView.classList.add("hidden");
+      vacationsView.style.display = "none";
+    }
+    if (treksBtn) {
+      treksBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+      treksBtn.classList.remove("text-[#4C5848]", "dark:text-[#A4B39E]");
+    }
+    if (vacationsBtn) {
+      vacationsBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+      vacationsBtn.classList.add("text-[#4C5848]", "dark:text-[#A4B39E]");
+    }
   } else {
-    init();
+    if (treksView) {
+      treksView.classList.add("hidden");
+      treksView.style.display = "none";
+    }
+    if (vacationsView) {
+      vacationsView.classList.remove("hidden");
+      vacationsView.style.display = "block";
+    }
+    if (vacationsBtn) {
+      vacationsBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+      vacationsBtn.classList.remove("text-[#4C5848]", "dark:text-[#A4B39E]");
+    }
+    if (treksBtn) {
+      treksBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+      treksBtn.classList.add("text-[#4C5848]", "dark:text-[#A4B39E]");
+    }
   }
-})();
+}
+
+/**
+ * CV Modal Controller
+ */
+function openCvModal() {
+  const cvModal = document.getElementById("cv-modal");
+  if (cvModal) {
+    cvModal.classList.add("open");
+    document.body.style.overflow = "hidden";
+  }
+}
+
+function closeCvModal() {
+  const cvModal = document.getElementById("cv-modal");
+  if (cvModal) {
+    cvModal.classList.remove("open");
+  }
+  const dossierWindow = document.getElementById("dossier-window");
+  if (!dossierWindow || !dossierWindow.classList.contains("open")) {
+    document.body.style.overflow = "";
+  }
+}
+
+/**
+ * Toast Notification Controller
+ */
+function showToast(message) {
+  const toast = document.getElementById("site-toast");
+  const toastText = document.getElementById("toast-text");
+  if (!toast || !toastText) return;
+
+  toastText.textContent = message;
+  toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-6");
+  toast.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
+
+  setTimeout(() => {
+    toast.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
+    toast.classList.add("opacity-0", "pointer-events-none", "translate-y-6");
+  }, 3500);
+}
+
+// Attach all controllers directly to window immediately
+window.openFolder = openFolder;
+window.closeFolder = closeFolder;
+window.switchTravelTab = switchTravelTab;
+window.openCvModal = openCvModal;
+window.closeCvModal = closeCvModal;
+window.showToast = showToast;
 
 /**
  * 1. Live Bangalore (IST) Clock
@@ -59,35 +240,21 @@ function initCopyEmail() {
   if (!copyBtn) return;
 
   copyBtn.addEventListener("click", () => {
-    const email = (window.THAPASE_CONFIG && window.THAPASE_CONFIG.profile.email) || "thapase@gmail.com";
-    navigator.clipboard.writeText(email).then(() => {
-      if (copyText) copyText.textContent = "Copied! ✓";
-      showToast(`Email address (${email}) copied to clipboard!`);
-      setTimeout(() => {
-        if (copyText) copyText.textContent = "Copy Email";
-      }, 2500);
-    }).catch(() => {
+    const email = (window.THAPASE_CONFIG && window.THAPASE_CONFIG.profile && window.THAPASE_CONFIG.profile.email) || "thapase@gmail.com";
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(email).then(() => {
+        if (copyText) copyText.textContent = "Copied! ✓";
+        showToast(`Email address (${email}) copied to clipboard!`);
+        setTimeout(() => {
+          if (copyText) copyText.textContent = "Copy Email";
+        }, 2500);
+      }).catch(() => {
+        window.location.href = `mailto:${email}`;
+      });
+    } else {
       window.location.href = `mailto:${email}`;
-    });
+    }
   });
-}
-
-/**
- * Global Toast Controller
- */
-function showToast(message) {
-  const toast = document.getElementById("site-toast");
-  const toastText = document.getElementById("toast-text");
-  if (!toast || !toastText) return;
-
-  toastText.textContent = message;
-  toast.classList.remove("opacity-0", "pointer-events-none", "translate-y-6");
-  toast.classList.add("opacity-100", "pointer-events-auto", "translate-y-0");
-
-  setTimeout(() => {
-    toast.classList.remove("opacity-100", "pointer-events-auto", "translate-y-0");
-    toast.classList.add("opacity-0", "pointer-events-none", "translate-y-6");
-  }, 3500);
 }
 
 /**
@@ -128,7 +295,7 @@ function initSpotlightHover() {
   }
 
   const cards = document.querySelectorAll(".spotlight-card");
-  cards.forEach(card => {
+  cards.forEach((card) => {
     card.addEventListener("mousemove", (e) => {
       const rect = card.getBoundingClientRect();
       const x = e.clientX - rect.left;
@@ -140,185 +307,125 @@ function initSpotlightHover() {
 }
 
 /**
- * 5. Folder Dossier Window Controller
- * Opens full brief view when a folder on the landing page is clicked
+ * 5. Event Listener Bindings for Interactive Folders & Modals
  */
-function initFolderDossier() {
-  const dossierWindow = document.getElementById("dossier-window");
-  const closeBtn = document.getElementById("close-dossier-btn");
-  if (!dossierWindow) return;
-
-  const folderSections = {
-    professional: document.getElementById("folder-content-professional"),
-    education: document.getElementById("folder-content-education"),
-    extracurriculars: document.getElementById("folder-content-extracurriculars"),
-    writings: document.getElementById("folder-content-writings"),
-    travel: document.getElementById("folder-content-travel")
-  };
-
-  const folderTabBtns = document.querySelectorAll(".dossier-nav-tab");
-
-  function openFolder(folderId) {
-    if (!folderSections[folderId]) folderId = "professional";
-
-    // Hide all contents and show requested one
-    Object.keys(folderSections).forEach(key => {
-      if (folderSections[key]) {
-        folderSections[key].classList.toggle("hidden", key !== folderId);
-      }
+function initFolderEventListeners() {
+  // Direct click event listeners on folder buttons (in addition to inline onclick)
+  const folderButtons = document.querySelectorAll(".folder-container");
+  folderButtons.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      const folder = this.getAttribute("data-folder") || "professional";
+      openFolder(folder);
     });
-
-    // Update Tab UI
-    folderTabBtns.forEach(btn => {
-      const isTarget = btn.getAttribute("data-folder") === folderId;
-      btn.classList.toggle("active-tab", isTarget);
-      if (isTarget) {
-        btn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
-        btn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      } else {
-        btn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
-        btn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      }
-    });
-
-    // Update Breadcrumb
-    const breadcrumbEl = document.getElementById("dossier-breadcrumb-title");
-    if (breadcrumbEl) {
-      const names = {
-        professional: "01 / Professional Experience",
-        education: "02 / Academic Rigor & Education",
-        extracurriculars: "03 / Extra Curriculars & Social Impact",
-        writings: "04 / Articles & Thought Leadership",
-        travel: "05 / Travel & Expeditions"
-      };
-      breadcrumbEl.textContent = names[folderId] || "Dossier";
-    }
-
-    // Reveal Window
-    dossierWindow.classList.remove("hidden");
-    dossierWindow.classList.add("flex", "open");
-    document.body.style.overflow = "hidden";
-
-    // Scroll inner body to top
-    const scrollContainer = document.getElementById("dossier-scroll-area");
-    if (scrollContainer) scrollContainer.scrollTop = 0;
-
-    history.replaceState(null, "", `#folder-${folderId}`);
-  }
-
-  function closeFolder() {
-    dossierWindow.classList.remove("open", "flex");
-    dossierWindow.classList.add("hidden");
-    document.body.style.overflow = "";
-    history.replaceState(null, "", window.location.pathname);
-  }
-
-  if (closeBtn) closeBtn.addEventListener("click", closeFolder);
-
-  dossierWindow.addEventListener("click", (e) => {
-    if (e.target === dossierWindow) closeFolder();
   });
 
+  // Switch tabs inside dossier window
+  const navTabs = document.querySelectorAll(".dossier-nav-tab");
+  navTabs.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const folderId = this.getAttribute("data-folder");
+      if (folderId) openFolder(folderId);
+    });
+  });
+
+  // Close Dossier Button
+  const closeBtn = document.getElementById("close-dossier-btn");
+  if (closeBtn) {
+    closeBtn.addEventListener("click", closeFolder);
+  }
+
+  // Backdrop click on Dossier Window
+  const dossierWindow = document.getElementById("dossier-window");
+  if (dossierWindow) {
+    dossierWindow.addEventListener("click", (e) => {
+      if (e.target === dossierWindow) closeFolder();
+    });
+  }
+
+  // CV Modal Buttons
+  const openCvBtns = document.querySelectorAll(".open-cv-modal-btn");
+  openCvBtns.forEach((btn) => {
+    btn.addEventListener("click", openCvModal);
+  });
+
+  const closeCvBtn = document.getElementById("close-cv-modal-btn");
+  if (closeCvBtn) {
+    closeCvBtn.addEventListener("click", closeCvModal);
+  }
+
+  const dismissCvBtn = document.getElementById("dismiss-cv-modal-btn");
+  if (dismissCvBtn) {
+    dismissCvBtn.addEventListener("click", closeCvModal);
+  }
+
+  const cvModal = document.getElementById("cv-modal");
+  if (cvModal) {
+    cvModal.addEventListener("click", (e) => {
+      if (e.target === cvModal) closeCvModal();
+    });
+  }
+
+  // Keyboard Shortcuts (Esc to close, 1-5 to open folders)
   document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && dossierWindow.classList.contains("open")) {
-      closeFolder();
+    const isDossierOpen = dossierWindow && dossierWindow.classList.contains("open");
+    const isCvOpen = cvModal && cvModal.classList.contains("open");
+
+    // Escape closes active modal
+    if (e.key === "Escape") {
+      if (isCvOpen) {
+        closeCvModal();
+        return;
+      }
+      if (isDossierOpen) {
+        closeFolder();
+        return;
+      }
     }
-    // Number shortcuts 1-5 when window is closed
-    const cvModal = document.getElementById("cv-modal");
-    if (!dossierWindow.classList.contains("open") && (!cvModal || cvModal.classList.contains("hidden"))) {
-      const numMap = { "1": "professional", "2": "education", "3": "extracurriculars", "4": "writings", "5": "travel" };
+
+    // Number keys 1-5 when no modal is open
+    if (!isDossierOpen && !isCvOpen) {
+      const numMap = {
+        "1": "professional",
+        "2": "education",
+        "3": "extracurriculars",
+        "4": "writings",
+        "5": "travel"
+      };
       if (numMap[e.key]) {
         openFolder(numMap[e.key]);
       }
     }
   });
 
-  // Switch tabs inside dossier
-  folderTabBtns.forEach(btn => {
-    btn.addEventListener("click", () => {
-      const folderId = btn.getAttribute("data-folder");
-      if (folderId) openFolder(folderId);
-    });
-  });
-
-  // Expose to window
-  window.openFolder = openFolder;
-  window.closeFolder = closeFolder;
-
-  // Travel Sub-Tabs (Treks vs Vacations)
-  window.switchTravelTab = function (tabName) {
-    const treksView = document.getElementById("travel-view-treks");
-    const vacationsView = document.getElementById("travel-view-vacations");
-    const treksBtn = document.getElementById("tab-btn-treks");
-    const vacationsBtn = document.getElementById("tab-btn-vacations");
-
-    if (tabName === "treks") {
-      if (treksView) treksView.classList.remove("hidden");
-      if (vacationsView) vacationsView.classList.add("hidden");
-      if (treksBtn) {
-        treksBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
-        treksBtn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      }
-      if (vacationsBtn) {
-        vacationsBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
-        vacationsBtn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      }
-    } else {
-      if (treksView) treksView.classList.add("hidden");
-      if (vacationsView) vacationsView.classList.remove("hidden");
-      if (vacationsBtn) {
-        vacationsBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
-        vacationsBtn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      }
-      if (treksBtn) {
-        treksBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
-        treksBtn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
-      }
+  // Check initial URL hash
+  try {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith("#folder-")) {
+      const folderKey = hash.replace("#folder-", "");
+      openFolder(folderKey);
     }
-  };
-
-  // Open based on URL hash if present
-  const hash = window.location.hash;
-  if (hash && hash.startsWith("#folder-")) {
-    const folderKey = hash.replace("#folder-", "");
-    openFolder(folderKey);
+  } catch (e) {
+    // Ignore URL hash error
   }
 }
 
 /**
- * 6. Curriculum Vitae (CV) Modal View
+ * Primary Initializer
  */
-function initCvModal() {
-  const cvModal = document.getElementById("cv-modal");
-  const openBtns = document.querySelectorAll(".open-cv-modal-btn");
-  const closeBtn = document.getElementById("close-cv-modal-btn");
-  const dismissBtn = document.getElementById("dismiss-cv-modal-btn");
+function initPortfolio() {
+  if (window.__THAPASE_PORTFOLIO_INIT__) return;
+  window.__THAPASE_PORTFOLIO_INIT__ = true;
 
-  if (!cvModal) return;
+  initClock();
+  initCopyEmail();
+  initThemeToggle();
+  initSpotlightHover();
+  initFolderEventListeners();
+}
 
-  function openModal() {
-    cvModal.classList.remove("hidden");
-    cvModal.classList.add("flex");
-    document.body.style.overflow = "hidden";
-  }
-
-  function closeModal() {
-    cvModal.classList.add("hidden");
-    cvModal.classList.remove("flex");
-    const dossierWindow = document.getElementById("dossier-window");
-    if (!dossierWindow || !dossierWindow.classList.contains("open")) {
-      document.body.style.overflow = "";
-    }
-  }
-
-  openBtns.forEach(btn => btn.addEventListener("click", openModal));
-  if (closeBtn) closeBtn.addEventListener("click", closeModal);
-  if (dismissBtn) dismissBtn.addEventListener("click", closeModal);
-
-  cvModal.addEventListener("click", (e) => {
-    if (e.target === cvModal) closeModal();
-  });
-
-  window.openCvModal = openModal;
-  window.closeCvModal = closeModal;
+// Self-executing setup
+if (document.readyState === "loading") {
+  document.addEventListener("DOMContentLoaded", initPortfolio);
+} else {
+  initPortfolio();
 }

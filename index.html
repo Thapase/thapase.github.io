@@ -193,7 +193,7 @@
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 max-w-3xl mx-auto pt-1">
           
           <!-- Folder 1: Professional Experience -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" onclick="openFolder('professional')" title="Open Professional Experience">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="professional" onclick="openFolder('professional')" title="Open Professional Experience">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -208,7 +208,7 @@
           </button>
 
           <!-- Folder 2: Education & Rigor -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" onclick="openFolder('education')" title="Open Education & Academics">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="education" onclick="openFolder('education')" title="Open Education & Academics">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -223,7 +223,7 @@
           </button>
 
           <!-- Folder 3: Extra Curriculars & Social Impact -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" onclick="openFolder('extracurriculars')" title="Open Extra Curriculars & Social Impact">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="extracurriculars" onclick="openFolder('extracurriculars')" title="Open Extra Curriculars & Social Impact">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -238,7 +238,7 @@
           </button>
 
           <!-- Folder 4: Articles / Blogs (Medium) -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" onclick="openFolder('writings')" title="Open Medium Articles & Essays">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="writings" onclick="openFolder('writings')" title="Open Medium Articles & Essays">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -253,7 +253,7 @@
           </button>
 
           <!-- Folder 5: Travel (Treks & Vacations) -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors col-span-2 sm:col-span-1" onclick="openFolder('travel')" title="Open Travel & Expeditions">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors col-span-2 sm:col-span-1" data-folder="travel" onclick="openFolder('travel')" title="Open Travel & Expeditions">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -336,7 +336,7 @@
   <!-- ========================================================================
        Archival Dossier Window Overlay (Opens when clicking any folder)
        ======================================================================== -->
-  <div id="dossier-window" class="fixed inset-0 z-50 hidden items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
+  <div id="dossier-window" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
     
     <div id="dossier-window-content" class="w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#FAF8F1] dark:bg-[#121A15] text-[#233124] dark:text-[#F2EEDC] rounded-2xl sm:rounded-3xl border border-[#829078]/40 overflow-hidden flex flex-col shadow-2xl">
       
@@ -915,7 +915,7 @@
   <!-- ========================================================================
        Curriculum Vitae Modal (Responsive & Print-Ready)
        ======================================================================== -->
-  <div id="cv-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
+  <div id="cv-modal" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
     <div class="w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#FAF8F1] dark:bg-[#121A15] text-[#233124] dark:text-[#F2EEDC] rounded-2xl sm:rounded-3xl border border-[#829078]/30 overflow-hidden flex flex-col shadow-2xl">
       
       <div class="px-4 sm:px-6 py-3 sm:py-4 bg-[#F2EEDC] dark:bg-[#0E1612] border-b border-[#829078]/25 flex items-center justify-between">
