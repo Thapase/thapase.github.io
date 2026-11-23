@@ -1,7 +1,8 @@
 /**
  * ============================================================================
- * T.H.H. Thapase — Portfolio Interactions & Micro-Animations
- * Aesthetic: Wensity UI Cursor Spotlights + Parivan Vansjalia Editorial Flow
+ * T.H.H. Thapase — Portfolio Interactions & File Explorer Dossiers
+ * Aesthetic: Parivan Vansjalia Editorial Flow + Skeuomorphic Dossier Folders
+ * Responsive for Desktop & Mobile
  * ============================================================================
  */
 
@@ -16,6 +17,7 @@
     initCopyEmail();
     initThemeToggle();
     initSpotlightHover();
+    initFolderDossier();
     initCvModal();
   }
 
@@ -96,10 +98,9 @@ function initThemeToggle() {
   const themeIcon = document.getElementById("theme-toggle-icon");
   if (!themeBtn) return;
 
-  // Sync icon on startup
   const isLight = document.documentElement.classList.contains("light");
   if (themeIcon) {
-    themeIcon.className = isLight ? "fa-solid fa-sun text-amber-500" : "fa-solid fa-moon text-amber-400";
+    themeIcon.className = isLight ? "fa-solid fa-moon text-[#75482E]" : "fa-solid fa-sun text-amber-400";
   }
 
   themeBtn.addEventListener("click", () => {
@@ -108,21 +109,24 @@ function initThemeToggle() {
       document.documentElement.classList.remove("dark");
       document.documentElement.classList.add("light");
       localStorage.setItem("thp_site_theme", "light");
-      if (themeIcon) themeIcon.className = "fa-solid fa-sun text-amber-500";
+      if (themeIcon) themeIcon.className = "fa-solid fa-moon text-[#75482E]";
     } else {
       document.documentElement.classList.remove("light");
       document.documentElement.classList.add("dark");
       localStorage.setItem("thp_site_theme", "dark");
-      if (themeIcon) themeIcon.className = "fa-solid fa-moon text-amber-400";
+      if (themeIcon) themeIcon.className = "fa-solid fa-sun text-amber-400";
     }
   });
 }
 
 /**
  * 4. Wensity UI Spotlight Cursor Follower
- * Tracks mouse movement over `.spotlight-card` elements to position the radial glow
  */
 function initSpotlightHover() {
+  if (window.matchMedia && !window.matchMedia("(hover: hover)").matches) {
+    return;
+  }
+
   const cards = document.querySelectorAll(".spotlight-card");
   cards.forEach(card => {
     card.addEventListener("mousemove", (e) => {
@@ -136,20 +140,154 @@ function initSpotlightHover() {
 }
 
 /**
- * 5. Accordion Expand / Collapse
+ * 5. Folder Dossier Window Controller
+ * Opens full brief view when a folder on the landing page is clicked
  */
-function toggleAccordion(element) {
-  if (!element) return;
-  element.classList.toggle("active");
+function initFolderDossier() {
+  const dossierWindow = document.getElementById("dossier-window");
+  const closeBtn = document.getElementById("close-dossier-btn");
+  if (!dossierWindow) return;
+
+  const folderSections = {
+    professional: document.getElementById("folder-content-professional"),
+    education: document.getElementById("folder-content-education"),
+    extracurriculars: document.getElementById("folder-content-extracurriculars"),
+    writings: document.getElementById("folder-content-writings"),
+    travel: document.getElementById("folder-content-travel")
+  };
+
+  const folderTabBtns = document.querySelectorAll(".dossier-nav-tab");
+
+  function openFolder(folderId) {
+    if (!folderSections[folderId]) folderId = "professional";
+
+    // Hide all contents and show requested one
+    Object.keys(folderSections).forEach(key => {
+      if (folderSections[key]) {
+        folderSections[key].classList.toggle("hidden", key !== folderId);
+      }
+    });
+
+    // Update Tab UI
+    folderTabBtns.forEach(btn => {
+      const isTarget = btn.getAttribute("data-folder") === folderId;
+      btn.classList.toggle("active-tab", isTarget);
+      if (isTarget) {
+        btn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+        btn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      } else {
+        btn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+        btn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      }
+    });
+
+    // Update Breadcrumb
+    const breadcrumbEl = document.getElementById("dossier-breadcrumb-title");
+    if (breadcrumbEl) {
+      const names = {
+        professional: "01 / Professional Experience",
+        education: "02 / Academic Rigor & Education",
+        extracurriculars: "03 / Extra Curriculars & Social Impact",
+        writings: "04 / Articles & Thought Leadership",
+        travel: "05 / Travel & Expeditions"
+      };
+      breadcrumbEl.textContent = names[folderId] || "Dossier";
+    }
+
+    // Reveal Window
+    dossierWindow.classList.add("open");
+    document.body.style.overflow = "hidden";
+
+    // Scroll inner body to top
+    const scrollContainer = document.getElementById("dossier-scroll-area");
+    if (scrollContainer) scrollContainer.scrollTop = 0;
+
+    history.replaceState(null, "", `#folder-${folderId}`);
+  }
+
+  function closeFolder() {
+    dossierWindow.classList.remove("open");
+    document.body.style.overflow = "";
+    history.replaceState(null, "", window.location.pathname);
+  }
+
+  if (closeBtn) closeBtn.addEventListener("click", closeFolder);
+
+  dossierWindow.addEventListener("click", (e) => {
+    if (e.target === dossierWindow) closeFolder();
+  });
+
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && dossierWindow.classList.contains("open")) {
+      closeFolder();
+    }
+    // Number shortcuts 1-5 when window is closed
+    if (!dossierWindow.classList.contains("open") && !document.getElementById("cv-modal").classList.contains("flex")) {
+      const numMap = { "1": "professional", "2": "education", "3": "extracurriculars", "4": "writings", "5": "travel" };
+      if (numMap[e.key]) {
+        openFolder(numMap[e.key]);
+      }
+    }
+  });
+
+  // Switch tabs inside dossier
+  folderTabBtns.forEach(btn => {
+    btn.addEventListener("click", () => {
+      const folderId = btn.getAttribute("data-folder");
+      if (folderId) openFolder(folderId);
+    });
+  });
+
+  // Expose to window
+  window.openFolder = openFolder;
+  window.closeFolder = closeFolder;
+
+  // Travel Sub-Tabs (Treks vs Vacations)
+  window.switchTravelTab = function (tabName) {
+    const treksView = document.getElementById("travel-view-treks");
+    const vacationsView = document.getElementById("travel-view-vacations");
+    const treksBtn = document.getElementById("tab-btn-treks");
+    const vacationsBtn = document.getElementById("tab-btn-vacations");
+
+    if (tabName === "treks") {
+      if (treksView) treksView.classList.remove("hidden");
+      if (vacationsView) vacationsView.classList.add("hidden");
+      if (treksBtn) {
+        treksBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+        treksBtn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      }
+      if (vacationsBtn) {
+        vacationsBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+        vacationsBtn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      }
+    } else {
+      if (treksView) treksView.classList.add("hidden");
+      if (vacationsView) vacationsView.classList.remove("hidden");
+      if (vacationsBtn) {
+        vacationsBtn.classList.add("bg-[#75482E]", "text-[#F2EEDC]");
+        vacationsBtn.classList.remove("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      }
+      if (treksBtn) {
+        treksBtn.classList.remove("bg-[#75482E]", "text-[#F2EEDC]");
+        treksBtn.classList.add("bg-[#FAF8F1]", "dark:bg-white/5", "text-[#4C5848]", "dark:text-[#A4B39E]");
+      }
+    }
+  };
+
+  // Open based on URL hash if present
+  const hash = window.location.hash;
+  if (hash && hash.startsWith("#folder-")) {
+    const folderKey = hash.replace("#folder-", "");
+    openFolder(folderKey);
+  }
 }
-window.toggleAccordion = toggleAccordion;
 
 /**
- * 6. Curriculum Vitae (CV) Modal View & Keyboard Accessibility
+ * 6. Curriculum Vitae (CV) Modal View
  */
 function initCvModal() {
   const cvModal = document.getElementById("cv-modal");
-  const openBtn = document.getElementById("open-cv-modal-btn");
+  const openBtns = document.querySelectorAll(".open-cv-modal-btn");
   const closeBtn = document.getElementById("close-cv-modal-btn");
   const dismissBtn = document.getElementById("dismiss-cv-modal-btn");
 
@@ -164,21 +302,18 @@ function initCvModal() {
   function closeModal() {
     cvModal.classList.add("hidden");
     cvModal.classList.remove("flex");
-    document.body.style.overflow = "";
+    const dossierWindow = document.getElementById("dossier-window");
+    if (!dossierWindow || !dossierWindow.classList.contains("open")) {
+      document.body.style.overflow = "";
+    }
   }
 
-  if (openBtn) openBtn.addEventListener("click", openModal);
+  openBtns.forEach(btn => btn.addEventListener("click", openModal));
   if (closeBtn) closeBtn.addEventListener("click", closeModal);
   if (dismissBtn) dismissBtn.addEventListener("click", closeModal);
 
   cvModal.addEventListener("click", (e) => {
     if (e.target === cvModal) closeModal();
-  });
-
-  document.addEventListener("keydown", (e) => {
-    if (e.key === "Escape" && !cvModal.classList.contains("hidden")) {
-      closeModal();
-    }
   });
 
   window.openCvModal = openModal;
