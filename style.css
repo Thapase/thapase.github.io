@@ -67,6 +67,10 @@ html {
   overflow-x: hidden;
 }
 
+.hidden {
+  display: none !important;
+}
+
 body {
   background-color: var(--paper);
   color: var(--ink);
@@ -155,7 +159,7 @@ body {
 /* Layer 1: Distant Painted Peak Ridge */
 .mountain-distant {
   height: 100%;
-  background-image: url('../assets/images/mountains-clean.webp');
+  background-image: url('../assets/images/mountains.webp');
   opacity: 0.88;
   z-index: 1;
 }
@@ -790,7 +794,7 @@ a:hover {
     background: #FFFFFF !important;
     color: #000000 !important;
   }
-  .scene, .mountain-horizon, header, #site-toast, #connect, .no-print, #mobile-nav-panel {
+  .scene, .mountain-horizon, header, #site-toast, .no-print {
     display: none !important;
   }
   #cv-modal {

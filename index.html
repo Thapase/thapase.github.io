@@ -11,7 +11,7 @@
 
   <!-- Preload Parivan Mountain Assets & Fonts -->
   <link rel="preload" href="assets/images/continuous-sky.webp" as="image" />
-  <link rel="preload" href="assets/images/mountains-clean.webp" as="image" />
+  <link rel="preload" href="assets/images/mountains.webp" as="image" />
   <link rel="preload" href="assets/images/woodland-intact.webp" as="image" />
   <link rel="preload" href="assets/fonts/bellefair.woff2" as="font" type="font/woff2" crossorigin />
 
@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellefair&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css?v=3.2" />
+  <link rel="stylesheet" href="css/style.css" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -336,7 +336,7 @@
   <!-- ========================================================================
        Archival Dossier Window Overlay (Opens when clicking any folder)
        ======================================================================== -->
-  <div id="dossier-window" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
+  <div id="dossier-window" style="display: none;" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
     
     <div id="dossier-window-content" class="w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#FAF8F1] dark:bg-[#121A15] text-[#233124] dark:text-[#F2EEDC] rounded-2xl sm:rounded-3xl border border-[#829078]/40 overflow-hidden flex flex-col shadow-2xl">
       
@@ -361,11 +361,11 @@
           
           <!-- Folder Switcher Buttons -->
           <div class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-[#FAF8F1]/80 dark:bg-black/20 border border-[#829078]/25 text-xs font-serif">
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="professional">Professional</button>
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="education">Education</button>
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="extracurriculars">Extra</button>
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="writings">Articles</button>
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="travel">Travel</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="professional" onclick="openFolder('professional')">Professional</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="education" onclick="openFolder('education')">Education</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">Extra</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="writings" onclick="openFolder('writings')">Articles</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="travel" onclick="openFolder('travel')">Travel</button>
           </div>
 
           <!-- View Full CV button -->
@@ -375,7 +375,7 @@
           </button>
 
           <!-- Close Window button -->
-          <button id="close-dossier-btn" class="w-8 h-8 rounded-lg bg-[#829078]/20 hover:bg-[#75482E] hover:text-[#F2EEDC] text-[#233124] dark:text-[#F2EEDC] flex items-center justify-center text-sm transition-colors cursor-pointer" title="Close Dossier (Esc)">
+          <button id="close-dossier-btn" type="button" onclick="closeFolder()" class="w-8 h-8 rounded-lg bg-[#829078]/20 hover:bg-[#75482E] hover:text-[#F2EEDC] text-[#233124] dark:text-[#F2EEDC] flex items-center justify-center text-sm transition-colors cursor-pointer" title="Close Dossier (Esc)">
             <i class="fa-solid fa-xmark"></i>
           </button>
 
@@ -385,11 +385,11 @@
 
       <!-- Mobile Folder Switcher Strip -->
       <div class="md:hidden flex items-center gap-1 px-3 py-1.5 bg-[#FAF8F1] dark:bg-[#121A15] border-b border-[#829078]/20 overflow-x-auto text-xs font-serif shrink-0">
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="professional">01 Professional</button>
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="education">02 Education</button>
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="extracurriculars">03 Extra</button>
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="writings">04 Articles</button>
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="travel">05 Travel</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="professional" onclick="openFolder('professional')">01 Professional</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="education" onclick="openFolder('education')">02 Education</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">03 Extra</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="writings" onclick="openFolder('writings')">04 Articles</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="travel" onclick="openFolder('travel')">05 Travel</button>
       </div>
 
       <!-- Scrollable Dossier Content Area -->
@@ -915,7 +915,7 @@
   <!-- ========================================================================
        Curriculum Vitae Modal (Responsive & Print-Ready)
        ======================================================================== -->
-  <div id="cv-modal" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
+  <div id="cv-modal" style="display: none;" class="fixed inset-0 z-50 items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
     <div class="w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#FAF8F1] dark:bg-[#121A15] text-[#233124] dark:text-[#F2EEDC] rounded-2xl sm:rounded-3xl border border-[#829078]/30 overflow-hidden flex flex-col shadow-2xl">
       
       <div class="px-4 sm:px-6 py-3 sm:py-4 bg-[#F2EEDC] dark:bg-[#0E1612] border-b border-[#829078]/25 flex items-center justify-between">
@@ -929,11 +929,11 @@
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          <button onclick="window.print()" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#829078]/20 hover:bg-[#829078]/30 text-[#233124] dark:text-[#F2EEDC] transition-colors flex items-center gap-1.5 cursor-pointer">
+          <button type="button" onclick="window.print()" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#829078]/20 hover:bg-[#829078]/30 text-[#233124] dark:text-[#F2EEDC] transition-colors flex items-center gap-1.5 cursor-pointer">
             <i class="fa-solid fa-print"></i>
             <span class="hidden sm:inline">Print / PDF</span>
           </button>
-          <button id="close-cv-modal-btn" class="w-8 h-8 rounded-lg bg-[#829078]/20 hover:bg-[#75482E] hover:text-[#F2EEDC] text-[#233124] dark:text-[#F2EEDC] flex items-center justify-center text-sm transition-colors cursor-pointer">
+          <button id="close-cv-modal-btn" type="button" onclick="closeCvModal()" class="w-8 h-8 rounded-lg bg-[#829078]/20 hover:bg-[#75482E] hover:text-[#F2EEDC] text-[#233124] dark:text-[#F2EEDC] flex items-center justify-center text-sm transition-colors cursor-pointer" title="Close CV (Esc)">
             <i class="fa-solid fa-xmark"></i>
           </button>
         </div>
@@ -993,7 +993,7 @@
       </div>
 
       <div class="px-4 sm:px-6 py-3 bg-[#F2EEDC] dark:bg-[#0E1612] border-t border-[#829078]/25 flex justify-end">
-        <button id="dismiss-cv-modal-btn" class="px-4 sm:px-5 py-1.5 rounded-xl text-xs font-mono font-bold bg-[#75482E] hover:bg-[#965b38] text-[#F2EEDC] transition-colors cursor-pointer">
+        <button id="dismiss-cv-modal-btn" type="button" onclick="closeCvModal()" class="px-4 sm:px-5 py-1.5 rounded-xl text-xs font-mono font-bold bg-[#75482E] hover:bg-[#965b38] text-[#F2EEDC] transition-colors cursor-pointer">
           Close Window
         </button>
       </div>
@@ -1008,8 +1008,8 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/config.js?v=3.2"></script>
-  <script src="js/main.js?v=3.2"></script>
+  <script src="js/config.js"></script>
+  <script src="js/main.js"></script>
 
   <!-- Inline Direct Event Hook for Maximum Reliability across all Browsers & Local File Paths -->
   <script>

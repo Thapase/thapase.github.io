@@ -73,6 +73,8 @@ function openFolder(folderId) {
   }
 
   // 4. Reveal Window with Animation
+  dossierWindow.style.display = "flex";
+  void dossierWindow.offsetWidth;
   dossierWindow.classList.add("open");
   document.body.style.overflow = "hidden";
 
@@ -99,6 +101,7 @@ function closeFolder() {
   const dossierWindow = document.getElementById("dossier-window");
   if (dossierWindow) {
     dossierWindow.classList.remove("open");
+    dossierWindow.style.display = "none";
   }
   document.body.style.overflow = "";
 
@@ -163,6 +166,8 @@ function switchTravelTab(tabName) {
 function openCvModal() {
   const cvModal = document.getElementById("cv-modal");
   if (cvModal) {
+    cvModal.style.display = "flex";
+    void cvModal.offsetWidth;
     cvModal.classList.add("open");
     document.body.style.overflow = "hidden";
   }
@@ -172,6 +177,7 @@ function closeCvModal() {
   const cvModal = document.getElementById("cv-modal");
   if (cvModal) {
     cvModal.classList.remove("open");
+    cvModal.style.display = "none";
   }
   const dossierWindow = document.getElementById("dossier-window");
   if (!dossierWindow || !dossierWindow.classList.contains("open")) {
