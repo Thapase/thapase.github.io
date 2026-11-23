@@ -20,7 +20,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bellefair&family=Plus+Jakarta+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=JetBrains+Mono:wght@400;500;600&display=swap" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/style.css?v=3.2" />
 
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1008,8 +1008,23 @@
   </div>
 
   <!-- Scripts -->
-  <script src="js/config.js"></script>
-  <script src="js/main.js"></script>
+  <script src="js/config.js?v=3.2"></script>
+  <script src="js/main.js?v=3.2"></script>
+
+  <!-- Inline Direct Event Hook for Maximum Reliability across all Browsers & Local File Paths -->
+  <script>
+    (function () {
+      document.addEventListener('click', function (e) {
+        var folderBtn = e.target.closest('.folder-container');
+        if (folderBtn) {
+          var folderId = folderBtn.getAttribute('data-folder') || 'professional';
+          if (typeof window.openFolder === 'function') {
+            window.openFolder(folderId);
+          }
+        }
+      });
+    })();
+  </script>
 
 </body>
 </html>

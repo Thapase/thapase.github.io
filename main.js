@@ -82,15 +82,13 @@ function openFolder(folderId) {
     scrollArea.scrollTop = 0;
   }
 
-  // 6. Safe URL Hash Update (Protected against file:/// origin security errors)
+  // 6. Safe URL Hash Update (Only on http/https, never interferes with local file://)
   try {
-    if (window.location.protocol !== "file:") {
+    if (window.location.protocol === "http:" || window.location.protocol === "https:") {
       history.replaceState(null, "", `#folder-${folderId}`);
-    } else {
-      window.location.hash = `folder-${folderId}`;
     }
   } catch (e) {
-    // Ignore security exceptions on local file protocol
+    // Ignore security exceptions
   }
 }
 
@@ -105,13 +103,11 @@ function closeFolder() {
   document.body.style.overflow = "";
 
   try {
-    if (window.location.protocol !== "file:") {
+    if (window.location.protocol === "http:" || window.location.protocol === "https:") {
       history.replaceState(null, "", window.location.pathname);
-    } else {
-      window.location.hash = "";
     }
   } catch (e) {
-    // Ignore security exceptions on local file protocol
+    // Ignore security exceptions
   }
 }
 
