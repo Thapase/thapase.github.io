@@ -11,7 +11,8 @@
 
   <!-- Preload Parivan Mountain Assets & Fonts -->
   <link rel="preload" href="assets/images/continuous-sky.webp" as="image" />
-  <link rel="preload" href="assets/images/mountains.webp" as="image" />
+  <link rel="preload" href="assets/images/mountains-clean.webp" as="image" />
+  <link rel="preload" href="assets/images/woodland-intact.webp" as="image" />
   <link rel="preload" href="assets/fonts/bellefair.woff2" as="font" type="font/woff2" crossorigin />
 
   <!-- Fonts & Icons -->
@@ -87,7 +88,38 @@
       <img class="sky-base-image" src="assets/images/continuous-sky.webp" alt="" decoding="async" />
     </div>
   </div>
-  <div class="mountain-horizon" aria-hidden="true"></div>
+  <!-- ========================================================================
+       Living Mountain Horizon & Moving Clouds Scene (Synchronized with Background)
+       Distant Painted Peaks + Multi-Altitude Drifting Clouds + Woodland Foothills
+       ======================================================================== -->
+  <div class="mountain-horizon" aria-hidden="true">
+    <!-- Layer 1: Distant Mountain Range -->
+    <div class="mountain-layer mountain-distant"></div>
+
+    <!-- Layer 2: High Cloud Drift (Drifting across mountain peaks) -->
+    <div class="cloud-drift-track cloud-track-high">
+      <div class="cloud-band cloud-band-cumulus"></div>
+      <div class="cloud-band cloud-band-cumulus"></div>
+    </div>
+
+    <!-- Layer 3: Mid-Mountain Hills & Valleys -->
+    <div class="mountain-layer mountain-mid"></div>
+
+    <!-- Layer 4: Valley Mist & Flowing Clouds (Weaving between peaks and foothills) -->
+    <div class="cloud-drift-track cloud-track-mid">
+      <div class="cloud-band cloud-band-mist"></div>
+      <div class="cloud-band cloud-band-mist"></div>
+    </div>
+
+    <!-- Layer 5: Foreground Woodland / Pine Base -->
+    <div class="mountain-layer mountain-woodland"></div>
+
+    <!-- Layer 6: Ambient Ground Fog Veil -->
+    <div class="cloud-drift-track cloud-track-low">
+      <div class="cloud-band cloud-band-fog"></div>
+      <div class="cloud-band cloud-band-fog"></div>
+    </div>
+  </div>
 
   <!-- ========================================================================
        Minimalist Landing Page Viewport
@@ -241,7 +273,7 @@
     </div>
 
     <!-- Bottom of the Page: Clean Row of Social Icons + Minimal Footer -->
-    <footer class="pt-5 border-t border-[#829078]/25 space-y-3.5 text-center">
+    <footer class="editorial-footer pt-6 pb-2 px-4 rounded-3xl border border-[#829078]/25 space-y-3.5 text-center mt-6">
       
       <!-- Icons Row (Just the icons as requested!) -->
       <div class="flex items-center justify-center flex-wrap gap-3 sm:gap-4">
@@ -304,7 +336,7 @@
   <!-- ========================================================================
        Archival Dossier Window Overlay (Opens when clicking any folder)
        ======================================================================== -->
-  <div id="dossier-window" class="fixed inset-0 z-50 flex items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
+  <div id="dossier-window" class="fixed inset-0 z-50 hidden items-center justify-center p-2.5 sm:p-4 bg-black/75 backdrop-blur-md">
     
     <div id="dossier-window-content" class="w-full max-w-4xl max-h-[92vh] sm:max-h-[90vh] bg-[#FAF8F1] dark:bg-[#121A15] text-[#233124] dark:text-[#F2EEDC] rounded-2xl sm:rounded-3xl border border-[#829078]/40 overflow-hidden flex flex-col shadow-2xl">
       

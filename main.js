@@ -195,7 +195,8 @@ function initFolderDossier() {
     }
 
     // Reveal Window
-    dossierWindow.classList.add("open");
+    dossierWindow.classList.remove("hidden");
+    dossierWindow.classList.add("flex", "open");
     document.body.style.overflow = "hidden";
 
     // Scroll inner body to top
@@ -206,7 +207,8 @@ function initFolderDossier() {
   }
 
   function closeFolder() {
-    dossierWindow.classList.remove("open");
+    dossierWindow.classList.remove("open", "flex");
+    dossierWindow.classList.add("hidden");
     document.body.style.overflow = "";
     history.replaceState(null, "", window.location.pathname);
   }
@@ -222,7 +224,8 @@ function initFolderDossier() {
       closeFolder();
     }
     // Number shortcuts 1-5 when window is closed
-    if (!dossierWindow.classList.contains("open") && !document.getElementById("cv-modal").classList.contains("flex")) {
+    const cvModal = document.getElementById("cv-modal");
+    if (!dossierWindow.classList.contains("open") && (!cvModal || cvModal.classList.contains("hidden"))) {
       const numMap = { "1": "professional", "2": "education", "3": "extracurriculars", "4": "writings", "5": "travel" };
       if (numMap[e.key]) {
         openFolder(numMap[e.key]);

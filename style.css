@@ -124,25 +124,185 @@ body {
   object-position: center top;
 }
 
+/* ==========================================================================
+   Living Mountain Horizon & Drifting Clouds Landscape Scape
+   Synchronized Multi-Layer Parallax Landscape with Continuous Cloud Motion
+   ========================================================================== */
 .mountain-horizon {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: clamp(7rem, 22vh, 16rem);
-  background-image: url('../assets/images/mountains.webp');
-  background-size: cover;
-  background-position: center bottom;
-  background-repeat: no-repeat;
+  height: clamp(10rem, 30vh, 22rem);
   pointer-events: none;
   z-index: -1;
-  opacity: 0.78;
+  overflow: hidden;
+}
+
+/* Individual Mountain Layers */
+.mountain-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Layer 1: Distant Painted Peak Ridge */
+.mountain-distant {
+  height: 100%;
+  background-image: url('../assets/images/mountains-clean.webp');
+  opacity: 0.88;
+  z-index: 1;
+}
+
+.dark .mountain-distant {
+  opacity: 0.72;
+  filter: brightness(0.82) contrast(1.1);
+}
+
+/* Layer 3: Mid-Mountain Hills & Valleys */
+.mountain-mid {
+  height: 85%;
+  background-image: url('../assets/images/mountains.webp');
+  opacity: 0.65;
+  z-index: 3;
+}
+
+.dark .mountain-mid {
+  opacity: 0.55;
+  filter: brightness(0.78) contrast(1.15);
+}
+
+/* Layer 5: Foreground Woodland / Pine Ridge */
+.mountain-woodland {
+  height: clamp(3.5rem, 9vh, 6.5rem);
+  background-image: url('../assets/images/woodland-intact.webp');
+  opacity: 0.95;
+  z-index: 5;
+}
+
+.dark .mountain-woodland {
+  opacity: 0.88;
+  filter: brightness(0.65) contrast(1.2);
+}
+
+/* ==========================================================================
+   Continuous Moving Clouds System
+   Dual-Band Seamless Loop Across Horizons
+   ========================================================================== */
+.cloud-drift-track {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cloud-band {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+
+/* Layer 2: High Mountain Clouds (Drifting right across distant peaks) */
+.cloud-track-high {
+  z-index: 2;
+  height: 65%;
+  bottom: 24%;
+  animation: driftCloudsRight 110s linear infinite;
+}
+
+.cloud-band-cumulus {
+  background-image: url('../assets/images/clouds-cumulus-transparent.png');
+  background-size: auto 90%;
+  background-position: left center;
+  opacity: 0.45;
+  filter: blur(1px);
+}
+
+.dark .cloud-band-cumulus {
+  opacity: 0.22;
+  filter: blur(1px) brightness(1.2);
+}
+
+/* Layer 4: Mid-Altitude Valley Mist (Drifting left between ridges) */
+.cloud-track-mid {
+  z-index: 4;
+  height: 55%;
+  bottom: 12%;
+  animation: driftCloudsLeft 75s linear infinite;
+}
+
+.cloud-band-mist {
+  background-image: url('../assets/images/clouds-mist-transparent.png');
+  background-size: auto 95%;
+  background-position: right bottom;
+  opacity: 0.52;
+  filter: blur(0.8px);
+}
+
+.dark .cloud-band-mist {
+  opacity: 0.3;
+  filter: blur(0.8px) brightness(1.25);
+}
+
+/* Layer 6: Ambient Ground Fog Veil (Hovering softly at tree line) */
+.cloud-track-low {
+  z-index: 6;
+  height: clamp(3rem, 8vh, 6rem);
+  bottom: 0;
+  animation: driftCloudsRight 50s linear infinite;
+}
+
+.cloud-band-fog {
+  background: radial-gradient(ellipse at 50% 90%, rgba(242, 238, 220, 0.6) 0%, rgba(242, 238, 220, 0.25) 55%, transparent 85%);
+  opacity: 0.75;
+}
+
+.dark .cloud-band-fog {
+  background: radial-gradient(ellipse at 50% 90%, rgba(18, 26, 21, 0.65) 0%, rgba(22, 33, 26, 0.3) 55%, transparent 85%);
+  opacity: 0.8;
+}
+
+/* Seamless Infinite Drift Animations */
+@keyframes driftCloudsLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes driftCloudsRight {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
 }
 
 @keyframes paintedSkyDrift {
   0% { transform: translate3d(0, 0, 0); }
   50% { transform: translate3d(-30%, 0, 0); }
   100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Footer Glassmorphic Panel over Landscape */
+.editorial-footer {
+  position: relative;
+  background: linear-gradient(to top, rgba(242, 238, 220, 0.72) 0%, rgba(242, 238, 220, 0.38) 75%, transparent 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 20px rgba(57, 45, 38, 0.04);
+}
+
+.dark .editorial-footer {
+  background: linear-gradient(to top, rgba(18, 26, 21, 0.82) 0%, rgba(18, 26, 21, 0.45) 75%, transparent 100%);
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
 }
 
 /* Custom Scrollbar */
@@ -517,12 +677,13 @@ a:hover {
    Dossier Window Modal Overlay
    ========================================================================== */
 #dossier-window {
+  display: none;
   opacity: 0;
-  pointer-events: none;
   transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 #dossier-window.open {
+  display: flex;
   opacity: 1;
   pointer-events: auto;
 }
@@ -557,40 +718,6 @@ a:hover {
   border-color: var(--accent);
   color: var(--accent);
   box-shadow: 0 6px 14px rgba(117, 72, 46, 0.2);
-}
-
-/* ==========================================================================
-   Smooth Accordion Drawer
-   ========================================================================== */
-.accordion-content {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.3s ease;
-  opacity: 0;
-}
-
-.accordion-item.active .accordion-content {
-  max-height: 800px;
-  opacity: 1;
-}
-
-.accordion-item.active .accordion-icon {
-  transform: rotate(180deg);
-}
-
-/* ==========================================================================
-   Mobile Navigation Drawer
-   ========================================================================== */
-.mobile-nav-drawer {
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
-}
-
-.mobile-nav-drawer.open {
-  max-height: 420px;
-  opacity: 1;
 }
 
 /* ==========================================================================
