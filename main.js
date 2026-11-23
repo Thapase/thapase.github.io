@@ -18,7 +18,7 @@ const VALID_FOLDERS = [
 const FOLDER_TITLES = {
   professional: "01 / Professional Experience",
   education: "02 / Academic Rigor & Education",
-  extracurriculars: "03 / Extra Curriculars & Social Impact",
+  extracurriculars: "03 / Life Away From Work",
   writings: "04 / Articles & Thought Leadership",
   travel: "05 / Travel & Expeditions"
 };
@@ -212,29 +212,7 @@ window.closeCvModal = closeCvModal;
 window.showToast = showToast;
 
 /**
- * 1. Live Bangalore (IST) Clock
- */
-function initClock() {
-  const clockEl = document.getElementById("live-bangalore-clock");
-  if (!clockEl) return;
-
-  function update() {
-    const now = new Date();
-    const options = {
-      timeZone: "Asia/Kolkata",
-      hour: "2-digit",
-      minute: "2-digit",
-      hour12: true
-    };
-    clockEl.textContent = `${now.toLocaleTimeString("en-US", options)} IST`;
-  }
-
-  update();
-  setInterval(update, 30000);
-}
-
-/**
- * 2. One-Click "Copy Email" with Toast Notification
+ * 1. One-Click "Copy Email" with Toast Notification
  */
 function initCopyEmail() {
   const copyBtn = document.getElementById("copy-email-btn");
@@ -418,7 +396,6 @@ function initPortfolio() {
   if (window.__THAPASE_PORTFOLIO_INIT__) return;
   window.__THAPASE_PORTFOLIO_INIT__ = true;
 
-  initClock();
   initCopyEmail();
   initThemeToggle();
   initSpotlightHover();

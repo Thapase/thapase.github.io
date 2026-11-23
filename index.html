@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>T.H.H. Thapase — Supply Chain Strategist, Endurance Runner & Explorer</title>
-  <meta name="description" content="Personal and professional portfolio of T.H.H. Thapase — Supply Chain & Strategy Consultant at Genpact, IIM Sirmaur MBA (GMAT 760), Strava Endurance Runner, Explorer, and Writer." />
+  <title>T.H.H. Thapase — Supply Chain Consultant, ML Enthusiast & Explorer</title>
+  <meta name="description" content="Portfolio of T.H.H. Thapase — Supply Chain Consultant, ML Enthusiast, Learning to Vibe Code, IIM Sirmaur MBA (GMAT 760), and Writer." />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='25' fill='%23233124'/><text x='50%' y='55%' font-family='serif' font-weight='400' font-size='44' fill='%23F2EEDC' text-anchor='middle' dominant-baseline='middle'>TH</text></svg>" />
@@ -126,20 +126,9 @@
        ======================================================================== -->
   <main class="min-h-screen flex flex-col justify-between max-w-4xl mx-auto px-4 sm:px-6 pt-6 sm:pt-10 pb-6 sm:pb-8 relative z-10">
     
-    <!-- Top Header Bar: Location, IST Clock & Mode Switcher -->
-    <header class="flex items-center justify-between py-2 border-b border-[#829078]/25 text-xs font-mono">
-      <div class="flex items-center gap-2 text-[#4C5848] dark:text-[#A4B39E]">
-        <span class="w-2 h-2 rounded-full bg-[#75482E] dark:bg-[#d89667] animate-pulse"></span>
-        <span>Bangalore, India</span>
-        <span class="opacity-40">•</span>
-        <span id="live-bangalore-clock" class="font-semibold text-[#233124] dark:text-[#F2EEDC]">--:-- IST</span>
-      </div>
-      
+    <!-- Top Header Bar: Controls -->
+    <header class="flex items-center justify-end py-2 border-b border-[#829078]/25 text-xs font-mono">
       <div class="flex items-center gap-2 sm:gap-3">
-        <span class="hidden sm:inline-flex items-center gap-1.5 text-[11px] px-2.5 py-0.5 rounded-full bg-[#829078]/15 text-[#75482E] dark:text-[#d89667] border border-[#829078]/30">
-          <i class="fa-solid fa-trophy text-[9px]"></i> GMAT 760 (Top 1%)
-        </span>
-
         <button id="copy-email-btn" class="px-2.5 py-1 rounded-full text-[11px] font-mono bg-[#FAF8F1] dark:bg-white/5 hover:border-[#75482E] text-[#233124] dark:text-[#F2EEDC] border border-[#829078]/30 transition-all flex items-center gap-1.5 cursor-pointer shadow-sm" title="Copy email address">
           <i class="fa-regular fa-copy text-[10px] text-[#75482E] dark:text-[#d89667]"></i>
           <span id="copy-email-text" class="hidden sm:inline">Copy Email</span>
@@ -168,28 +157,23 @@
           </span>
         </div>
 
-        <div>
-          <h1 class="text-3xl sm:text-5xl font-serif font-normal text-[#233124] dark:text-[#F2EEDC] tracking-tight leading-none">
+        <div class="px-2">
+          <h1 class="text-3xl sm:text-4xl md:text-5xl font-serif font-normal text-[#233124] dark:text-[#F2EEDC] tracking-tight leading-tight sm:leading-none">
             T.H.H. Thapase
           </h1>
           <p class="text-xs sm:text-sm font-mono text-[#75482E] dark:text-[#d89667] mt-1.5 tracking-wide uppercase">
-            Supply Chain Strategist • Endurance Runner • Explorer
+            Supply Chain Consultant • ML Enthusiast • Learning to Vibe Code
           </p>
         </div>
 
         <!-- 2-3 Short Sentences Profile Description -->
-        <p class="max-w-xl mx-auto font-serif text-base sm:text-lg text-[#4C5848] dark:text-[#E2DECD] leading-relaxed">
+        <p class="max-w-xl mx-auto font-serif text-sm sm:text-base md:text-lg text-[#4C5848] dark:text-[#E2DECD] leading-relaxed px-2 sm:px-0">
           Supply chain consultant at <strong class="text-[#233124] dark:text-[#F2EEDC] font-semibold">Genpact</strong> delivering multi-million-dollar transformations for Fortune 500 energy and aerospace leaders, and an <strong class="text-[#233124] dark:text-[#F2EEDC] font-semibold">IIM Sirmaur MBA</strong> with a <strong class="text-[#75482E] dark:text-[#d89667] font-semibold">GMAT 760 (Top 1% globally)</strong>. Beyond operations, I explore high-altitude trails, fund rural girl-child education, run distance mileage on Strava, and write on strategy.
         </p>
       </div>
 
       <!-- Line of Archival Folders (Desktop PC File Explorer Interaction) -->
       <div class="space-y-2.5">
-        <div class="text-[11px] font-mono uppercase tracking-widest text-[#829078] flex items-center justify-center gap-2">
-          <i class="fa-regular fa-folder-open text-[#75482E] dark:text-[#d89667]"></i>
-          <span>Click a folder to view dossiers</span>
-        </div>
-
         <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 max-w-3xl mx-auto pt-1">
           
           <!-- Folder 1: Professional Experience -->
@@ -203,8 +187,7 @@
                 <i class="fa-solid fa-briefcase folder-front-icon"></i>
               </div>
             </div>
-            <div class="folder-title">professional</div>
-            <div class="folder-meta">01 • Genpact SCM</div>
+            <div class="folder-title">professional experience</div>
           </button>
 
           <!-- Folder 2: Education & Rigor -->
@@ -219,11 +202,10 @@
               </div>
             </div>
             <div class="folder-title">education</div>
-            <div class="folder-meta">02 • IIM & GMAT 760</div>
           </button>
 
-          <!-- Folder 3: Extra Curriculars & Social Impact -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="extracurriculars" onclick="openFolder('extracurriculars')" title="Open Extra Curriculars & Social Impact">
+          <!-- Folder 3: Life Away From Work -->
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="extracurriculars" onclick="openFolder('extracurriculars')" title="Open Life Away From Work">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -233,8 +215,7 @@
                 <i class="fa-solid fa-hand-holding-heart folder-front-icon"></i>
               </div>
             </div>
-            <div class="folder-title">extra curriculars</div>
-            <div class="folder-meta">03 • Impact & Strava</div>
+            <div class="folder-title">life away from work</div>
           </button>
 
           <!-- Folder 4: Articles / Blogs (Medium) -->
@@ -249,7 +230,6 @@
               </div>
             </div>
             <div class="folder-title">articles</div>
-            <div class="folder-meta">04 • Medium Essays</div>
           </button>
 
           <!-- Folder 5: Travel (Treks & Vacations) -->
@@ -264,9 +244,18 @@
               </div>
             </div>
             <div class="folder-title">travel</div>
-            <div class="folder-meta">05 • Treks & Vacations</div>
           </button>
 
+        </div>
+
+        <!-- "Leave Your Mark" Button (Responsive: Centered on Mobile, Right-Aligned on Desktop) -->
+        <div class="flex justify-center sm:justify-end max-w-3xl mx-auto pt-3 sm:pt-4">
+          <a id="open-mark-btn" href="mark.html" class="group inline-flex items-center gap-2.5 px-4 py-2 sm:px-3.5 sm:py-1.5 rounded-full text-xs sm:text-xs font-serif bg-[#FAF8F1]/90 dark:bg-[#121A15]/90 border border-[#829078]/40 hover:border-[#75482E] dark:hover:border-[#d89667] text-[#233124] dark:text-[#F2EEDC] hover:text-[#75482E] dark:hover:text-[#d89667] transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95" title="Leave your fingerprint or spirit animal rubber stamp">
+            <span class="w-2 h-2 rounded-full bg-[#75482E] dark:bg-[#d89667] group-hover:scale-125 transition-transform animate-pulse"></span>
+            <i class="fa-solid fa-fingerprint text-[#75482E] dark:text-[#d89667] text-sm"></i>
+            <span class="font-medium tracking-wide">leave your mark</span>
+            <i class="fa-solid fa-arrow-right text-[10px] opacity-50 group-hover:translate-x-0.5 group-hover:opacity-100 transition-all"></i>
+          </a>
         </div>
       </div>
 
@@ -361,9 +350,9 @@
           
           <!-- Folder Switcher Buttons -->
           <div class="hidden md:flex items-center gap-1 p-1 rounded-xl bg-[#FAF8F1]/80 dark:bg-black/20 border border-[#829078]/25 text-xs font-serif">
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="professional" onclick="openFolder('professional')">Professional</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="professional" onclick="openFolder('professional')">Professional Experience</button>
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="education" onclick="openFolder('education')">Education</button>
-            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">Extra</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">Life Away From Work</button>
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="writings" onclick="openFolder('writings')">Articles</button>
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="travel" onclick="openFolder('travel')">Travel</button>
           </div>
@@ -385,9 +374,9 @@
 
       <!-- Mobile Folder Switcher Strip -->
       <div class="md:hidden flex items-center gap-1 px-3 py-1.5 bg-[#FAF8F1] dark:bg-[#121A15] border-b border-[#829078]/20 overflow-x-auto text-xs font-serif shrink-0">
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="professional" onclick="openFolder('professional')">01 Professional</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="professional" onclick="openFolder('professional')">01 Experience</button>
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="education" onclick="openFolder('education')">02 Education</button>
-        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">03 Extra</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">03 Life Away</button>
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="writings" onclick="openFolder('writings')">04 Articles</button>
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="travel" onclick="openFolder('travel')">05 Travel</button>
       </div>
@@ -661,70 +650,78 @@
                 <i class="fa-brands fa-medium"></i> @thapasethh on Medium
               </div>
               <h3 class="editorial-heading text-xl sm:text-2xl text-[#233124] dark:text-[#F2EEDC]">
-                Essays on Strategy, Operations & Grit
+                Published Articles & Field Notes
               </h3>
               <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Writing deep-dive essays on supply chain bottlenecks, predictive procurement algorithms, circular ESG transformations, and mental models forged from marathon running.
+                Original essays published on Medium covering aerospace manufacturing bottlenecks, multi-echelon inventory paradoxes, and automotive OEM expansion strategies.
               </p>
             </div>
             <a href="https://medium.com/@thapasethh" target="_blank" rel="noopener noreferrer" class="px-5 py-2.5 rounded-xl text-xs font-mono font-bold bg-[#75482E] hover:bg-[#965b38] text-[#F2EEDC] transition-colors shrink-0 shadow-md flex items-center gap-2">
-              <span>Read on Medium</span>
+              <span>Visit Medium Profile</span>
               <i class="fa-solid fa-arrow-up-right-from-square text-[10px]"></i>
             </a>
           </div>
 
-          <!-- Featured Essays Grid -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- Real Published Articles Grid -->
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             
-            <a href="https://medium.com/@thapasethh" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2">
-              <span class="text-[10px] font-mono uppercase text-[#75482E] dark:text-[#d89667]">SUPPLY CHAIN AI</span>
-              <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors">
-                Predictive Cost Pacing: Hedging Raw Material Inflation Ahead of Market Spikes
-              </h4>
-              <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                How a 90-day algorithmic model saved ~$10M across wireline equipment manufacturing by synchronizing commodity lead times with purchasing windows.
-              </p>
-              <div class="text-[11px] font-mono text-[#829078] pt-1 flex items-center gap-2">
-                <span>6 min read</span> • <span>Operations</span>
+            <!-- Article 1: In Aerospace, You Can't Expedite a Forging -->
+            <a href="https://medium.com/@thapasethh/in-aerospace-you-cant-expedite-a-forging-e51a9554a204" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2.5 flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-[#75482E] dark:text-[#d89667] font-semibold uppercase">AEROSPACE & SCM</span>
+                  <span class="text-[#829078]">Jun 2026</span>
+                </div>
+                <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors leading-snug">
+                  In Aerospace, You Can’t Expedite a Forging
+                </h4>
+                <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Field notes from a supply chain engagement: the part that kept blindsiding an aero manufacturer, what their SAP DDMRP screens were quietly showing, and why buffering comes before predictive modeling.
+                </p>
+              </div>
+              <div class="text-[11px] font-mono text-[#829078] pt-2 border-t border-[#829078]/20 flex items-center justify-between">
+                <span>11 min read</span>
+                <span class="text-[#75482E] dark:text-[#d89667] group-hover:translate-x-0.5 transition-transform">Read Article →</span>
               </div>
             </a>
 
-            <a href="https://medium.com/@thapasethh" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2">
-              <span class="text-[10px] font-mono uppercase text-[#75482E] dark:text-[#d89667]">LEADERSHIP & MINDSET</span>
-              <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors">
-                The Aerobic Threshold of Consulting: What 42 Kilometers Taught Me About CXO Strategy
-              </h4>
-              <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Drawing direct parallels between marathon pacing strategies, energy conservation at kilometer 35, and managing high-stakes client deliverables.
-              </p>
-              <div class="text-[11px] font-mono text-[#829078] pt-1 flex items-center gap-2">
-                <span>5 min read</span> • <span>Mindset</span>
+            <!-- Article 2: The Inventory Paradox -->
+            <a href="https://medium.com/@thapasethh/the-inventory-paradox-why-holding-more-stock-costs-you-more-and-holding-less-costs-you-even-more-7253b11e0c2f" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2.5 flex flex-col justify-between">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-[#75482E] dark:text-[#d89667] font-semibold uppercase">INVENTORY OPTIMIZATION</span>
+                  <span class="text-[#829078]">Mar 2026</span>
+                </div>
+                <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors leading-snug">
+                  The Inventory Paradox: Why Holding More Stock Costs You More and Holding Less Costs You Even More
+                </h4>
+                <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Single-echelon vs. multi-echelon inventory optimization: why traditional buffer formulas create runaway holding costs while still causing stockouts, and how holistic buffer placement resolves the dilemma.
+                </p>
+              </div>
+              <div class="text-[11px] font-mono text-[#829078] pt-2 border-t border-[#829078]/20 flex items-center justify-between">
+                <span>14 min read</span>
+                <span class="text-[#75482E] dark:text-[#d89667] group-hover:translate-x-0.5 transition-transform">Read Article →</span>
               </div>
             </a>
 
-            <a href="https://medium.com/@thapasethh" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2">
-              <span class="text-[10px] font-mono uppercase text-[#75482E] dark:text-[#d89667]">SUSTAINABILITY & ESG</span>
-              <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors">
-                Circular Sourcing in Heavy Industry: The $2M Reclaimed Component Playbook
-              </h4>
-              <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Shifting mission-critical oilfield pump manufacturing from virgin alloys to certified reclaimed components to meet 2030 Zero-Landfill benchmarks.
-              </p>
-              <div class="text-[11px] font-mono text-[#829078] pt-1 flex items-center gap-2">
-                <span>7 min read</span> • <span>ESG</span>
+            <!-- Article 3: Foreign Supplier's Strategic Dilemma -->
+            <a href="https://medium.com/@thapasethh/a-foreign-suppliers-strategic-dilemma-entering-malaysia-s-oem-market-via-local-presence-or-3a437a76bd96" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2.5 flex flex-col justify-between md:col-span-2 lg:col-span-1">
+              <div class="space-y-2">
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                  <span class="text-[#75482E] dark:text-[#d89667] font-semibold uppercase">STRATEGY & GLOBAL TRADE</span>
+                  <span class="text-[#829078]">Sep 2025</span>
+                </div>
+                <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors leading-snug">
+                  A Foreign Supplier’s Strategic Dilemma: Entering Malaysia’s OEM Market via Local Presence or Exports
+                </h4>
+                <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  A strategic decision framework for an automotive Tier-1 supplier with existing manufacturing in Thailand evaluating capital-intensive Malaysian factory setup vs. export models with local OEMs.
+                </p>
               </div>
-            </a>
-
-            <a href="https://medium.com/@thapasethh" target="_blank" rel="noopener noreferrer" class="spotlight-card p-5 group hover:border-[#75482E] transition-all block space-y-2">
-              <span class="text-[10px] font-mono uppercase text-[#75482E] dark:text-[#d89667]">BUSINESS ANALYTICS</span>
-              <h4 class="font-serif font-bold text-base text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#75482E] transition-colors">
-                Taming $100M+ in Fragmented ERP Inventories with Unified Power BI Governance
-              </h4>
-              <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                How synchronizing multi-facility SAP databases eliminated reporting redundancy and freed 5,000 man-hours in enterprise asset management.
-              </p>
-              <div class="text-[11px] font-mono text-[#829078] pt-1 flex items-center gap-2">
-                <span>8 min read</span> • <span>Analytics</span>
+              <div class="text-[11px] font-mono text-[#829078] pt-2 border-t border-[#829078]/20 flex items-center justify-between">
+                <span>6 min read</span>
+                <span class="text-[#75482E] dark:text-[#d89667] group-hover:translate-x-0.5 transition-transform">Read Article →</span>
               </div>
             </a>
 

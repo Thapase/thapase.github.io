@@ -26,6 +26,16 @@ const THAPASE_CONFIG = {
     twitter: "https://x.com/THHThapase",
     instagram: "https://www.instagram.com/thapase.thh",
     github: "https://github.com/Thapase"
+  },
+
+  // Free-tier Cloud Database & Social Auth (Supabase & Google)
+  // 100% Free Forever, No Credit Card Required
+  supabase: {
+    url: "",      // Paste your free Supabase URL (e.g. "https://xxxx.supabase.co")
+    anonKey: ""  // Paste your free Supabase anon public key
+  },
+  googleAuth: {
+    clientId: "" // Optional: Google Cloud Console Client ID
   }
 };
 

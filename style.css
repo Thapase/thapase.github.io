@@ -763,6 +763,161 @@ a:hover {
   transform: scale(1) translateY(0);
 }
 
+/* ==========================================================================
+   Expedition Ledger Canvas & Stamp Tooling (mark.html)
+   ========================================================================== */
+.ledger-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.stamped-mark {
+  position: absolute;
+  pointer-events: none;
+  transform-origin: center center;
+  animation: inkPress 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stamped-handle-badge {
+  margin-top: 4px;
+  padding: 1px 8px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.4;
+  letter-spacing: -0.01em;
+  background: rgba(250, 248, 241, 0.92);
+  border: 1px solid currentColor;
+  box-shadow: 0 1px 4px rgba(57, 45, 38, 0.12);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dark .stamped-handle-badge {
+  background: rgba(18, 26, 21, 0.92);
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+}
+
+@keyframes inkPress {
+  0% {
+    transform: translate(-50%, -50%) scale(1.6) rotate(var(--rot, 0deg));
+    opacity: 0;
+    filter: blur(2px);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(0.95) rotate(var(--rot, 0deg));
+    opacity: 0.95;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(var(--rot, 0deg));
+    opacity: 0.88;
+    filter: blur(0);
+  }
+}
+
+.ledger-dock {
+  position: fixed;
+  bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(242, 238, 220, 0.92);
+  border: 1px solid rgba(130, 144, 120, 0.4);
+  box-shadow: 0 10px 30px rgba(57, 45, 38, 0.15);
+  border-radius: 24px;
+  padding: 0.5rem 0.65rem;
+  width: calc(100vw - 1.25rem);
+  max-width: 440px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .ledger-dock {
+    width: auto;
+    max-width: none;
+    border-radius: 9999px;
+    padding: 0.5rem 0.85rem;
+    bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
+  }
+}
+
+.dark .ledger-dock {
+  background: rgba(18, 26, 21, 0.94);
+  border-color: rgba(164, 179, 158, 0.28);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+}
+
+.stamp-tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  border: 1px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .stamp-tool-btn {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.stamp-tool-btn:hover {
+  background: rgba(117, 72, 46, 0.1);
+  transform: scale(1.08);
+}
+
+.stamp-tool-btn.active {
+  background: var(--accent);
+  color: #F2EEDC;
+  box-shadow: 0 4px 12px rgba(117, 72, 46, 0.3);
+  transform: scale(1.1);
+}
+
+.ink-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid #FAF8F1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.ink-color-dot:hover {
+  transform: scale(1.15);
+}
+
+.ink-color-dot.active {
+  transform: scale(1.25);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
 /* Social Icon Pills */
 .social-icon-btn {
   width: 44px;
