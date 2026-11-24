@@ -1,0 +1,1108 @@
+/* ==========================================================================
+   T.H.H. Thapase — Editorial Mountain & Paper Design System
+   Exact Visual Replica of https://parivansjalia.com/
+   Typography: Bellefair Serif | Background: Continuous Sky Drift & Mountains
+   Palette: #f2eedc (Paper), #233124 (Forest Ink), #75482e (Terracotta Accent)
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Bellefair';
+  src: url('../assets/fonts/bellefair.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Parivan Vansjalia Exact Palette */
+  --paper: #f2eedc;
+  --ink: #233124;
+  --muted: #4c5848;
+  --accent: #75482e;
+  --accent-hover: #965b38;
+  --line: rgba(130, 144, 120, 0.35);
+  --sky-base: #eee4c8;
+  --sky-wash: radial-gradient(ellipse at 50% 35%, rgba(242, 238, 220, 0.94) 0%, rgba(242, 238, 220, 0.78) 55%, rgba(242, 238, 220, 0.2) 100%);
+  
+  --card-bg: rgba(250, 248, 241, 0.82);
+  --card-bg-hover: rgba(255, 254, 250, 0.95);
+  --card-border: rgba(130, 144, 120, 0.38);
+  --card-border-highlight: rgba(117, 72, 46, 0.5);
+
+  --polaroid-paper: #faf8f1;
+  --polaroid-edge: 1px solid #ddd8ca;
+  --polaroid-shadow: 0 0.08rem 0.12rem rgba(57, 45, 38, 0.12), 0 0.35rem 0.65rem rgba(57, 45, 38, 0.12), 0 0.8rem 1.3rem rgba(57, 45, 38, 0.08);
+
+  --font-editorial: 'Bellefair', Georgia, 'Times New Roman', serif;
+  --font-mono: 'JetBrains Mono', monospace;
+  --font-sans: 'Plus Jakarta Sans', system-ui, sans-serif;
+  
+  --mouse-x: 50%;
+  --mouse-y: 50%;
+
+  /* Adaptive Communal Stamp Inks (Light Theme) */
+  --ink-terracotta: #75482e;
+  --ink-forest: #1b2e20;
+  --ink-indigo: #1f3342;
+  --ink-ochre: #8e5327;
+  --ink-moss: #44543b;
+}
+
+.dark {
+  --paper: #121a15;
+  --ink: #f2eedc;
+  --muted: #a4b39e;
+  --accent: #d89667;
+  --accent-hover: #f1b387;
+  --line: rgba(164, 179, 158, 0.25);
+  --sky-base: #0b110d;
+  --sky-wash: radial-gradient(ellipse at 50% 35%, rgba(18, 26, 21, 0.92) 0%, rgba(18, 26, 21, 0.75) 55%, rgba(18, 26, 21, 0.25) 100%);
+  
+  --card-bg: rgba(22, 33, 26, 0.82);
+  --card-bg-hover: rgba(28, 43, 34, 0.95);
+  --card-border: rgba(164, 179, 158, 0.22);
+  --card-border-highlight: rgba(216, 150, 103, 0.55);
+
+  --polaroid-paper: #19241d;
+  --polaroid-edge: 1px solid rgba(164, 179, 158, 0.25);
+  --polaroid-shadow: 0 0.35rem 1.2rem rgba(0, 0, 0, 0.4);
+
+  /* Adaptive Communal Stamp Inks (Dark Theme - Illuminated for High Contrast) */
+  --ink-terracotta: #e28c52;
+  --ink-forest: #58b374;
+  --ink-indigo: #7aaece;
+  --ink-ochre: #f0b369;
+  --ink-moss: #96b88b;
+}
+
+/* Base resets & typography */
+html {
+  scroll-behavior: smooth;
+  overflow-x: hidden;
+}
+
+.hidden {
+  display: none !important;
+}
+
+body {
+  background-color: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-editorial);
+  font-size: 1.125rem;
+  line-height: 1.55;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  margin: 0;
+  padding: 0;
+  overflow-x: hidden;
+  -webkit-tap-highlight-color: transparent;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ==========================================================================
+   Parivan Vansjalia Background Landscape Scene
+   Continuous Sky Drift + Mountain Silhouette
+   ========================================================================== */
+.scene {
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  pointer-events: none;
+  overflow: hidden;
+  background: var(--sky-base);
+}
+
+.scene::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: var(--sky-wash);
+  z-index: 1;
+}
+
+.painted-sky-drift {
+  position: absolute;
+  inset: 0;
+  width: max(64rem, 140vw);
+  height: 100%;
+  animation: paintedSkyDrift 160s linear infinite;
+  transform: translate3d(0, 0, 0);
+  will-change: transform;
+  z-index: 0;
+  opacity: 0.88;
+}
+
+.sky-base-image {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center top;
+}
+
+/* ==========================================================================
+   Living Mountain Horizon & Drifting Clouds Landscape Scape
+   Synchronized Multi-Layer Parallax Landscape with Continuous Cloud Motion
+   ========================================================================== */
+.mountain-horizon {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: clamp(10rem, 30vh, 22rem);
+  pointer-events: none;
+  z-index: -1;
+  overflow: hidden;
+}
+
+/* Individual Mountain Layers */
+.mountain-layer {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-repeat: no-repeat;
+  background-position: center bottom;
+  background-size: cover;
+  pointer-events: none;
+  will-change: transform;
+}
+
+/* Layer 1: Distant Painted Peak Ridge */
+.mountain-distant {
+  height: 100%;
+  background-image: url('../assets/images/mountains.webp');
+  opacity: 0.88;
+  z-index: 1;
+}
+
+.dark .mountain-distant {
+  opacity: 0.72;
+  filter: brightness(0.82) contrast(1.1);
+}
+
+/* Layer 3: Mid-Mountain Hills & Valleys */
+.mountain-mid {
+  height: 85%;
+  background-image: url('../assets/images/mountains.webp');
+  opacity: 0.65;
+  z-index: 3;
+}
+
+.dark .mountain-mid {
+  opacity: 0.55;
+  filter: brightness(0.78) contrast(1.15);
+}
+
+/* Layer 5: Foreground Woodland / Pine Ridge */
+.mountain-woodland {
+  height: clamp(3.5rem, 9vh, 6.5rem);
+  background-image: url('../assets/images/woodland-intact.webp');
+  opacity: 0.95;
+  z-index: 5;
+}
+
+.dark .mountain-woodland {
+  opacity: 0.88;
+  filter: brightness(0.65) contrast(1.2);
+}
+
+/* ==========================================================================
+   Continuous Moving Clouds System
+   Dual-Band Seamless Loop Across Horizons
+   ========================================================================== */
+.cloud-drift-track {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 200%;
+  height: 100%;
+  display: flex;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cloud-band {
+  width: 50%;
+  height: 100%;
+  flex-shrink: 0;
+  background-repeat: repeat-x;
+  pointer-events: none;
+}
+
+/* Layer 2: High Mountain Clouds (Drifting right across distant peaks) */
+.cloud-track-high {
+  z-index: 2;
+  height: 65%;
+  bottom: 24%;
+  animation: driftCloudsRight 110s linear infinite;
+}
+
+.cloud-band-cumulus {
+  background-image: url('../assets/images/clouds-cumulus-transparent.png');
+  background-size: auto 90%;
+  background-position: left center;
+  opacity: 0.45;
+  filter: blur(1px);
+}
+
+.dark .cloud-band-cumulus {
+  opacity: 0.22;
+  filter: blur(1px) brightness(1.2);
+}
+
+/* Layer 4: Mid-Altitude Valley Mist (Drifting left between ridges) */
+.cloud-track-mid {
+  z-index: 4;
+  height: 55%;
+  bottom: 12%;
+  animation: driftCloudsLeft 75s linear infinite;
+}
+
+.cloud-band-mist {
+  background-image: url('../assets/images/clouds-mist-transparent.png');
+  background-size: auto 95%;
+  background-position: right bottom;
+  opacity: 0.52;
+  filter: blur(0.8px);
+}
+
+.dark .cloud-band-mist {
+  opacity: 0.3;
+  filter: blur(0.8px) brightness(1.25);
+}
+
+/* Layer 6: Ambient Ground Fog Veil (Hovering softly at tree line) */
+.cloud-track-low {
+  z-index: 6;
+  height: clamp(3rem, 8vh, 6rem);
+  bottom: 0;
+  animation: driftCloudsRight 50s linear infinite;
+}
+
+.cloud-band-fog {
+  background: radial-gradient(ellipse at 50% 90%, rgba(242, 238, 220, 0.6) 0%, rgba(242, 238, 220, 0.25) 55%, transparent 85%);
+  opacity: 0.75;
+}
+
+.dark .cloud-band-fog {
+  background: radial-gradient(ellipse at 50% 90%, rgba(18, 26, 21, 0.65) 0%, rgba(22, 33, 26, 0.3) 55%, transparent 85%);
+  opacity: 0.8;
+}
+
+/* Seamless Infinite Drift Animations */
+@keyframes driftCloudsLeft {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(-50%, 0, 0); }
+}
+
+@keyframes driftCloudsRight {
+  0% { transform: translate3d(-50%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+@keyframes paintedSkyDrift {
+  0% { transform: translate3d(0, 0, 0); }
+  50% { transform: translate3d(-30%, 0, 0); }
+  100% { transform: translate3d(0, 0, 0); }
+}
+
+/* Footer Glassmorphic Panel over Landscape */
+.editorial-footer {
+  position: relative;
+  background: linear-gradient(to top, rgba(242, 238, 220, 0.72) 0%, rgba(242, 238, 220, 0.38) 75%, transparent 100%);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 -4px 20px rgba(57, 45, 38, 0.04);
+}
+
+.dark .editorial-footer {
+  background: linear-gradient(to top, rgba(18, 26, 21, 0.82) 0%, rgba(18, 26, 21, 0.45) 75%, transparent 100%);
+  box-shadow: 0 -4px 25px rgba(0, 0, 0, 0.25);
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba(130, 144, 120, 0.4);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+/* ==========================================================================
+   Parivan-Style Typography Rules
+   ========================================================================== */
+.font-editorial {
+  font-family: var(--font-editorial);
+}
+
+.font-mono-tag {
+  font-family: var(--font-mono);
+}
+
+/* Editorial Headings with subtle ink stroke */
+.editorial-heading {
+  font-family: var(--font-editorial);
+  font-weight: 400;
+  -webkit-text-stroke: 0.025em currentColor;
+  paint-order: stroke fill;
+  line-height: 1.15;
+  color: var(--ink);
+}
+
+.editorial-subheading {
+  font-family: var(--font-editorial);
+  font-size: 1.25rem;
+  letter-spacing: 0.08em;
+  text-transform: lowercase;
+  color: var(--accent);
+  margin-bottom: 0.25rem;
+}
+
+/* Links with Parivan underline */
+a {
+  color: inherit;
+  text-underline-offset: 0.22em;
+  text-decoration-thickness: 1px;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--accent);
+}
+
+/* ==========================================================================
+   Card Styling in Parchment Aesthetic
+   ========================================================================== */
+.spotlight-card {
+  position: relative;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  border-radius: 1.25rem;
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  box-shadow: 0 0.12rem 0.35rem rgba(57, 45, 38, 0.06), 0 0.45rem 1rem rgba(57, 45, 38, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .spotlight-card {
+    border-radius: 1.5rem;
+  }
+}
+
+.spotlight-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: radial-gradient(
+    500px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(117, 72, 46, 0.07),
+    transparent 45%
+  );
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.spotlight-card:hover {
+  background: var(--card-bg-hover);
+  border-color: var(--card-border-highlight);
+  box-shadow: 0 0.3rem 0.8rem rgba(57, 45, 38, 0.12), 0 0.8rem 1.6rem rgba(57, 45, 38, 0.08);
+}
+
+.spotlight-card:hover::before {
+  opacity: 1;
+}
+
+.spotlight-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Desktop Hover vs Mobile Touch */
+@media (hover: hover) and (pointer: fine) {
+  .spotlight-card:hover {
+    transform: translateY(-2px);
+  }
+  .polaroid-card:hover {
+    transform: scale(1.03) rotate(0deg) !important;
+    z-index: 20;
+    box-shadow: 0 1rem 2rem rgba(57, 45, 38, 0.22);
+  }
+}
+
+@media (hover: none) {
+  .spotlight-card:active {
+    transform: scale(0.99);
+  }
+  .polaroid-card:active {
+    transform: scale(0.98);
+  }
+}
+
+/* ==========================================================================
+   Parivan-Style Polaroid Travel Vignettes
+   ========================================================================== */
+.polaroid-card {
+  background-color: var(--polaroid-paper);
+  border: var(--polaroid-edge);
+  box-shadow: var(--polaroid-shadow);
+  padding: 0.6rem 0.6rem 1.4rem;
+  border-radius: 0.12rem;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+}
+
+/* ==========================================================================
+   Skeuomorphic Archival Desktop Folders (PC File Explorer Animation)
+   ========================================================================== */
+.folder-container {
+  perspective: 900px;
+  cursor: pointer;
+  outline: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.25s ease;
+}
+
+.folder-container:focus-visible {
+  outline: 2px solid var(--accent);
+  border-radius: 12px;
+}
+
+.folder-graphic {
+  position: relative;
+  width: 96px;
+  height: 72px;
+  margin: 0 auto 10px;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .folder-graphic {
+    width: 112px;
+    height: 84px;
+    margin-bottom: 12px;
+  }
+}
+
+/* Folder Back Plate with Archival Tab */
+.folder-back {
+  position: absolute;
+  inset: 0;
+  border-radius: 8px 14px 8px 8px;
+  background: linear-gradient(145deg, #c48255 0%, #8c532e 100%);
+  box-shadow: 0 4px 10px rgba(57, 45, 38, 0.15);
+  border: 1px solid rgba(117, 72, 46, 0.4);
+}
+
+.dark .folder-back {
+  background: linear-gradient(145deg, #593924 0%, #301f14 100%);
+  border-color: rgba(216, 150, 103, 0.3);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
+.folder-tab-top {
+  position: absolute;
+  top: -8px;
+  left: 0;
+  width: 44px;
+  height: 12px;
+  border-radius: 6px 6px 0 0;
+  background: #b57447;
+  border: 1px solid rgba(117, 72, 46, 0.4);
+  border-bottom: none;
+}
+
+.dark .folder-tab-top {
+  background: #4d2f1c;
+  border-color: rgba(216, 150, 103, 0.3);
+}
+
+/* Document Sheets nestled inside */
+.folder-paper {
+  position: absolute;
+  background: #faf8f1;
+  border: 1px solid rgba(130, 144, 120, 0.35);
+  border-radius: 3px;
+  box-shadow: 0 2px 4px rgba(57, 45, 38, 0.08);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.dark .folder-paper {
+  background: #1c2720;
+  border-color: rgba(164, 179, 158, 0.25);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+.folder-paper::after {
+  content: "";
+  position: absolute;
+  top: 6px;
+  left: 6px;
+  right: 6px;
+  height: 2px;
+  background: rgba(130, 144, 120, 0.3);
+  box-shadow: 0 4px 0 rgba(130, 144, 120, 0.2), 0 8px 0 rgba(130, 144, 120, 0.2);
+}
+
+.folder-paper.paper-1 {
+  left: 10px;
+  right: 10px;
+  top: 8px;
+  height: 54px;
+  transform: translateY(0) rotate(0deg);
+  z-index: 2;
+}
+
+.folder-paper.paper-2 {
+  left: 16px;
+  right: 16px;
+  top: 4px;
+  height: 52px;
+  transform: translateY(0) rotate(0deg);
+  z-index: 1;
+  opacity: 0.85;
+}
+
+@media (min-width: 640px) {
+  .folder-paper.paper-1 {
+    left: 12px;
+    right: 12px;
+    top: 10px;
+    height: 64px;
+  }
+  .folder-paper.paper-2 {
+    left: 20px;
+    right: 20px;
+    top: 6px;
+    height: 62px;
+  }
+}
+
+/* Front Flap of Folder */
+.folder-front {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 52px;
+  border-radius: 4px 14px 6px 6px;
+  background: linear-gradient(160deg, #d89667 0%, #aa693d 100%);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 6px 14px rgba(57, 45, 38, 0.2);
+  transform-origin: bottom center;
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.35s ease;
+  z-index: 3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .folder-front {
+    height: 62px;
+  }
+}
+
+.dark .folder-front {
+  background: linear-gradient(160deg, #74482c 0%, #462817 100%);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.5);
+}
+
+.folder-front-icon {
+  font-size: 1.1rem;
+  color: #fff9f0;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s ease;
+}
+
+@media (min-width: 640px) {
+  .folder-front-icon {
+    font-size: 1.25rem;
+  }
+}
+
+/* Hover & Active States: Files slide out! */
+.folder-container:hover .folder-graphic,
+.folder-container.active .folder-graphic {
+  transform: translateY(-4px);
+}
+
+.folder-container:hover .folder-paper.paper-1,
+.folder-container.active .folder-paper.paper-1 {
+  transform: translateY(-16px) rotate(-3deg);
+}
+
+.folder-container:hover .folder-paper.paper-2,
+.folder-container.active .folder-paper.paper-2 {
+  transform: translateY(-24px) rotate(4deg);
+}
+
+.folder-container:hover .folder-front,
+.folder-container.active .folder-front {
+  transform: rotateX(-16deg);
+  box-shadow: 0 10px 20px rgba(57, 45, 38, 0.28);
+}
+
+.folder-container:hover .folder-front-icon,
+.folder-container.active .folder-front-icon {
+  transform: scale(1.1);
+}
+
+.folder-container:hover .folder-title {
+  color: var(--accent);
+}
+
+/* Labels */
+.folder-title {
+  font-family: var(--font-editorial);
+  font-size: 1.05rem;
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--ink);
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.folder-meta {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--muted);
+  text-align: center;
+  margin-top: 2px;
+}
+
+/* ==========================================================================
+   Dossier Window Modal Overlay & CV Modal
+   Self-Contained Fixed Overlay (Independent of Tailwind CDN)
+   ========================================================================== */
+#dossier-window {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 9999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#dossier-window.open {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#dossier-window-content {
+  position: relative;
+  width: 100%;
+  max-width: 56rem; /* 4xl */
+  max-height: 92vh;
+  margin: auto;
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#dossier-window.open #dossier-window-content {
+  transform: scale(1) translateY(0);
+}
+
+#cv-modal {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  z-index: 99999 !important;
+  display: none !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 1rem !important;
+  background: rgba(0, 0, 0, 0.75) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px) !important;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cv-modal.open {
+  display: flex !important;
+  opacity: 1 !important;
+  pointer-events: auto !important;
+}
+
+#cv-modal > div {
+  position: relative;
+  width: 100%;
+  max-width: 56rem;
+  max-height: 92vh;
+  margin: auto;
+  transform: scale(0.96) translateY(12px);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#cv-modal.open > div {
+  transform: scale(1) translateY(0);
+}
+
+/* ==========================================================================
+   Expedition Ledger Canvas & Stamp Tooling (mark.html)
+   ========================================================================== */
+.ledger-canvas {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
+  min-height: 100dvh;
+  cursor: crosshair;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  -webkit-tap-highlight-color: transparent;
+  overflow: hidden;
+}
+
+.stamped-mark {
+  position: absolute;
+  pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
+  transform-origin: center center;
+  will-change: transform, opacity;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: color 0.4s ease;
+}
+
+/* Adaptive Ink Color Bindings for Stamped Marks */
+.stamped-mark[data-ink="terracotta"] { color: var(--ink-terracotta); }
+.stamped-mark[data-ink="forest"] { color: var(--ink-forest); }
+.stamped-mark[data-ink="indigo"] { color: var(--ink-indigo); }
+.stamped-mark[data-ink="ochre"] { color: var(--ink-ochre); }
+.stamped-mark[data-ink="moss"] { color: var(--ink-moss); }
+
+.stamped-mark.is-new {
+  animation: inkPress 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.stamped-handle-badge {
+  margin-top: 3px;
+  padding: 1px 7px;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 9px;
+  line-height: 1.35;
+  letter-spacing: -0.01em;
+  background: rgba(250, 248, 241, 0.94);
+  border: 1px solid currentColor;
+  box-shadow: 0 1px 3px rgba(57, 45, 38, 0.1);
+  white-space: nowrap;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.dark .stamped-handle-badge {
+  background: rgba(18, 26, 21, 0.94);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Stamp Tool Selector Button & Drawer */
+.stamp-picker-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(250, 248, 241, 0.92);
+  border: 1px solid rgba(130, 144, 120, 0.4);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(57, 45, 38, 0.08);
+}
+.dark .stamp-picker-trigger {
+  background: rgba(22, 33, 26, 0.88);
+  border-color: rgba(164, 179, 158, 0.3);
+  color: #F2EEDC;
+}
+.stamp-picker-trigger:hover {
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+
+/* 10-Stamp Selector Popover / Drawer (3-in-a-row + top thumbprint) */
+.stamp-drawer {
+  position: fixed;
+  bottom: calc(max(1rem, env(safe-area-inset-bottom, 1rem)) + 4.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px) scale(0.96);
+  z-index: 50;
+  width: calc(100vw - 1.5rem);
+  max-width: 380px;
+  background: rgba(245, 242, 230, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(130, 144, 120, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(57, 45, 38, 0.22);
+  padding: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .stamp-drawer {
+  background: rgba(18, 26, 21, 0.97);
+  border-color: rgba(164, 179, 158, 0.3);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65);
+}
+.stamp-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.stamp-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.dark .stamp-grid-item {
+  background: rgba(255, 255, 255, 0.04);
+  color: #F2EEDC;
+}
+.stamp-grid-item:hover {
+  background: rgba(117, 72, 46, 0.12);
+  border-color: rgba(117, 72, 46, 0.3);
+  transform: translateY(-2px);
+}
+.stamp-grid-item.active {
+  background: rgba(117, 72, 46, 0.18);
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(117, 72, 46, 0.2);
+}
+.dark .stamp-grid-item.active {
+  background: rgba(226, 140, 82, 0.2);
+  border-color: #E28C52;
+}
+
+.stamp-grid-item svg {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stamp-grid-item:hover svg {
+  transform: scale(1.12);
+}
+
+.stamp-trait-box {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(130, 144, 120, 0.28);
+  box-shadow: inset 0 1px 3px rgba(57, 45, 38, 0.04);
+}
+.dark .stamp-trait-box {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(164, 179, 158, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
+}
+
+@keyframes inkPress {
+  0% {
+    transform: translate(-50%, -50%) scale(1.6) rotate(var(--rot, 0deg));
+    opacity: 0;
+    filter: blur(2px);
+  }
+  60% {
+    transform: translate(-50%, -50%) scale(0.95) rotate(var(--rot, 0deg));
+    opacity: 0.95;
+    filter: blur(0);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(var(--rot, 0deg));
+    opacity: 0.88;
+    filter: blur(0);
+  }
+}
+
+.ledger-dock {
+  position: fixed;
+  bottom: max(1rem, env(safe-area-inset-bottom, 1rem));
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 40;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(242, 238, 220, 0.92);
+  border: 1px solid rgba(130, 144, 120, 0.4);
+  box-shadow: 0 10px 30px rgba(57, 45, 38, 0.15);
+  border-radius: 24px;
+  padding: 0.5rem 0.65rem;
+  width: calc(100vw - 1.25rem);
+  max-width: 440px;
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 640px) {
+  .ledger-dock {
+    width: auto;
+    max-width: none;
+    border-radius: 9999px;
+    padding: 0.5rem 0.85rem;
+    bottom: max(1.5rem, env(safe-area-inset-bottom, 1.5rem));
+  }
+}
+
+.dark .ledger-dock {
+  background: rgba(18, 26, 21, 0.94);
+  border-color: rgba(164, 179, 158, 0.28);
+  box-shadow: 0 10px 35px rgba(0, 0, 0, 0.6);
+}
+
+.stamp-tool-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  color: var(--ink);
+  background: transparent;
+  cursor: pointer;
+  border: 1px solid transparent;
+  -webkit-tap-highlight-color: transparent;
+}
+
+@media (min-width: 640px) {
+  .stamp-tool-btn {
+    width: 42px;
+    height: 42px;
+  }
+}
+
+.stamp-tool-btn:hover {
+  background: rgba(117, 72, 46, 0.1);
+  transform: scale(1.08);
+}
+
+.stamp-tool-btn.active {
+  background: var(--accent);
+  color: #F2EEDC;
+  box-shadow: 0 4px 12px rgba(117, 72, 46, 0.3);
+  transform: scale(1.1);
+}
+
+.ink-color-dot {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  border: 2px solid #FAF8F1;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+}
+
+.ink-color-dot:hover {
+  transform: scale(1.15);
+}
+
+.ink-color-dot.active {
+  transform: scale(1.25);
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Social Icon Pills */
+.social-icon-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--card-bg);
+  border: 1px solid var(--card-border);
+  color: var(--ink);
+  font-size: 1.15rem;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 2px 6px rgba(57, 45, 38, 0.06);
+}
+
+.social-icon-btn:hover {
+  transform: translateY(-3px) scale(1.08);
+  border-color: var(--accent);
+  color: var(--accent);
+  box-shadow: 0 6px 14px rgba(117, 72, 46, 0.2);
+}
+
+/* ==========================================================================
+   Print / PDF Optimization
+   ========================================================================== */
+@media print {
+  body {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  .scene, .mountain-horizon, header, #site-toast, .no-print {
+    display: none !important;
+  }
+  #cv-modal {
+    position: static !important;
+    display: block !important;
+    background: transparent !important;
+    padding: 0 !important;
+  }
+  #cv-modal > div {
+    max-height: none !important;
+    max-width: 100% !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    color: #000000 !important;
+  }
+  #cv-modal * {
+    color: #000000 !important;
+    border-color: #E2E8F0 !important;
+  }
+}
