@@ -95,7 +95,7 @@
     <!-- Center Status Indicator -->
     <div class="hidden sm:flex items-center gap-2 text-[#75482E] dark:text-[#d89667] text-[11px] uppercase tracking-widest font-mono">
       <span class="w-1.5 h-1.5 rounded-full bg-[#75482E] dark:bg-[#d89667] animate-pulse"></span>
-      <span>The Living Parchment</span>
+      <span>The Living Parchment • Fingerprint & Spirit Animal Seals</span>
     </div>
 
     <!-- Right Controls: Clear & Mode -->
@@ -123,13 +123,13 @@
           <i class="fa-solid fa-fingerprint"></i>
         </div>
         <h2 class="text-xl sm:text-2xl font-serif text-[#233124] dark:text-[#F2EEDC]">
-          Leave Your Impression
+          Leave Your Mark
         </h2>
-        <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-          Select your mark and ink color from the toolbar below. Tap anywhere on the parchment to stamp.
+        <p id="hint-desc" class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+          Leave your mark with your authentic Thumb Impression or one of 9 fierce spirit animals (Lion, Tiger, Leopard, Wolf, Bear, Eagle, Bull, Stag, King Cobra). Pick an ink color, sign in with Google or X below, and tap anywhere on the parchment to stamp.
         </p>
-        <div class="pt-1 text-[10px] font-mono uppercase tracking-widest text-[#75482E] dark:text-[#d89667]">
-          Tap anywhere to begin
+        <div id="hint-status" class="pt-1 text-[10px] font-mono uppercase tracking-widest text-[#75482E] dark:text-[#d89667]">
+          Sign in below to begin
         </div>
       </div>
     </div>
@@ -137,67 +137,211 @@
   </main>
 
   <!-- ========================================================================
-       Floating Bottom Toolbar (Dock: Stamps + Inkwell Palette)
+       10-Stamp Selector Popover / Drawer (Thumbprint at Top + 3x3 Animals Grid)
        ======================================================================== -->
-  <div class="ledger-dock flex flex-col sm:flex-row items-center gap-2 sm:gap-4">
-    
-    <!-- Top row on mobile / Left group on desktop: Stamps + Inks -->
-    <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-4">
-      <!-- Spirit Animal & Fingerprint Stamp Choices -->
-      <div class="flex items-center gap-1 sm:gap-1.5" role="radiogroup" aria-label="Select stamp shape">
-        
-        <!-- 1. Fingerprint -->
-        <button type="button" class="stamp-tool-btn active" data-stamp="fingerprint" title="Fingerprint (Human Biometric Seal)">
-          <i class="fa-solid fa-fingerprint text-sm sm:text-base"></i>
-        </button>
+  <div id="stamp-picker-modal" class="stamp-drawer">
+    <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#829078]/25 text-xs">
+      <span class="font-serif font-bold text-[#233124] dark:text-[#F2EEDC]">Choose Your Seal (10 Marks)</span>
+      <button id="close-stamp-drawer-btn" type="button" class="w-5 h-5 rounded-full flex items-center justify-center text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] text-xs cursor-pointer">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </div>
 
-        <!-- 2. Snow Leopard -->
-        <button type="button" class="stamp-tool-btn" data-stamp="leopard" title="Snow Leopard (Mountain Agility & Endurance)">
-          <span class="text-sm sm:text-base leading-none">🐆</span>
-        </button>
-
-        <!-- 3. Highland Eagle -->
-        <button type="button" class="stamp-tool-btn" data-stamp="eagle" title="Highland Eagle (Vision & Perspective)">
-          <span class="text-sm sm:text-base leading-none">🦅</span>
-        </button>
-
-        <!-- 4. Trail Wolf -->
-        <button type="button" class="stamp-tool-btn" data-stamp="wolf" title="Trail Wolf (Grit & Road Running Stamina)">
-          <span class="text-sm sm:text-base leading-none">🐺</span>
-        </button>
-
-        <!-- 5. Forest Stag -->
-        <button type="button" class="stamp-tool-btn" data-stamp="stag" title="Forest Stag (Quiet Nobility & Wilderness)">
-          <span class="text-sm sm:text-base leading-none">🦌</span>
-        </button>
-
-        <!-- 6. Elephant -->
-        <button type="button" class="stamp-tool-btn" data-stamp="elephant" title="Elephant (Grounded Wisdom & Memory)">
-          <span class="text-sm sm:text-base leading-none">🐘</span>
-        </button>
-
+    <!-- 1. Top Hero: Biometric Thumb Impression -->
+    <button type="button" class="stamp-grid-item w-full flex-row gap-3 py-2 px-3 mb-2 active" data-stamp="thumbprint" title="Thumb Impression">
+      <div class="w-7 h-9 flex items-center justify-center text-[#75482E] dark:text-[#E28C52] shrink-0">
+        <svg viewBox="0 0 80 110" class="w-full h-full" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 14c-16 0-28 14-28 32 0 18 6 40 14 54 2 4 7 7 14 7s12-3 14-7c8-14 14-36 14-54 0-18-12-32-28-32z" stroke-width="1.6" stroke-dasharray="3 3" opacity="0.25"/>
+          <path d="M40 52c0-4 3-7 7-7s7 3 7 7c0 7-5 14-9 21"/>
+          <path d="M33 46c2-5 6-8 12-8 8 0 14 6 14 14 0 9-6 19-12 28"/>
+          <path d="M26 53c0-10 7-17 19-17 12 0 20 8 20 19 0 11-8 22-15 31"/>
+          <path d="M20 60c0-14 9-25 24-25 15 0 26 11 26 26 0 12-9 24-17 34"/>
+          <path d="M16 48c0-17 12-29 27-29 15 0 27 12 27 29 0 14-8 27-16 38"/>
+        </svg>
       </div>
+      <div class="text-left">
+        <div class="font-serif font-bold text-xs text-[#233124] dark:text-[#F2EEDC]">Thumb Impression</div>
+        <div class="font-mono text-[10px] text-[#829078] dark:text-[#A4B39E]">Authentic human biometric seal</div>
+      </div>
+    </button>
+
+    <!-- Dynamic Spirit Animal Trait Preview Panel (Updates on Hover & Selection) -->
+    <div id="drawer-trait-preview" class="stamp-trait-box px-3 py-2 rounded-xl bg-white/60 dark:bg-white/5 border border-[#829078]/25 mb-2.5 text-left transition-all">
+      <div class="flex items-center justify-between text-[11px] font-serif font-bold text-[#75482E] dark:text-[#E28C52]">
+        <span id="trait-preview-name">Thumb Impression</span>
+        <span class="text-[9px] font-mono uppercase tracking-wider text-[#829078] dark:text-[#A4B39E]">• Spirit Trait</span>
+      </div>
+      <p id="trait-preview-desc" class="text-[11px] font-serif italic text-[#4C5848] dark:text-[#C5D0BF] leading-snug mt-0.5">
+        Raw authenticity, personal sovereignty, and an original path.
+      </p>
+    </div>
+
+    <!-- 2. 3x3 Grid of 9 Ferocious Animal Faces (Transparent Vector Line-Art) -->
+    <div class="grid grid-cols-3 gap-1.5" role="radiogroup" aria-label="Select spirit animal seal">
+      
+      <!-- Row 1 -->
+      <button type="button" class="stamp-grid-item" data-stamp="lion" title="African Lion">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 6l6 9 10-6 3 11 12-3 1 12 11 3-2 11 10 7-5 11 7 10-9 8 3 12-11 3-3 11-11-2-6 9-6-9-11 2-3-11-11-3 3-12-9-8 7-10-5-11 10-7-2-11 11-3 1-12 12 3 3-11 10 6z" stroke-width="3"/>
+            <path d="M31 38c5-4 11-2 15 2M69 38c-5-4-11-2-15 2" stroke-width="3"/>
+            <path d="M34 43l8 2M66 43l-8 2" stroke-width="2.5"/>
+            <path d="M43 54h14l-7 7z" fill="currentColor"/>
+            <path d="M40 64l2 6M60 64l-2 6" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Lion</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="tiger" title="Bengal Tiger">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 28c-6-10 4-18 13-13M78 28c6-10-4-18-13-13" stroke-width="3"/>
+            <path d="M20 40l-6 8 6 3-7 8 10 6M80 40l6 8-6 3 7 8-10 6" stroke-width="2.5"/>
+            <path d="M40 20h20M43 25h14M50 20v9" stroke-width="2.8"/>
+            <path d="M29 42c5-4 12-2 16 2M71 42c-5-4-12-2-16 2" stroke-width="3"/>
+            <path d="M43 56h14l-7 7z" fill="currentColor"/>
+            <path d="M39 65l2 6M61 65l-2 6" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Tiger</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="leopard" title="Snow Leopard">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 32c-6-13 4-20 14-15M78 32c6-13-4-20-14-15" stroke-width="3"/>
+            <path d="M19 44c0 19 13 38 31 38s31-19 31-38" stroke-width="2.8"/>
+            <circle cx="50" cy="28" r="2.2" fill="currentColor"/>
+            <circle cx="42" cy="33" r="1.8" fill="currentColor"/>
+            <circle cx="58" cy="33" r="1.8" fill="currentColor"/>
+            <path d="M31 43c4-3 10-1 14 2M69 43c-4-3-10-1-14 2" stroke-width="2.8"/>
+            <path d="M44 56h12l-6 6z" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Leopard</span>
+      </button>
+
+      <!-- Row 2 -->
+      <button type="button" class="stamp-grid-item" data-stamp="wolf" title="Trail Wolf">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M26 36L16 12c10 3 19 11 22 20M74 36L84 12c-10 3-19 11-22 20" stroke-width="3"/>
+            <path d="M24 38l-7 8 6 3-8 8 11 7M76 38l7 8-6 3 8 8-11 7" stroke-width="2.5"/>
+            <path d="M29 44c5-3 11-2 15 2M71 44c-5-3-11-2-15 2" stroke-width="3"/>
+            <path d="M44 63h12l-2 6c-1 2-6 2-8 0z" fill="currentColor"/>
+            <path d="M41 71l2 6M59 71l-2 6" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Wolf</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="bear" title="Grizzly Bear">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M19 28c-6-10 6-18 14-10M81 28c6-10-6-18-14-10" stroke-width="3"/>
+            <path d="M17 40c0 19 12 40 33 40s33-21 33-40" stroke-width="2.8"/>
+            <path d="M30 38c4-2 9-1 13 2M70 38c-4-2-9-1-13 2" stroke-width="3"/>
+            <circle cx="36" cy="42" r="2.4" fill="currentColor"/>
+            <circle cx="64" cy="42" r="2.4" fill="currentColor"/>
+            <path d="M41 58h18l-3 7c-2 3-10 3-12 0z" fill="currentColor"/>
+            <path d="M40 69l2 6M60 69l-2 6" stroke-width="2.5"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Bear</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="eagle" title="Highland Eagle">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M50 14l4 7 7-5 2 8 8-3-2 8 7 3-4 7M50 14l-4 7-7-5-2 8-8-3 2 8-7 3 4 7" stroke-width="2.6"/>
+            <path d="M27 40c6-4 15-3 21 2M73 40c-6-4-15-3-21 2" stroke-width="3"/>
+            <circle cx="36" cy="44" r="3" fill="currentColor"/>
+            <circle cx="64" cy="44" r="3" fill="currentColor"/>
+            <path d="M42 53c2 9 6 18 8 25 2-7 6-16 8-25" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Eagle</span>
+      </button>
+
+      <!-- Row 3 -->
+      <button type="button" class="stamp-grid-item" data-stamp="bull" title="Wild Bull">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M34 30C20 25 8 15 8 4c11 2 24 15 28 24M66 30C80 25 92 15 92 4c-11 2-24 15-28 24" stroke-width="3" fill="currentColor"/>
+            <path d="M31 36l-4 22c0 11 9 26 23 26s23-15 23-26l-4-22" stroke-width="2.6"/>
+            <path d="M30 46l8 2M70 46l-8 2" stroke-width="2.5"/>
+            <circle cx="42" cy="72" r="2.8" fill="currentColor"/>
+            <circle cx="58" cy="72" r="2.8" fill="currentColor"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Bull</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="stag" title="Forest Stag">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M43 30C41 21 34 14 24 10m11 9c-7-4-15-5-22-4m20 11c-8 0-15 4-20 10M57 30C59 21 66 14 76 10m-11 9c7-4 15-5 22-4m-20 11c8 0 15 4 20 10" stroke-width="2.6"/>
+            <path d="M37 36C24 34 18 41 20 48M63 36C76 34 82 41 80 48" stroke-width="2.4"/>
+            <path d="M37 40l-2 16c0 11 7 24 15 28 8-4 15-17 15-28l-2-16" stroke-width="2.4"/>
+            <path d="M34 49l7 2M66 49l-7 2" stroke-width="2.2"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Stag</span>
+      </button>
+
+      <button type="button" class="stamp-grid-item" data-stamp="cobra" title="King Cobra">
+        <div class="w-6 h-6 flex items-center justify-center shrink-0 text-[#75482E] dark:text-[#E28C52]">
+          <svg viewBox="0 0 100 100" class="w-full h-full" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M33 42C20 34 16 18 24 12c10 8 16 22 22 30M67 42C80 34 84 18 76 12c-10 8-16 22-22 30" stroke-width="2.8"/>
+            <path d="M34 22c5 4 11 6 16 6s11-2 16-6" stroke-width="2.2"/>
+            <path d="M40 28c3-3 7-4 10-4s7 1 10 4l4 14c0 14-6 26-14 30-8-4-14-16-14-30z" stroke-width="2.5"/>
+            <path d="M39 44l6 2-3 3-5-2zM61 44l-6 2 3 3 5-2z" fill="currentColor"/>
+            <path d="M43 59l2 7M57 59l-2 7" stroke-width="2.4"/>
+            <path d="M50 68v10M50 78l-3 4M50 78l3 4" stroke-width="2"/>
+          </svg>
+        </div>
+        <span class="text-[10px] font-serif font-medium">Cobra</span>
+      </button>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================
+       Floating Bottom Toolbar (Dock: Stamp Selector + Inkwell Palette + Auth)
+       ======================================================================== -->
+  <div class="ledger-dock flex flex-col sm:flex-row items-center gap-2 sm:gap-3.5">
+    
+    <!-- Left Section: Active Stamp Trigger + Inkwell Palette -->
+    <div class="flex items-center justify-between sm:justify-start w-full sm:w-auto gap-2 sm:gap-3">
+      
+      <!-- Stamp Choice Trigger Button (Opens 10-stamp drawer) -->
+      <button id="stamp-picker-btn" type="button" class="stamp-picker-trigger" title="Select spirit animal face or thumb impression">
+        <span id="active-stamp-icon" class="text-sm leading-none">🖐️</span>
+        <span id="active-stamp-name" class="text-xs font-serif font-medium">Thumb Impression</span>
+        <i class="fa-solid fa-chevron-up text-[9px] opacity-60 ml-0.5"></i>
+      </button>
 
       <!-- Divider -->
       <div class="h-5 sm:h-6 w-px bg-[#829078]/30"></div>
 
-      <!-- Inkwell Color Palette -->
-      <div class="flex items-center gap-1.5 sm:gap-2.5" role="radiogroup" aria-label="Select ink color">
+      <!-- Inkwell Color Palette (Adaptive Dual-Theme Inks) -->
+      <div class="flex items-center gap-1.5 sm:gap-2" role="radiogroup" aria-label="Select ink color">
         
         <!-- Terracotta Clay -->
-        <button type="button" class="ink-color-dot active" data-color="#75482E" style="background-color: #75482E;" title="Terracotta Clay Ink"></button>
+        <button type="button" class="ink-color-dot active" data-color-id="terracotta" style="background-color: var(--ink-terracotta);" title="Terracotta Umber Ink"></button>
 
         <!-- Forest Ink -->
-        <button type="button" class="ink-color-dot" data-color="#233124" style="background-color: #233124;" title="Forest Ink"></button>
+        <button type="button" class="ink-color-dot" data-color-id="forest" style="background-color: var(--ink-forest);" title="Forest Pine Ink"></button>
 
         <!-- Alpine Indigo -->
-        <button type="button" class="ink-color-dot" data-color="#284455" style="background-color: #284455;" title="Alpine Indigo Ink"></button>
+        <button type="button" class="ink-color-dot" data-color-id="indigo" style="background-color: var(--ink-indigo);" title="Alpine Indigo Ink"></button>
 
         <!-- Sunlit Ochre -->
-        <button type="button" class="ink-color-dot" data-color="#9E6236" style="background-color: #9E6236;" title="Sunlit Ochre Ink"></button>
+        <button type="button" class="ink-color-dot" data-color-id="ochre" style="background-color: var(--ink-ochre);" title="Sunlit Ochre Ink"></button>
 
         <!-- Sage Moss -->
-        <button type="button" class="ink-color-dot" data-color="#526048" style="background-color: #526048;" title="Sage Moss Ink"></button>
+        <button type="button" class="ink-color-dot" data-color-id="moss" style="background-color: var(--ink-moss);" title="Sage Moss Ink"></button>
 
       </div>
     </div>
@@ -205,22 +349,34 @@
     <!-- Divider (hidden on mobile, visible on desktop) -->
     <div class="hidden sm:block h-6 w-px bg-[#829078]/30"></div>
 
-    <!-- Bottom row on mobile / Right group on desktop: Social Sign-On & Handle Section -->
-    <div class="flex items-center justify-center sm:justify-start w-full sm:w-auto gap-1.5 text-xs font-mono">
-      <!-- 1-Click Social Sign-In Buttons -->
-      <button id="google-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="1-Click Sign in with Google / Gmail">
-        <i class="fa-brands fa-google text-[10px] sm:text-[11px] text-red-500"></i>
-      </button>
+    <!-- Bottom row on mobile / Right group on desktop: Social Sign-In (No typing allowed) -->
+    <div id="auth-container" class="flex items-center justify-center sm:justify-start w-full sm:w-auto text-xs font-mono">
+      
+      <!-- State A: Signed Out (Prompts to sign in via Google or X) -->
+      <div id="auth-signed-out" class="flex items-center gap-1.5 transition-all">
+        <button id="google-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Google / Gmail">
+          <i class="fa-brands fa-google text-[10px] sm:text-[11px] text-red-500"></i>
+        </button>
 
-      <button id="twitter-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="1-Click Sign in with Twitter / X">
-        <i class="fa-brands fa-x-twitter text-[10px] sm:text-[11px] text-[#233124] dark:text-[#F2EEDC]"></i>
-      </button>
+        <button id="twitter-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Twitter / X">
+          <i class="fa-brands fa-x-twitter text-[10px] sm:text-[11px] text-[#233124] dark:text-[#F2EEDC]"></i>
+        </button>
 
-      <!-- Active User Handle Pill (Editable or displays signed-in identity) -->
-      <div class="flex-1 sm:flex-initial flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-[#FAF8F1]/90 dark:bg-black/30 border border-[#829078]/40 shadow-sm min-w-0">
-        <i id="handle-type-icon" class="fa-brands fa-x-twitter text-[10px] sm:text-[11px] text-[#75482E] dark:text-[#d89667] shrink-0"></i>
-        <input id="handle-input" type="text" placeholder="@handle or gmail" maxlength="32" class="bg-transparent border-none outline-none w-full sm:w-32 text-xs text-[#233124] dark:text-[#F2EEDC] placeholder-[#829078] font-mono" title="Signed in handle or type manually" />
+        <div class="px-2.5 py-1 rounded-full bg-[#FAF8F1]/80 dark:bg-black/25 border border-[#829078]/35 text-[11px] text-[#75482E] dark:text-[#d89667] flex items-center gap-1">
+          <i class="fa-solid fa-lock text-[9px] opacity-70"></i>
+          <span>sign in to stamp</span>
+        </div>
       </div>
+
+      <!-- State B: Signed In (Displays verified identity badge & sign-out button, hidden by default) -->
+      <div id="auth-signed-in" class="hidden flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FAF8F1] dark:bg-black/30 border border-[#75482E]/40 text-xs shadow-sm">
+        <i id="auth-provider-icon" class="fa-brands fa-x-twitter text-[11px] text-[#75482E] dark:text-[#d89667]"></i>
+        <span id="auth-handle-display" class="text-[#233124] dark:text-[#F2EEDC] font-mono font-medium max-w-[120px] sm:max-w-[160px] truncate">@handle</span>
+        <button id="auth-signout-btn" type="button" class="ml-1 text-[10px] text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] cursor-pointer" title="Sign out / switch account">
+          <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        </button>
+      </div>
+
     </div>
 
   </div>

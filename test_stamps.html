@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Ferocious Spirit Animals with Personality Traits</title>
+<style>
+  body {
+    background: #F2EEDC;
+    color: #233124;
+    font-family: 'Bellefair', Georgia, serif;
+    padding: 30px;
+    margin: 0;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  body.dark {
+    background: #121A15;
+    color: #F2EEDC;
+  }
+  .header {
+    text-align: center;
+    max-width: 800px;
+    margin: 0 auto 30px;
+  }
+  .theme-btn {
+    padding: 8px 18px;
+    font-family: monospace;
+    font-size: 12px;
+    border-radius: 20px;
+    border: 1px solid #75482E;
+    background: #FAF8F1;
+    color: #233124;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  body.dark .theme-btn {
+    background: #1C261F;
+    color: #F2EEDC;
+    border-color: #E28C52;
+  }
+  .grid-container {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .hero-thumb {
+    background: rgba(250, 248, 241, 0.9);
+    border: 1.5px solid rgba(117, 72, 46, 0.4);
+    border-radius: 18px;
+    padding: 18px 24px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    box-shadow: 0 4px 14px rgba(57, 45, 38, 0.08);
+  }
+  body.dark .hero-thumb {
+    background: rgba(24, 34, 28, 0.9);
+    border-color: rgba(226, 140, 82, 0.4);
+  }
+  .animals-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .card {
+    background: rgba(250, 248, 241, 0.9);
+    border: 1px solid rgba(130, 144, 120, 0.35);
+    border-radius: 16px;
+    padding: 16px 14px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(57, 45, 38, 0.06);
+  }
+  body.dark .card {
+    background: rgba(24, 34, 28, 0.9);
+    border-color: rgba(164, 179, 158, 0.22);
+  }
+  .stamp-box {
+    width: 68px;
+    height: 68px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .c-terracotta { color: #75482E; }
+  .c-forest { color: #1B2E20; }
+  .c-indigo { color: #1F3342; }
+  .c-ochre { color: #8E5327; }
+  .c-moss { color: #44543B; }
+  body.dark .c-terracotta { color: #E28C52; }
+  body.dark .c-forest { color: #58B374; }
+  body.dark .c-indigo { color: #7AAECE; }
+  body.dark .c-ochre { color: #F0B369; }
+  body.dark .c-moss { color: #96B88B; }
+
+  .badge-tag {
+    font-family: monospace;
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #75482E;
+    margin-bottom: 4px;
+  }
+  body.dark .badge-tag { color: #E28C52; }
+  h3 { margin: 0 0 6px; font-size: 1.15rem; font-weight: 600; }
+  .trait {
+    margin: 0;
+    font-size: 0.8rem;
+    font-family: sans-serif;
+    line-height: 1.4;
+    opacity: 0.85;
+  }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div style="font-family: monospace; font-size: 11px; text-transform: uppercase; letter-spacing: 0.15em; color: #75482E;">The Living Parchment</div>
+    <h1 style="margin: 6px 0 10px; font-size: 2.2rem;">Claim Your Spirit Animal Seal</h1>
+    <p style="margin: 0; font-size: 1rem; opacity: 0.8;">Which fierce predator reflects your inner drive? Choose your seal and discover its spirit traits.</p>
+    <button class="theme-btn" onclick="document.body.classList.toggle('dark')">Toggle Light / Dark Mode</button>
+  </div>
+
+  <div class="grid-container" id="container"></div>
+
+  <script>
+    const STAMPS = {
+      thumbprint: {
+        tag: "Biometric Seal",
+        title: "Full Biometric Thumbprint",
+        trait: "The Grounded Original — Anchored in raw authenticity, self-mastery, unyielding integrity, and leaving an uncopied personal signature on the world.",
+        color: "c-terracotta",
+        svg: `<svg viewBox="0 0 80 110" class="w-12 h-16" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M40 18c-14 0-25 12-25 28 0 16 6 36 12 50 2 5 6 9 13 9s11-4 13-9c6-14 12-34 12-50 0-16-11-28-25-28z" stroke-width="1.8" stroke-dasharray="4 2" opacity="0.3"/>
+          <path d="M40 54c0-3.5 2.5-6 6-6s6 2.5 6 6c0 6-4 12-7 18"/>
+          <path d="M33 49c2-4 5-6.5 10-6.5 7 0 12 5 12 12 0 8.5-6 17-11 24"/>
+          <path d="M27 55c0-8.5 6-15 16-15 11 0 18 7 18 17 0 9-7 19-13 27"/>
+          <path d="M22 62c0-12 8-22 21-22 13 0 23 10 23 23 0 10-8 21-15 29"/>
+          <path d="M19 50c0-15 10-26 23-26 13 0 23 11 23 26 0 12-7 24-14 33"/>
+          <path d="M22 38c5-9 11-14 20-14 9 0 15 5 20 14"/>
+          <path d="M40 70c0 7-3 14-7 20"/>
+          <path d="M34 76c0 6-2 11-5 15"/>
+          <path d="M48 76c0 6 3 11 6 15"/>
+          <path d="M28 85c3 7 7 14 12 18"/>
+          <path d="M52 85c-3 7-7 14-12 18"/>
+        </svg>`
+      },
+      lion: {
+        tag: "Spirit Animal • #1",
+        title: "The African Lion",
+        trait: "The Sovereign Leader — Fearless presence, commanding authority, fierce loyalty, and natural dominion over their territory.",
+        color: "c-ochre",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Ferocious Spiked Roaring Lion Mane & Snarl Silhouette with Negative Space Cuts -->
+          <path d="M50 4l6 9 12-4 3 12 12 1 1 12 11 4-4 11 9 8-6 10 6 11-9 7 2 12-11 1-3 11-11-4-8 8-8-8-11 4-3-11-11-1 2-12-9-7 6-11-6-10 9-8-3-11 11-4 1-12 12-1 3-12 12 4z" />
+          <!-- Negative space facial cuts (transparent parchment shows through) -->
+          <path d="M36 34c-2-4 2-8 6-5" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <path d="M64 34c2-4-2-8-6-5" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <path d="M42 28l8 10 8-10" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <!-- Piercing Predatory Eyes -->
+          <polygon points="34,42 45,39 42,47" fill="#F2EEDC"/>
+          <polygon points="66,42 55,39 58,47" fill="#F2EEDC"/>
+          <!-- Snarling Nose Bridge & Fangs -->
+          <polygon points="45,55 55,55 50,62" fill="#F2EEDC"/>
+          <polygon points="38,62 42,70 44,62" fill="#F2EEDC"/>
+          <polygon points="62,62 58,70 56,62" fill="#F2EEDC"/>
+          <path d="M42 62h16v6h-16z" fill="#F2EEDC"/>
+          <circle cx="50" cy="72" r="3" fill="#F2EEDC"/>
+        </svg>`
+      },
+      tiger: {
+        tag: "Spirit Animal • #2",
+        title: "The Bengal Tiger",
+        trait: "The Relentless Hunter — Solitary power, ferocious intensity, explosive strike velocity, and unyielding tactical hunger.",
+        color: "c-ochre",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <path d="M22 26c-6-11 4-19 14-14 4 3 6 8 7 13l7-4c4-2 8-3 12-3s8 1 12 3l7 4c1-5 3-10 7-13 10-5 20 3 14 14-1 6-4 10-7 13l5 8-5 3 7 9-8 3 4 8-13 9-16 1-16-1-13-9 4-8-8-3 7-9-5-3 5-8c-3-3-6-7-7-13z"/>
+          <!-- Fierce Wang Forehead Stripes -->
+          <path d="M38 24h24M41 29h18M39 34h22M50 24v12" stroke="#F2EEDC" stroke-width="2.5"/>
+          <path d="M28 32l9 5M27 38l9 3M72 32l-9 5M73 38l-9 3" stroke="#F2EEDC" stroke-width="2.2"/>
+          <!-- Piercing Glare Eyes -->
+          <polygon points="31,44 44,40 40,48" fill="#F2EEDC"/>
+          <polygon points="69,44 56,40 60,48" fill="#F2EEDC"/>
+          <!-- Snarl & Fangs -->
+          <polygon points="44,56 56,56 50,63" fill="#F2EEDC"/>
+          <polygon points="37,64 41,72 43,64" fill="#F2EEDC"/>
+          <polygon points="63,64 59,72 57,64" fill="#F2EEDC"/>
+          <path d="M43 73c4 2 10 2 14 0" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      },
+      leopard: {
+        tag: "Spirit Animal • #3",
+        title: "The Snow Leopard",
+        trait: "The Elusive Master — Stealth agility, calculating silence, acute perception, and quiet lethal precision under pressure.",
+        color: "c-terracotta",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <path d="M24 32c-7-13 4-21 14-15 5 4 8 9 9 14 4-2 9-3 13-3s9 1 13 3c1-5 4-10 9-14 10-6 21 2 14 15-2 6-5 10-8 13 0 18-12 36-30 36s-30-18-30-36c-3-3-6-7-8-13z"/>
+          <!-- Leopard Spots -->
+          <circle cx="50" cy="27" r="2.2" fill="#F2EEDC"/>
+          <circle cx="43" cy="33" r="2" fill="#F2EEDC"/>
+          <circle cx="57" cy="33" r="2" fill="#F2EEDC"/>
+          <!-- Feline Almond Hunting Eyes -->
+          <polygon points="30,44 44,41 40,49" fill="#F2EEDC"/>
+          <polygon points="70,44 56,41 60,49" fill="#F2EEDC"/>
+          <!-- Nose Pad & Whisker Tufts -->
+          <polygon points="45,55 55,55 50,62" fill="#F2EEDC"/>
+          <path d="M33 60l-14-3M33 64l-15 3M34 68l-13 7" stroke="#F2EEDC" stroke-width="1.8"/>
+          <path d="M67 60l14-3M67 64l15 3M66 68l13 7" stroke="#F2EEDC" stroke-width="1.8"/>
+          <path d="M44 70c4 2 8 2 12 0" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      },
+      wolf: {
+        tag: "Spirit Animal • #4",
+        title: "The Trail Wolf",
+        trait: "The Tactical Strategist — Deep pack loyalty, razor-sharp instincts, boundless road stamina, and an untamed spirit of independence.",
+        color: "c-forest",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Sharp Upright Wolf Ears & Flared Hackles -->
+          <path d="M26 36L16 12c10 2 20 11 23 20 4-3 7-4 11-4s7 1 11 4c3-9 13-18 23-20L74 36l8 9-6 4 8 9-8 4 6 8-14 8-18 2-18-2-14-8 6-8-8-4 8-9-6-4z"/>
+          <!-- Slanted Fierce Wolf Eyes -->
+          <polygon points="28,45 42,40 38,48" fill="#F2EEDC"/>
+          <polygon points="72,45 58,40 62,48" fill="#F2EEDC"/>
+          <!-- Forehead Furrow -->
+          <path d="M45 32l5 7 5-7" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+          <path d="M50 39v8" stroke="#F2EEDC" stroke-width="2"/>
+          <!-- Snout & Fangs -->
+          <polygon points="44,58 56,58 50,66" fill="#F2EEDC"/>
+          <polygon points="38,66 42,74 44,66" fill="#F2EEDC"/>
+          <polygon points="62,66 58,74 56,66" fill="#F2EEDC"/>
+          <path d="M42 78c5 2 11 2 16 0" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      },
+      bear: {
+        tag: "Spirit Animal • #5",
+        title: "The Grizzly Bear",
+        trait: "The Formidable Fortress — Grounded internal strength, formidable presence, quiet contemplation, and raw unshakeable fortitude.",
+        color: "c-terracotta",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Heavy Skull & Snarl Silhouette -->
+          <path d="M18 26c-6-11 7-19 15-11 3 3 5 8 5 13 4-2 8-3 12-3s8 1 12 3c0-5 2-10 5-13 8-8 21 0 15 11-1 4-3 8-5 12 0 18-12 38-32 38S23 56 23 38c-2-4-4-8-5-12z"/>
+          <!-- Deep Set Intimidating Eyes -->
+          <circle cx="36" cy="40" r="3.2" fill="#F2EEDC"/>
+          <circle cx="64" cy="40" r="3.2" fill="#F2EEDC"/>
+          <path d="M30 36c4-2 8-1 12 1" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <path d="M70 36c-4-2-8-1-12 1" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <!-- Heavy Snout & Massive Fangs -->
+          <polygon points="41,52 59,52 50,60" fill="#F2EEDC"/>
+          <polygon points="36,60 40,70 43,60" fill="#F2EEDC"/>
+          <polygon points="64,60 60,70 57,60" fill="#F2EEDC"/>
+          <path d="M42 72h16" stroke="#F2EEDC" stroke-width="2"/>
+        </svg>`
+      },
+      eagle: {
+        tag: "Spirit Animal • #6",
+        title: "The Highland Eagle",
+        trait: "The Far-Reaching Visionary — High-altitude perspective, unblinking focus, ruthless execution, and soaring past boundaries.",
+        color: "c-indigo",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Crown Feather Crest & Raptor Head Silhouette -->
+          <path d="M50 8l5 8 7-4 2 8 8-2-2 8 7 2-4 7 6 5-7 5 3 9-6 3 4 9-9 3 2 9-9 1-13 6-13-6-9-1 2-9-9-3 4-9-6-3 3-9-7-5 6-5-4-7 7-2-2-8 8 2 2-8 7 4z"/>
+          <!-- Severe Raptor Eyebrows -->
+          <polygon points="26,38 48,34 44,43" fill="#F2EEDC"/>
+          <polygon points="74,38 52,34 56,43" fill="#F2EEDC"/>
+          <!-- Hooked Beak Cutout -->
+          <polygon points="43,46 57,46 50,76" fill="#F2EEDC"/>
+          <path d="M40 52c4 1 16 1 20 0" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      },
+      bull: {
+        tag: "Spirit Animal • #7",
+        title: "The Wild Bull",
+        trait: "The Unstoppable Force — Raw unyielding grit, relentless forward momentum, crushing through resistance by sheer tenacity.",
+        color: "c-forest",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Massive Curved Horns Silhouette -->
+          <path d="M32 30C18 24 6 12 6 2c12 2 24 14 28 24 5-2 10-3 16-3s11 1 16 3c4-10 16-22 28-24 0 10-12 22-26 28 0 12-7 24-18 24S32 42 32 30z"/>
+          <!-- Ears & Forehead Furrow -->
+          <path d="M44 32l6 8 6-8" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <!-- Fierce Eyes -->
+          <polygon points="28,42 41,38 37,46" fill="#F2EEDC"/>
+          <polygon points="72,42 59,38 63,46" fill="#F2EEDC"/>
+          <!-- Flared Nostrils -->
+          <circle cx="43" cy="65" r="3" fill="#F2EEDC"/>
+          <circle cx="57" cy="65" r="3" fill="#F2EEDC"/>
+          <path d="M44 71c3 1 9 1 12 0" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      },
+      stag: {
+        tag: "Spirit Animal • #8",
+        title: "The Forest Stag",
+        trait: "The Instinctual Sovereign — Poise under extreme pressure, wild untamed nobility, vigilant intuition, and graceful resilience.",
+        color: "c-moss",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Jagged Multi-Tine Branching Antlers & Deer Head -->
+          <path d="M44 30C42 20 34 14 26 10m10 8c-7-4-15-5-22-4m20 11c-8 0-15 3-20 9m14-4c-3 5-4 10-4 16" stroke="currentColor" stroke-width="3" fill="none"/>
+          <path d="M56 30C58 20 66 14 74 10m-10 8c7-4 15-5 22-4m-20 11c8 0 15 3 20 9m-14-4c3 5 4 10 4 16" stroke="currentColor" stroke-width="3" fill="none"/>
+          <path d="M38 34l-3 18c0 12 7 26 15 30 8-4 15-18 15-30l-3-18z"/>
+          <!-- Keen Eyes -->
+          <polygon points="32,47 43,44 40,51" fill="#F2EEDC"/>
+          <polygon points="68,47 57,44 60,51" fill="#F2EEDC"/>
+          <polygon points="46,70 54,70 50,75" fill="#F2EEDC"/>
+        </svg>`
+      },
+      cobra: {
+        tag: "Spirit Animal • #9",
+        title: "The King Cobra",
+        trait: "The Lethal Alchemist — Hypnotic composure, deadly precision, rapid transmutation, and striking before the adversary perceives danger.",
+        color: "c-indigo",
+        svg: `<svg viewBox="0 0 100 100" class="w-14 h-14" fill="currentColor">
+          <!-- Menacing Flared Hood Silhouette & Striking Head -->
+          <path d="M50 10c-10 0-18 8-18 18 0 12-14 24-22 36 10 2 24-2 30-10 2 12 5 24 10 32 5-8 8-20 10-32 6 8 20 12 30 10-8-12-22-24-22-36 0-10-8-18-18-18z"/>
+          <!-- Iconic Cobra Hood Chevron Markings -->
+          <path d="M34 38c6 10 16 14 16 26" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <path d="M66 38c-6 10-16 14-16 26" stroke="#F2EEDC" stroke-width="2.5" fill="none"/>
+          <circle cx="50" cy="42" r="3.5" fill="#F2EEDC"/>
+          <!-- Venomous Slit Reptile Eyes -->
+          <polygon points="38,24 45,22 43,28" fill="#F2EEDC"/>
+          <polygon points="62,24 55,22 57,28" fill="#F2EEDC"/>
+          <!-- Forked Tongue Flicking -->
+          <path d="M50 28v8l-4 5M50 36l4 5" stroke="#F2EEDC" stroke-width="2" fill="none"/>
+        </svg>`
+      }
+    };
+
+    const container = document.getElementById("container");
+
+    // 1. Top Hero: Thumbprint
+    const heroCard = document.createElement("div");
+    heroCard.className = "hero-thumb";
+    heroCard.innerHTML = `
+      <div class="stamp-box ${STAMPS.thumbprint.color}">
+        ${STAMPS.thumbprint.svg}
+      </div>
+      <div style="text-align: left;">
+        <div class="badge-tag">${STAMPS.thumbprint.tag}</div>
+        <h3 style="margin: 0 0 4px; font-size: 1.35rem;">${STAMPS.thumbprint.title}</h3>
+        <p class="trait">${STAMPS.thumbprint.trait}</p>
+      </div>
+    `;
+    container.appendChild(heroCard);
+
+    // 2. 3x3 Grid of 9 Ferocious Animals
+    const gridEl = document.createElement("div");
+    gridEl.className = "animals-grid";
+    
+    const animalKeys = ["lion", "tiger", "leopard", "wolf", "bear", "eagle", "bull", "stag", "cobra"];
+    animalKeys.forEach(k => {
+      const s = STAMPS[k];
+      const card = document.createElement("div");
+      card.className = "card";
+      card.innerHTML = `
+        <div class="stamp-box ${s.color}">
+          ${s.svg}
+        </div>
+        <div class="badge-tag">${s.tag}</div>
+        <h3>${s.title}</h3>
+        <p class="trait">${s.trait}</p>
+      `;
+      gridEl.appendChild(card);
+    });
+    container.appendChild(gridEl);
+  </script>
+</body>
+</html>

@@ -39,6 +39,13 @@
   
   --mouse-x: 50%;
   --mouse-y: 50%;
+
+  /* Adaptive Communal Stamp Inks (Light Theme) */
+  --ink-terracotta: #75482e;
+  --ink-forest: #1b2e20;
+  --ink-indigo: #1f3342;
+  --ink-ochre: #8e5327;
+  --ink-moss: #44543b;
 }
 
 .dark {
@@ -59,6 +66,13 @@
   --polaroid-paper: #19241d;
   --polaroid-edge: 1px solid rgba(164, 179, 158, 0.25);
   --polaroid-shadow: 0 0.35rem 1.2rem rgba(0, 0, 0, 0.4);
+
+  /* Adaptive Communal Stamp Inks (Dark Theme - Illuminated for High Contrast) */
+  --ink-terracotta: #e28c52;
+  --ink-forest: #58b374;
+  --ink-indigo: #7aaece;
+  --ink-ochre: #f0b369;
+  --ink-moss: #96b88b;
 }
 
 /* Base resets & typography */
@@ -782,25 +796,37 @@ a:hover {
 .stamped-mark {
   position: absolute;
   pointer-events: none;
+  transform: translate(-50%, -50%) rotate(var(--rot, 0deg));
   transform-origin: center center;
-  animation: inkPress 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
   display: flex;
   flex-direction: column;
   align-items: center;
+  transition: color 0.4s ease;
+}
+
+/* Adaptive Ink Color Bindings for Stamped Marks */
+.stamped-mark[data-ink="terracotta"] { color: var(--ink-terracotta); }
+.stamped-mark[data-ink="forest"] { color: var(--ink-forest); }
+.stamped-mark[data-ink="indigo"] { color: var(--ink-indigo); }
+.stamped-mark[data-ink="ochre"] { color: var(--ink-ochre); }
+.stamped-mark[data-ink="moss"] { color: var(--ink-moss); }
+
+.stamped-mark.is-new {
+  animation: inkPress 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
 .stamped-handle-badge {
-  margin-top: 4px;
-  padding: 1px 8px;
+  margin-top: 3px;
+  padding: 1px 7px;
   border-radius: 9999px;
   font-family: var(--font-mono);
-  font-size: 10px;
-  line-height: 1.4;
+  font-size: 9px;
+  line-height: 1.35;
   letter-spacing: -0.01em;
-  background: rgba(250, 248, 241, 0.92);
+  background: rgba(250, 248, 241, 0.94);
   border: 1px solid currentColor;
-  box-shadow: 0 1px 4px rgba(57, 45, 38, 0.12);
+  box-shadow: 0 1px 3px rgba(57, 45, 38, 0.1);
   white-space: nowrap;
   display: inline-flex;
   align-items: center;
@@ -808,8 +834,117 @@ a:hover {
 }
 
 .dark .stamped-handle-badge {
-  background: rgba(18, 26, 21, 0.92);
-  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.4);
+  background: rgba(18, 26, 21, 0.94);
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* Stamp Tool Selector Button & Drawer */
+.stamp-picker-trigger {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 12px;
+  border-radius: 9999px;
+  background: rgba(250, 248, 241, 0.92);
+  border: 1px solid rgba(130, 144, 120, 0.4);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 4px rgba(57, 45, 38, 0.08);
+}
+.dark .stamp-picker-trigger {
+  background: rgba(22, 33, 26, 0.88);
+  border-color: rgba(164, 179, 158, 0.3);
+  color: #F2EEDC;
+}
+.stamp-picker-trigger:hover {
+  border-color: var(--accent);
+  transform: scale(1.02);
+}
+
+/* 10-Stamp Selector Popover / Drawer (3-in-a-row + top thumbprint) */
+.stamp-drawer {
+  position: fixed;
+  bottom: calc(max(1rem, env(safe-area-inset-bottom, 1rem)) + 4.5rem);
+  left: 50%;
+  transform: translateX(-50%) translateY(12px) scale(0.96);
+  z-index: 50;
+  width: calc(100vw - 1.5rem);
+  max-width: 380px;
+  background: rgba(245, 242, 230, 0.97);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(130, 144, 120, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(57, 45, 38, 0.22);
+  padding: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .stamp-drawer {
+  background: rgba(18, 26, 21, 0.97);
+  border-color: rgba(164, 179, 158, 0.3);
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65);
+}
+.stamp-drawer.open {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0) scale(1);
+}
+
+.stamp-grid-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  padding: 6px 4px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.18s ease;
+  color: var(--ink);
+  -webkit-tap-highlight-color: transparent;
+}
+.dark .stamp-grid-item {
+  background: rgba(255, 255, 255, 0.04);
+  color: #F2EEDC;
+}
+.stamp-grid-item:hover {
+  background: rgba(117, 72, 46, 0.12);
+  border-color: rgba(117, 72, 46, 0.3);
+  transform: translateY(-2px);
+}
+.stamp-grid-item.active {
+  background: rgba(117, 72, 46, 0.18);
+  border-color: var(--accent);
+  box-shadow: 0 2px 8px rgba(117, 72, 46, 0.2);
+}
+.dark .stamp-grid-item.active {
+  background: rgba(226, 140, 82, 0.2);
+  border-color: #E28C52;
+}
+
+.stamp-grid-item svg {
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.stamp-grid-item:hover svg {
+  transform: scale(1.12);
+}
+
+.stamp-trait-box {
+  background: rgba(255, 255, 255, 0.6);
+  border: 1px solid rgba(130, 144, 120, 0.28);
+  box-shadow: inset 0 1px 3px rgba(57, 45, 38, 0.04);
+}
+.dark .stamp-trait-box {
+  background: rgba(255, 255, 255, 0.04);
+  border-color: rgba(164, 179, 158, 0.2);
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 @keyframes inkPress {
