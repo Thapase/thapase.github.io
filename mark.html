@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -75,10 +75,59 @@
       <img class="sky-base-image" src="assets/images/continuous-sky.webp" alt="" decoding="async" />
     </div>
   </div>
-  <div class="mountain-horizon opacity-75" aria-hidden="true">
-    <div class="mountain-layer mountain-distant"></div>
-    <div class="mountain-layer mountain-mid"></div>
-    <div class="mountain-layer mountain-woodland"></div>
+  <div class="mountain-horizon opacity-80" aria-hidden="true">
+    <div class="mountain-layer mountain-alpine-scene">
+      <svg class="alpine-meadow-horizon-svg w-full h-full block" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" shape-rendering="geometricPrecision" fill="currentColor" aria-hidden="true">
+        <defs>
+          <linearGradient id="valley-mist-mark" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="var(--paper)" stop-opacity="0" />
+            <stop offset="60%" stop-color="var(--paper)" stop-opacity="0.72" />
+            <stop offset="100%" stop-color="var(--paper)" stop-opacity="0.98" />
+          </linearGradient>
+        </defs>
+        <g opacity="0.14">
+          <path d="M0 260 V134 L110 98 L215 124 L365 76 L515 118 L670 84 L810 128 L970 74 L1120 112 L1275 80 L1385 110 L1440 94 V260 Z" />
+        </g>
+        <g opacity="0.16">
+          <path d="M128 116 H472 C472 104 456 96 442 99 C436 82 414 74 396 82 C385 62 352 58 334 74 C318 66 296 72 288 86 C272 78 250 86 244 100 C228 96 210 102 206 110 C182 106 154 109 128 116 Z" />
+          <path d="M788 98 H1184 C1182 86 1164 80 1148 84 C1138 66 1112 62 1094 74 C1078 54 1044 52 1024 68 C1006 58 980 64 968 80 C948 72 924 78 914 90 C886 86 858 90 842 94 C816 90 798 92 788 98 Z" />
+        </g>
+        <g>
+          <path fill="var(--mountain-lit)" opacity="0.94" d="M-10 260 V156 L58 116 L104 128 L152 74 L214 114 L268 78 L345 38 L428 92 L478 68 L528 58 L602 106 L654 88 L698 84 L778 134 L848 178 V260 Z" />
+          <path opacity="0.14" d="M-10 260 V156 L58 116 L104 128 L152 74 L214 114 L268 78 L345 38 L428 92 L478 68 L528 58 L602 106 L654 88 L698 84 L778 134 L848 178 V260 Z" />
+          <path fill="var(--mountain-shadow)" d="M152 74 L158 108 L142 142 L166 184 L154 220 L248 220 L214 114 Z M345 38 L358 78 L334 118 L364 164 L344 220 L488 220 L428 92 Z M528 58 L538 98 L518 142 L548 188 L536 220 L656 220 L602 106 Z M698 84 L708 128 L690 170 L718 220 L848 220 L778 134 Z" />
+          <path fill="var(--mountain-subshadow)" d="M268 78 L276 118 L256 156 L284 205 L214 114 Z M478 68 L486 106 L468 144 L488 184 L428 92 Z" />
+          <path fill="none" stroke="currentColor" stroke-opacity="0.42" stroke-width="1.2" stroke-linejoin="miter" d="M-10 156 L58 116 L104 128 L152 74 L214 114 L268 78 L345 38 L428 92 L478 68 L528 58 L602 106 L654 88 L698 84 L778 134 L848 178" />
+        </g>
+        <g>
+          <path fill="var(--mountain-lit)" opacity="0.96" d="M815 260 V192 L922 142 L1012 82 L1095 22 L1176 96 L1246 90 L1326 142 L1378 130 L1450 184 V260 Z" />
+          <path opacity="0.12" d="M815 260 V192 L922 142 L1012 82 L1095 22 L1084 68 L1106 112 L1088 162 L1114 220 L815 220 Z" />
+          <path fill="var(--mountain-shadow)" d="M1095 22 L1176 96 L1246 90 L1326 142 L1378 130 L1450 184 L1450 220 L1114 220 L1088 162 L1106 112 L1084 68 Z" />
+          <path fill="var(--mountain-subshadow)" d="M1246 90 L1254 134 L1238 176 L1266 220 L1378 220 L1326 142 Z" />
+          <path fill="none" stroke="currentColor" stroke-opacity="0.48" stroke-width="1.3" stroke-linejoin="miter" d="M815 192 L922 142 L1012 82 L1095 22 L1176 96 L1246 90 L1326 142 L1378 130 L1450 184 M1095 22 L1084 68 L1106 112 L1088 162" />
+        </g>
+        <rect x="0" y="154" width="1440" height="72" fill="url(#valley-mist-mark)" />
+        <g fill="var(--meadow-grass)">
+          <path d="M0 260 V224 C160 216 320 226 490 218 C660 210 820 224 990 216 C1160 208 1310 222 1440 214 V260 Z" />
+          <path d="M14 260 L20 190 L26 260 M32 260 L41 176 L46 260 M144 260 L150 188 L156 260 M316 260 L322 186 L328 260 M334 260 L343 172 L348 260 M550 260 L556 188 L562 260 M762 260 L768 184 L774 260 M780 260 L790 168 L795 260 M972 260 L978 186 L984 260 M1180 260 L1186 188 L1192 260 M1374 260 L1380 186 L1386 260 M1392 260 L1403 170 L1408 260 Z" />
+          <g class="meadow-sway-cluster meadow-sway-1">
+            <path d="M236 260 L231 168 L239 260 M244 260 L248 154 L252 260 M257 260 L265 176 L269 260 Z" />
+            <ellipse cx="248" cy="158" rx="2.8" ry="8" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-2">
+            <path d="M622 260 L616 164 L625 260 M630 260 L635 150 L640 260 M645 260 L654 170 L658 260 Z" />
+            <polygon points="635,145 639,154 631,154" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-3">
+            <path d="M1044 260 L1038 166 L1047 260 M1052 260 L1058 152 L1063 260 M1068 260 L1076 174 L1080 260 Z" />
+            <ellipse cx="1058" cy="156" rx="2.6" ry="7.5" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-4">
+            <path d="M1268 260 L1263 170 L1271 260 M1276 260 L1281 156 L1286 260 M1291 260 L1299 176 L1303 260 Z" />
+          </g>
+        </g>
+      </svg>
+    </div>
   </div>
 
   <!-- ========================================================================
@@ -142,21 +191,21 @@
   <div id="stamp-picker-modal" class="stamp-drawer">
     <div class="flex items-center justify-between pb-2 mb-2 border-b border-[#829078]/25 text-xs">
       <span class="font-serif font-bold text-[#233124] dark:text-[#F2EEDC]">Choose Your Seal (10 Marks)</span>
-      <button id="close-stamp-drawer-btn" type="button" class="w-5 h-5 rounded-full flex items-center justify-center text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] text-xs cursor-pointer">
+      <button id="close-stamp-drawer-btn" type="button" aria-label="Close stamp selector" title="Close stamp selector" class="w-6 h-6 rounded-full flex items-center justify-center text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] text-xs cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]">
         <i class="fa-solid fa-xmark"></i>
       </button>
     </div>
 
-    <!-- 1. Top Hero: Biometric Thumb Impression -->
+    <!-- 1. Top Hero: Complete Uncropped Oval Thumb Impression -->
     <button type="button" class="stamp-grid-item w-full flex-row gap-3 py-2 px-3 mb-2 active" data-stamp="thumbprint" title="Thumb Impression">
-      <div class="w-7 h-9 flex items-center justify-center text-[#75482E] dark:text-[#E28C52] shrink-0">
-        <svg viewBox="0 0 80 110" class="w-full h-full" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M40 14c-16 0-28 14-28 32 0 18 6 40 14 54 2 4 7 7 14 7s12-3 14-7c8-14 14-36 14-54 0-18-12-32-28-32z" stroke-width="1.6" stroke-dasharray="3 3" opacity="0.25"/>
-          <path d="M40 52c0-4 3-7 7-7s7 3 7 7c0 7-5 14-9 21"/>
-          <path d="M33 46c2-5 6-8 12-8 8 0 14 6 14 14 0 9-6 19-12 28"/>
-          <path d="M26 53c0-10 7-17 19-17 12 0 20 8 20 19 0 11-8 22-15 31"/>
-          <path d="M20 60c0-14 9-25 24-25 15 0 26 11 26 26 0 12-9 24-17 34"/>
-          <path d="M16 48c0-17 12-29 27-29 15 0 27 12 27 29 0 14-8 27-16 38"/>
+      <div class="w-8 h-8 flex items-center justify-center text-[#75482E] dark:text-[#E28C52] shrink-0">
+        <svg viewBox="0 0 100 100" class="w-full h-full" shape-rendering="geometricPrecision" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="20" y="8" width="60" height="84" rx="30" ry="30" stroke-width="1.6" stroke-dasharray="3 2.5" opacity="0.45"/>
+          <rect x="25.5" y="14" width="49" height="72" rx="24.5" ry="24.5" stroke-width="2.3"/>
+          <rect x="31.5" y="21" width="37" height="58" rx="18.5" ry="18.5" stroke-width="2.3"/>
+          <rect x="37.5" y="28" width="25" height="44" rx="12.5" ry="12.5" stroke-width="2.3"/>
+          <rect x="43" y="35" width="14" height="30" rx="7" ry="7" stroke-width="2.2"/>
+          <path d="M50 43 C47.5 43 47 47 47 50 C47 54 48.5 57 50 57 C52 57 53 53 53 49" stroke-width="2.2"/>
         </svg>
       </div>
       <div class="text-left">
@@ -352,20 +401,24 @@
     <!-- Bottom row on mobile / Right group on desktop: Social Sign-In (No typing allowed) -->
     <div id="auth-container" class="flex items-center justify-center sm:justify-start w-full sm:w-auto text-xs font-mono">
       
-      <!-- State A: Signed Out (Prompts to sign in via Google or X) -->
-      <div id="auth-signed-out" class="flex items-center gap-1.5 transition-all">
-        <button id="google-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Google / Gmail">
-          <i class="fa-brands fa-google text-[10px] sm:text-[11px] text-red-500"></i>
+      <!-- State A: Signed Out (Prompts to sign in via Google, Twitter, or Instagram) -->
+      <div id="auth-signed-out" class="flex items-center gap-1 sm:gap-1.5 transition-all">
+        <button id="google-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#EA4335] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Google / Gmail">
+          <i class="fa-brands fa-google text-[10px] sm:text-[11px] text-[#EA4335]"></i>
         </button>
 
-        <button id="twitter-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#75482E] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Twitter / X">
+        <button id="twitter-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#233124] dark:hover:border-white flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Twitter / X">
           <i class="fa-brands fa-x-twitter text-[10px] sm:text-[11px] text-[#233124] dark:text-[#F2EEDC]"></i>
         </button>
 
-        <div class="px-2.5 py-1 rounded-full bg-[#FAF8F1]/80 dark:bg-black/25 border border-[#829078]/35 text-[11px] text-[#75482E] dark:text-[#d89667] flex items-center gap-1">
+        <button id="instagram-auth-btn" type="button" class="w-7 h-7 sm:w-8 sm:h-8 rounded-full bg-[#FAF8F1] dark:bg-white/5 border border-[#829078]/40 hover:border-[#E1306C] flex items-center justify-center cursor-pointer transition-all hover:scale-105 shadow-sm shrink-0" title="Sign in with Instagram">
+          <i class="fa-brands fa-instagram text-[10px] sm:text-[11px] text-[#E1306C]"></i>
+        </button>
+
+        <button id="auth-open-modal-btn" type="button" class="whitespace-nowrap shrink-0 px-2.5 py-1 rounded-full bg-[#FAF8F1]/90 dark:bg-black/30 border border-[#829078]/35 hover:border-[#75482E] text-[11px] text-[#75482E] dark:text-[#d89667] flex items-center gap-1 cursor-pointer transition-all hover:scale-105" title="Open sign-in options">
           <i class="fa-solid fa-lock text-[9px] opacity-70"></i>
           <span>sign in to stamp</span>
-        </div>
+        </button>
       </div>
 
       <!-- State B: Signed In (Displays verified identity badge & sign-out button, hidden by default) -->
@@ -381,6 +434,109 @@
 
   </div>
 
+  <!-- ========================================================================
+       Social Sign-In Modal (Google / Gmail, Twitter / X, Instagram)
+       ======================================================================== -->
+  <div id="auth-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+    <div class="relative w-full max-w-sm rounded-2xl bg-[#FAF8F1] dark:bg-[#152119] border border-[#829078]/40 dark:border-[#a4b39e]/25 shadow-2xl p-5 sm:p-6 transition-transform duration-300 scale-95" id="auth-modal-card">
+      
+      <!-- Close Button -->
+      <button id="close-auth-modal-btn" type="button" class="absolute top-3.5 right-3.5 w-7 h-7 rounded-full flex items-center justify-center text-xs text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] hover:bg-black/5 dark:hover:bg-white/5 transition-colors cursor-pointer" aria-label="Close sign-in modal">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+      <!-- Modal Header -->
+      <div class="text-center mb-5">
+        <div class="inline-flex items-center justify-center w-11 h-11 rounded-full bg-[#75482E]/10 dark:bg-[#E28C52]/15 text-[#75482E] dark:text-[#E28C52] text-xl mb-2.5 shadow-inner">
+          <i class="fa-solid fa-stamp"></i>
+        </div>
+        <h3 class="font-serif text-lg sm:text-xl font-medium tracking-tight text-[#233124] dark:text-[#F2EEDC]">Sign In to Leave Your Mark</h3>
+        <p class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] mt-1 max-w-xs mx-auto leading-relaxed">
+          Sign in via Twitter, Gmail, or Instagram to verify your identity and stamp your authentic impression.
+        </p>
+      </div>
+
+      <!-- Step 1: Provider Selection List -->
+      <div id="auth-provider-selector" class="flex flex-col gap-2.5">
+        
+        <!-- Option A: Google / Gmail -->
+        <button type="button" class="auth-provider-choice-btn group flex items-center gap-3 p-3 rounded-xl border border-[#829078]/30 dark:border-white/10 bg-white/70 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 hover:border-[#EA4335]/60 hover:shadow-md transition-all text-left cursor-pointer" data-provider="google">
+          <div class="w-9 h-9 rounded-lg bg-white dark:bg-white/10 flex items-center justify-center text-base shadow-sm shrink-0 border border-black/5">
+            <i class="fa-brands fa-google text-[#EA4335]"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-medium text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#EA4335] transition-colors">Continue with Google (Gmail)</div>
+            <div class="text-[10px] text-[#4C5848] dark:text-[#A4B39E] truncate">Verify via your @gmail.com account</div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-[10px] text-[#829078] group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+        <!-- Option B: Twitter / X -->
+        <button type="button" class="auth-provider-choice-btn group flex items-center gap-3 p-3 rounded-xl border border-[#829078]/30 dark:border-white/10 bg-white/70 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 hover:border-[#233124] dark:hover:border-white/40 hover:shadow-md transition-all text-left cursor-pointer" data-provider="twitter">
+          <div class="w-9 h-9 rounded-lg bg-black text-white flex items-center justify-center text-base shadow-sm shrink-0">
+            <i class="fa-brands fa-x-twitter"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-medium text-[#233124] dark:text-[#F2EEDC] group-hover:text-black dark:group-hover:text-white transition-colors">Continue with Twitter (X)</div>
+            <div class="text-[10px] text-[#4C5848] dark:text-[#A4B39E] truncate">Verify via your @handle</div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-[10px] text-[#829078] group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+        <!-- Option C: Instagram -->
+        <button type="button" class="auth-provider-choice-btn group flex items-center gap-3 p-3 rounded-xl border border-[#829078]/30 dark:border-white/10 bg-white/70 dark:bg-white/5 hover:bg-white dark:hover:bg-white/10 hover:border-[#E1306C]/60 hover:shadow-md transition-all text-left cursor-pointer" data-provider="instagram">
+          <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-[#F58529] via-[#DD2A7B] to-[#8134AF] text-white flex items-center justify-center text-base shadow-sm shrink-0">
+            <i class="fa-brands fa-instagram"></i>
+          </div>
+          <div class="flex-1 min-w-0">
+            <div class="text-xs font-medium text-[#233124] dark:text-[#F2EEDC] group-hover:text-[#E1306C] transition-colors">Continue with Instagram</div>
+            <div class="text-[10px] text-[#4C5848] dark:text-[#A4B39E] truncate">Verify via your @username</div>
+          </div>
+          <i class="fa-solid fa-chevron-right text-[10px] text-[#829078] group-hover:translate-x-0.5 transition-transform"></i>
+        </button>
+
+      </div>
+
+      <!-- Step 2: Verification Form (slides in when provider clicked) -->
+      <div id="auth-verify-step" class="hidden">
+        <button id="auth-back-to-providers-btn" type="button" class="text-[11px] text-[#829078] hover:text-[#75482E] dark:hover:text-[#d89667] flex items-center gap-1 mb-3 cursor-pointer">
+          <i class="fa-solid fa-arrow-left text-[9px]"></i>
+          <span>Choose a different sign-in method</span>
+        </button>
+
+        <form id="auth-verify-form" class="flex flex-col gap-3">
+          <div class="flex items-center gap-2 p-2 rounded-xl bg-white/50 dark:bg-black/20 border border-[#829078]/25">
+            <div id="verify-form-icon" class="w-8 h-8 rounded-lg flex items-center justify-center text-sm shrink-0">
+              <i class="fa-brands fa-google text-[#EA4335]"></i>
+            </div>
+            <div class="flex-1 min-w-0">
+              <div id="verify-form-label" class="text-[10px] text-[#829078] font-mono">Sign in with Google Account</div>
+              <div id="verify-form-helper" class="text-xs font-mono font-medium text-[#233124] dark:text-[#F2EEDC]">Enter your Gmail address</div>
+            </div>
+          </div>
+
+          <div class="relative">
+            <input id="auth-handle-input" type="text" autocomplete="off" spellcheck="false" required
+              class="w-full px-3.5 py-2.5 rounded-xl border border-[#829078]/40 dark:border-white/20 bg-white dark:bg-black/40 text-xs font-mono text-[#233124] dark:text-[#F2EEDC] focus:outline-none focus:ring-2 focus:ring-[#75482E] dark:focus:ring-[#d89667] transition-all"
+              placeholder="e.g. yourname@gmail.com" />
+          </div>
+
+          <button id="auth-submit-btn" type="submit" class="w-full py-2.5 px-4 rounded-xl bg-[#75482E] dark:bg-[#d89667] text-[#FAF8F1] dark:text-[#121A15] font-serif font-medium text-xs tracking-wide shadow-md hover:opacity-95 active:scale-[0.99] transition-all flex items-center justify-center gap-2 cursor-pointer">
+            <i class="fa-solid fa-check"></i>
+            <span id="auth-submit-label">Verify & Sign In</span>
+          </button>
+        </form>
+      </div>
+
+      <div class="mt-4 pt-3 border-t border-[#829078]/20 text-center">
+        <p class="text-[10px] text-[#829078] font-mono">
+          <i class="fa-solid fa-shield-halved text-[9px] mr-1"></i>
+          Strictly one authentic mark per verified user.
+        </p>
+      </div>
+
+    </div>
+  </div>
   <!-- Toast Notification -->
   <div id="site-toast" class="fixed bottom-20 left-1/2 -translate-x-1/2 z-50 flex items-center gap-2 px-4 py-2 rounded-2xl bg-[#FAF8F1] dark:bg-[#121A15] border border-[#829078]/40 text-xs font-serif text-[#233124] dark:text-[#F2EEDC] shadow-2xl transition-all duration-300 opacity-0 pointer-events-none">
     <i class="fa-solid fa-check text-[#75482E] dark:text-[#d89667]"></i>

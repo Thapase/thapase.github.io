@@ -12,7 +12,6 @@ const THAPASE_CONFIG = {
     company: "Genpact",
     location: "Bangalore, India",
     email: "thapase@gmail.com",
-    phone: "+91 9566009174",
     timeZone: "Asia/Kolkata",
     gmatScore: 760,
     gmatPercentile: "Top 1% Worldwide (99th %ile)"

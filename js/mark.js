@@ -1,4 +1,4 @@
-/**
+﻿/**
  * ============================================================================
  * The Living Parchment — Interactive Spirit Animal & Thumbprint Stamping
  * Aesthetic: Authentic Ink Pressed on Japanese / Antique Parchment
@@ -10,260 +10,162 @@
  */
 
 (function () {
-  // SVGs for 10 Seals (No outer circle border rings; sharp, ferocious, transparent vector line-art)
-  const STAMP_SVGS = {
+  // Bold Linocut / Woodcut Emblem Shapes (viewBox 0 0 100 100, frameless transparent background + carved negative-space cutouts)
+  const STAMP_EMBLEMS = {
     thumbprint: `
-      <svg class="w-10 h-13 sm:w-11 sm:h-14" viewBox="0 0 80 110" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M40 14c-16 0-28 14-28 32 0 18 6 40 14 54 2 4 7 7 14 7s12-3 14-7c8-14 14-36 14-54 0-18-12-32-28-32z" stroke-width="1.6" stroke-dasharray="3 3" opacity="0.25"/>
-        <path d="M40 52c0-4 3-7 7-7s7 3 7 7c0 7-5 14-9 21"/>
-        <path d="M33 46c2-5 6-8 12-8 8 0 14 6 14 14 0 9-6 19-12 28"/>
-        <path d="M26 53c0-10 7-17 19-17 12 0 20 8 20 19 0 11-8 22-15 31"/>
-        <path d="M20 60c0-14 9-25 24-25 15 0 26 11 26 26 0 12-9 24-17 34"/>
-        <path d="M16 48c0-17 12-29 27-29 15 0 27 12 27 29 0 14-8 27-16 38"/>
-        <path d="M22 36c5-11 12-16 22-16s17 5 22 16"/>
-        <path d="M38 72c0 8-3 16-8 23"/>
-        <path d="M32 78c0 7-2 13-5 17"/>
-        <path d="M48 78c0 7 3 13 6 17"/>
-        <path d="M26 88c4 8 8 15 14 19"/>
-        <path d="M54 88c-4 8-8 15-14 19"/>
-        <path d="M16 68c2-7 3-14 3-21"/>
-        <path d="M64 68c-2-7-3-14-3-21"/>
-        <path d="M40 38c-3 0-5 2-5 5"/>
-      </svg>
+      <g fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" shape-rendering="geometricPrecision">
+        <!-- Complete uncropped rounded oval thumb silhouette -->
+        <rect x="20" y="8" width="60" height="84" rx="30" ry="30" stroke-width="1.6" stroke-dasharray="3 2.5" opacity="0.45"/>
+        <!-- Unbroken concentric oval & whorl ridges from crown to lower thumb pad -->
+        <rect x="25.5" y="14" width="49" height="72" rx="24.5" ry="24.5" stroke-width="2.3"/>
+        <rect x="31.5" y="21" width="37" height="58" rx="18.5" ry="18.5" stroke-width="2.3"/>
+        <rect x="37.5" y="28" width="25" height="44" rx="12.5" ry="12.5" stroke-width="2.3"/>
+        <rect x="43" y="35" width="14" height="30" rx="7" ry="7" stroke-width="2.2"/>
+        <path d="M50 43 C47.5 43 47 47 47 50 C47 54 48.5 57 50 57 C52 57 53 53 53 49" stroke-width="2.2"/>
+      </g>
     `,
     lion: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M50 6l6 9 10-6 3 11 12-3 1 12 11 3-2 11 10 7-5 11 7 10-9 8 3 12-11 3-3 11-11-2-6 9-6-9-11 2-3-11-11-3 3-12-9-8 7-10-5-11 10-7-2-11 11-3 1-12 12 3 3-11 10 6z" stroke-width="2.2"/>
-        <path d="M29 32c-3 8-1 18 1 25M71 32c3 8 1 18-1 25" stroke-width="2"/>
-        <path d="M34 24c4-3 10-5 16-5s12 2 16 5" stroke-width="2.2"/>
-        <path d="M26 28c-4-4-1-10 5-8M74 28c4-4 1-10-5-8" stroke-width="2"/>
-        <path d="M44 22l6 7 6-7" stroke-width="2"/>
-        <path d="M50 29v8" stroke-width="2"/>
-        <path d="M31 38c5-4 11-2 15 2" stroke-width="2.6"/>
-        <path d="M69 38c-5-4-11-2-15 2" stroke-width="2.6"/>
-        <path d="M33 42c3-2 7-1 9 2-2 3-6 3-9-2z" fill="currentColor"/>
-        <path d="M67 42c-3-2-7-1-9 2 2 3 6 3 9-2z" fill="currentColor"/>
-        <path d="M44 42l-2 12h16l-2-12" stroke-width="2"/>
-        <path d="M42 48h16" stroke-width="1.8"/>
-        <path d="M43 54h14l-7 7z" fill="currentColor"/>
-        <path d="M50 61v4c-5 2-11 1-16-2" stroke-width="2.2"/>
-        <path d="M50 65c5 2 11 1 16-2" stroke-width="2.2"/>
-        <path d="M39 63l2 7-1-7" stroke-width="2.2" fill="currentColor"/>
-        <path d="M61 63l-2 7 1-7" stroke-width="2.2" fill="currentColor"/>
-        <path d="M42 71c3 4 13 4 16 0" stroke-width="2"/>
-        <path d="M45 74l1-3M55 74l-1-3" stroke-width="2"/>
-        <path d="M45 78l5 6 5-6" stroke-width="2.2"/>
-        <path d="M28 58l-10-2M28 62l-11 2M72 58l10-2M72 62l11 2" stroke-width="1.6"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M50 4 L58 14 L69 7 L71 20 L84 18 L81 31 L93 36 L85 47 L95 57 L83 64 L88 77 L75 79 L73 92 L60 88 L50 96 L40 88 L27 92 L25 79 L12 77 L17 64 L5 57 L15 47 L7 36 L19 31 L16 18 L29 20 L31 7 L42 14 Z
+        M32 28 L50 24 L68 28 L72 48 L64 70 L50 78 L36 70 L28 48 Z
+      "/>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M35 32 L50 29 L65 32 L68 49 L61 67 L50 73 L39 67 L32 49 Z
+        M36 42 L45 45 L42 49 L35 47 Z
+        M64 42 L55 45 L58 49 L65 47 Z
+        M45 53 L55 53 L50 60 Z
+        M41 64 L59 64 L57 68 L43 68 Z
+      "/>
     `,
     tiger: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 28c-6-10 4-18 13-13 4 3 6 8 7 13" stroke-width="2.4"/>
-        <path d="M24 22c-3-5 2-9 7-7" stroke-width="1.8"/>
-        <path d="M78 28c6-10-4-18-13-13-4 3-6 8-7 13" stroke-width="2.4"/>
-        <path d="M76 22c3-5-2-9-7-7" stroke-width="1.8"/>
-        <path d="M20 40l-6 8 6 3-7 8 8 3-5 8 13 8" stroke-width="2.2"/>
-        <path d="M80 40l6 8-6 3 7 8-8 3 5 8-13 8" stroke-width="2.2"/>
-        <path d="M38 18h24M41 23h18M39 28h22M50 18v10" stroke-width="2.4"/>
-        <path d="M28 29l9 4M26 35l9 3M72 29l-9 4M74 35l-9 3" stroke-width="2.2"/>
-        <path d="M29 42c5-4 12-2 16 2" stroke-width="2.6"/>
-        <path d="M71 42c-5-4-12-2-16 2" stroke-width="2.6"/>
-        <path d="M32 45c3-2 8-1 11 2-3 3-8 2-11-2z" fill="currentColor"/>
-        <path d="M68 45c-3-2-8-1-11 2 3 3 8 2 11-2z" fill="currentColor"/>
-        <path d="M43 45l-1 11h16l-1-11" stroke-width="2"/>
-        <path d="M43 49h14M44 53h12" stroke-width="1.8"/>
-        <path d="M43 56h14l-7 7z" fill="currentColor"/>
-        <path d="M50 63v4c-5 3-11 2-16-1" stroke-width="2.2"/>
-        <path d="M50 67c5 3 11 2 16-1" stroke-width="2.2"/>
-        <path d="M38 65l2 7-1-7" stroke-width="2.4" fill="currentColor"/>
-        <path d="M62 65l-2 7 1-7" stroke-width="2.4" fill="currentColor"/>
-        <path d="M43 72c3 4 11 4 14 0" stroke-width="2"/>
-        <path d="M45 74l1-3M55 74l-1-3" stroke-width="2"/>
-        <path d="M44 80c3 2 9 2 12 0" stroke-width="2.2"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M20 14 C28 11 36 16 39 24 L61 24 C64 16 72 11 80 14 C86 18 85 28 79 34 L88 46 L81 52 L87 60 L77 66 L70 84 L50 91 L30 84 L23 66 L13 60 L19 52 L12 46 L21 34 C15 28 14 18 20 14 Z
+        M40 19 L60 19 L60 23 L40 23 Z
+        M42 27 L58 27 L58 31 L42 31 Z
+        M48 23 L52 23 L52 38 L48 38 Z
+        M24 38 L37 41 L35 44 L22 41 Z
+        M76 38 L63 41 L65 44 L78 41 Z
+        M32 46 L44 49 L40 54 L31 51 Z
+        M68 46 L56 49 L60 54 L69 51 Z
+        M43 58 L57 58 L50 66 Z
+        M38 71 L62 71 L59 77 L53 77 L50 73 L47 77 L41 77 Z
+      "/>
     `,
     leopard: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M22 32c-6-13 4-20 14-15 5 3 8 8 9 14" stroke-width="2.4"/>
-        <path d="M25 28c-3-6 2-11 8-8" stroke-width="1.8"/>
-        <path d="M78 32c6-13-4-20-14-15-5 3-8 8-9 14" stroke-width="2.4"/>
-        <path d="M75 28c3-6-2-11-8-8" stroke-width="1.8"/>
-        <path d="M36 24c4-2 9-3 14-3s10 1 14 3" stroke-width="2.4"/>
-        <path d="M19 44c0 19 13 38 31 38s31-19 31-38c0-6-2-12-5-17" stroke-width="2.4"/>
-        <circle cx="50" cy="27" r="1.8" fill="currentColor"/>
-        <circle cx="43" cy="32" r="1.6" fill="currentColor"/>
-        <circle cx="57" cy="32" r="1.6" fill="currentColor"/>
-        <path d="M35 34c-1.5 0-2.5 1-2.5 2s1 2 2.5 2" stroke-width="1.6"/>
-        <path d="M65 34c1.5 0 2.5 1 2.5 2s-1 2-2.5 2" stroke-width="1.6"/>
-        <path d="M47 36c-1 0-2 1-2 2s1 2 2 2" stroke-width="1.6"/>
-        <path d="M53 36c1 0 2 1 2 2s-1 2-2 2" stroke-width="1.6"/>
-        <path d="M30 42c4-3 10-1 14 2" stroke-width="2.4"/>
-        <path d="M70 42c-4-3-10-1-14 2" stroke-width="2.4"/>
-        <path d="M32 45c3-2 8-1 11 2-3 3-8 2-11-2z" fill="currentColor"/>
-        <path d="M68 45c-3-2-8-1-11 2 3 3 8 2 11-2z" fill="currentColor"/>
-        <path d="M44 46l1 10h10l1-10" stroke-width="2"/>
-        <path d="M44 56h12l-6 6z" fill="currentColor"/>
-        <path d="M50 62v4c-4 3-9 2-14 0" stroke-width="2.2"/>
-        <path d="M50 66c4 3 9 2 14 0" stroke-width="2.2"/>
-        <path d="M39 65l2 6-1-6" stroke-width="2.2" fill="currentColor"/>
-        <path d="M61 65l-2 6 1-6" stroke-width="2.2" fill="currentColor"/>
-        <path d="M33 60l-14-2M33 64l-15 3M67 60l14-2M67 64l15 3" stroke-width="1.6"/>
-        <path d="M43 72c4 2 10 2 14 0" stroke-width="2.2"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M21 15 C30 12 38 18 40 25 L60 25 C62 18 70 12 79 15 C85 20 84 30 78 36 C82 44 83 54 78 64 C73 77 62 87 50 88 C38 87 27 77 22 64 C17 54 18 44 22 36 C16 30 15 20 21 15 Z
+        M47 28 L53 28 L53 33 L47 33 Z
+        M37 33 L42 33 L42 38 L37 38 Z
+        M58 33 L63 33 L63 38 L58 38 Z
+        M29 44 L43 46 L39 52 L29 49 Z
+        M71 44 L57 46 L61 52 L71 49 Z
+        M44 57 L56 57 L50 64 Z
+        M37 68 L63 68 L60 72 L50 70 L40 72 Z
+        M42 76 L58 76 L55 80 L45 80 Z
+      "/>
     `,
     wolf: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M26 36L16 12c10 3 19 11 22 20" stroke-width="2.6"/>
-        <path d="M22 20l4 9M26 17l2 8" stroke-width="1.8"/>
-        <path d="M74 36L84 12c-10 3-19 11-22 20" stroke-width="2.6"/>
-        <path d="M78 20l-4 9M74 17l-2 8" stroke-width="1.8"/>
-        <path d="M38 32c4-3 8-4 12-4s8 1 12 4" stroke-width="2.4"/>
-        <path d="M24 38l-7 8 6 3-8 8 7 3-6 7 13 8" stroke-width="2.2"/>
-        <path d="M76 38l7 8-6 3 8 8-7 3 6 7-13 8" stroke-width="2.2"/>
-        <path d="M45 29l5 7 5-7" stroke-width="2"/>
-        <path d="M50 36v9" stroke-width="2"/>
-        <path d="M29 44c5-3 11-2 15 2" stroke-width="2.6"/>
-        <path d="M71 44c-5-3-11-2-15 2" stroke-width="2.6"/>
-        <path d="M31 46c4-3 9-2 13 2-4 3-9 2-13-2z" fill="currentColor"/>
-        <path d="M69 46c-4-3-9-2-13 2 4 3 9 2 13-2z" fill="currentColor"/>
-        <path d="M43 47l-2 16h18l-2-16" stroke-width="2.2"/>
-        <path d="M43 52h14M44 57h12" stroke-width="1.8"/>
-        <path d="M44 63h12l-2 6c-1 2-6 2-8 0z" fill="currentColor"/>
-        <path d="M50 69v4c-4 2-8 1-12-1" stroke-width="2.2"/>
-        <path d="M50 73c4 2 8 1 12-1" stroke-width="2.2"/>
-        <path d="M40 70l2 7-1-7" stroke-width="2.2" fill="currentColor"/>
-        <path d="M60 70l-2 7 1-7" stroke-width="2.2" fill="currentColor"/>
-        <path d="M43 78c4 3 10 3 14 0" stroke-width="2"/>
-        <path d="M42 84c5 2 11 2 16 0" stroke-width="2.2"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M16 9 L37 28 L50 25 L63 28 L84 9 L78 38 L87 50 L79 56 L86 64 L74 71 L66 86 L50 92 L34 86 L26 71 L14 64 L21 56 L13 50 L22 38 Z
+        M25 22 L31 32 L27 33 Z
+        M75 22 L69 32 L73 33 Z
+        M43 31 L57 31 L50 39 Z
+        M29 45 L44 48 L39 53 L29 50 Z
+        M71 45 L56 48 L61 53 L71 50 Z
+        M43 61 L57 61 L50 69 Z
+        M39 73 L61 73 L58 79 L53 75 L50 79 L47 75 L42 79 Z
+      "/>
     `,
     bear: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M19 28c-6-10 6-18 14-10 3 3 5 8 5 13" stroke-width="2.4"/>
-        <path d="M22 24c-3-5 3-9 8-5" stroke-width="1.8"/>
-        <path d="M81 28c6-10-6-18-14-10-3 3-5 8-5 13" stroke-width="2.4"/>
-        <path d="M78 24c3-5-3-9-8-5" stroke-width="1.8"/>
-        <path d="M35 24c5-2 10-3 15-3s10 1 15 3" stroke-width="2.6"/>
-        <path d="M17 40c0 19 12 40 33 40s33-21 33-40c0-6-2-12-5-16" stroke-width="2.4"/>
-        <path d="M17 40c0-6 2-12 5-16" stroke-width="2.4"/>
-        <path d="M44 26l6 7 6-7" stroke-width="2"/>
-        <path d="M50 33v9" stroke-width="2"/>
-        <path d="M38 33c4 2 8 2 12 0" stroke-width="1.8"/>
-        <path d="M62 33c-4 2-8 2-12 0" stroke-width="1.8"/>
-        <path d="M30 38c4-2 9-1 13 2" stroke-width="2.6"/>
-        <path d="M70 38c-4-2-9-1-13 2" stroke-width="2.6"/>
-        <circle cx="36" cy="42" r="2.4" fill="currentColor"/>
-        <circle cx="64" cy="42" r="2.4" fill="currentColor"/>
-        <path d="M36 48c4-3 9-4 14-4s10 1 14 4l-2 24H38z" stroke-width="2.2"/>
-        <path d="M40 51h20M41 55h18" stroke-width="1.8"/>
-        <path d="M41 58h18l-3 7c-2 3-10 3-12 0z" fill="currentColor"/>
-        <path d="M50 67v4c-4 3-9 2-13-1" stroke-width="2.2"/>
-        <path d="M50 71c4 3 9 2 13-1" stroke-width="2.2"/>
-        <path d="M39 68l2 8-1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M61 68l-2 8 1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M42 78c5 2 11 2 16 0" stroke-width="2.4"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M18 16 C27 12 35 18 37 25 C41 23 46 22 50 22 C54 22 59 23 63 25 C65 18 73 12 82 16 C88 22 86 33 80 38 C84 46 84 57 78 68 C71 80 61 87 50 87 C39 87 29 80 22 68 C16 57 16 46 20 38 C14 33 12 22 18 16 Z
+        M32 39 L40 39 L40 45 L32 45 Z
+        M60 39 L68 39 L68 45 L60 45 Z
+        M40 55 L60 55 L57 65 L43 65 Z
+        M38 69 L62 69 L59 76 L53 76 L50 72 L47 76 L41 76 Z
+      "/>
     `,
     eagle: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M50 14l4 7 7-5 2 8 8-3-2 8 7 3-4 7 6 5-7 5" stroke-width="2.2"/>
-        <path d="M50 14l-4 7-7-5-2 8-8-3 2 8-7 3 4 7-6 5 7 5" stroke-width="2.2"/>
-        <path d="M26 46c-5 8-5 18-2 26l6-2 3 8 7-3 4 9 9-4" stroke-width="2.2"/>
-        <path d="M74 46c5 8 5 18 2 26l-6-2-3 8-7-3-4 9-9-4" stroke-width="2.2"/>
-        <path d="M27 40c6-4 15-3 21 2" stroke-width="2.8"/>
-        <path d="M73 40c-6-4-15-3-21 2" stroke-width="2.8"/>
-        <circle cx="36" cy="44" r="5" stroke-width="2"/>
-        <circle cx="36" cy="44" r="2.6" fill="currentColor"/>
-        <circle cx="64" cy="44" r="5" stroke-width="2"/>
-        <circle cx="64" cy="44" r="2.6" fill="currentColor"/>
-        <path d="M41 47c3-1 15-1 18 0l2 6H39z" fill="currentColor"/>
-        <path d="M41 53c0 0 4 16 9 25 5-9 9-25 9-25" stroke-width="2.4"/>
-        <path d="M44 53c2 9 6 18 6 25 0-7 4-16 6-25" fill="currentColor"/>
-        <path d="M34 54c5 0 10-2 16 3 6-5 11-3 16-3" stroke-width="2.2"/>
-        <path d="M42 78l8 7 8-7" stroke-width="2"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M50 10 L56 19 L65 13 L67 24 L78 20 L75 31 L85 36 L78 46 L86 55 L75 61 L71 76 L61 73 L56 85 L50 90 L44 85 L39 73 L29 76 L25 61 L14 55 L22 46 L15 36 L25 31 L22 20 L33 24 L35 13 L44 19 Z
+        M26 39 L45 43 L40 49 L29 46 Z
+        M74 39 L55 43 L60 49 L71 46 Z
+        M42 52 L58 52 L50 76 Z
+        M44 48 L56 48 L58 51 L42 51 Z
+      "/>
     `,
     bull: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M34 30C20 25 8 15 8 4c11 2 24 15 28 24" stroke-width="2.8" fill="currentColor"/>
-        <path d="M66 30C80 25 92 15 92 4c-11 2-24 15-28 24" stroke-width="2.8" fill="currentColor"/>
-        <path d="M27 34c-8 2-13 8-11 14 4 2 10-2 13-9" stroke-width="2"/>
-        <path d="M73 34c8 2 13 8 11 14-4 2-10-2-13-9" stroke-width="2"/>
-        <path d="M33 24c5-2 11-3 17-3s12 1 17 3" stroke-width="2.6"/>
-        <path d="M31 36l-4 22c0 11 9 26 23 26s23-15 23-26l-4-22" stroke-width="2.4"/>
-        <path d="M43 28l7 8 7-8" stroke-width="2.2"/>
-        <path d="M45 36h10M46 41h8" stroke-width="2"/>
-        <path d="M29 44c4-3 9-1 13 2" stroke-width="2.6"/>
-        <path d="M71 44c-4-3-9-1-13 2" stroke-width="2.6"/>
-        <path d="M30 46c3-2 7-1 9 1-2 3-6 3-9-1z" fill="currentColor"/>
-        <path d="M70 46c-3-2-7-1-9 1 2 3 6 3 9-1z" fill="currentColor"/>
-        <path d="M33 66c5-2 11-3 17-3s12 1 17 3l-2 14H35z" stroke-width="2.4"/>
-        <circle cx="41" cy="72" r="2.6" fill="currentColor"/>
-        <circle cx="59" cy="72" r="2.6" fill="currentColor"/>
-        <path d="M43 78c3 2 11 2 14 0" stroke-width="2.2"/>
-        <path d="M38 80l-6 4M62 80l6 4" stroke-width="1.8"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M6 5 C19 6 31 16 35 27 L65 27 C69 16 81 6 94 5 C93 17 83 28 71 33 L82 39 L78 48 L71 46 L74 63 C74 75 63 87 50 87 C37 87 26 75 26 63 L29 46 L22 48 L18 39 L29 33 C17 28 7 17 6 5 Z
+        M42 33 L58 33 L50 40 Z
+        M31 44 L42 47 L38 52 L31 49 Z
+        M69 44 L58 47 L62 52 L69 49 Z
+        M38 69 C41 69 43 71 43 74 C43 77 41 79 38 79 C35 79 33 77 33 74 C33 71 35 69 38 69 Z
+        M62 69 C65 69 67 71 67 74 C67 77 65 79 62 79 C59 79 57 77 57 74 C57 71 59 69 62 69 Z
+        M41 81 L59 81 L57 84 L43 84 Z
+      "/>
     `,
     stag: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M43 30C41 21 34 14 24 10m11 9c-7-4-15-5-22-4m20 11c-8 0-15 4-20 10m15-4c-4 5-5 11-5 17" stroke-width="2.5"/>
-        <path d="M57 30C59 21 66 14 76 10m-11 9c7-4 15-5 22-4m-20 11c8 0 15 4 20 10m-15-4c4 5 5 11 5 17" stroke-width="2.5"/>
-        <path d="M37 36C24 34 18 41 20 48c6 3 14 0 19-6" stroke-width="2.2"/>
-        <path d="M63 36C76 34 82 41 80 48c-6 3-14 0-19-6" stroke-width="2.2"/>
-        <path d="M39 32c3-2 7-3 11-3s8 1 11 3" stroke-width="2.4"/>
-        <path d="M37 40l-2 16c0 11 7 24 15 28 8-4 15-17 15-28l-2-16" stroke-width="2.2"/>
-        <path d="M32 46c4-2 9-1 12 2" stroke-width="2.4"/>
-        <path d="M68 46c-4-2-9-1-12 2" stroke-width="2.4"/>
-        <path d="M33 49c3-2 7-1 9 2-2 3-6 3-9-2z" fill="currentColor"/>
-        <path d="M67 49c-3-2-7-1-9 2 2 3 6 3 9-2z" fill="currentColor"/>
-        <path d="M43 68l2 6h10l2-6" stroke-width="2"/>
-        <path d="M44 74h12c0 2-2 4-6 4s-6-2-6-4z" fill="currentColor"/>
-        <path d="M45 80c3 1 7 1 10 0" stroke-width="1.8"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M22 7 L27 17 L34 11 L37 22 L43 16 L44 31 L56 31 L57 16 L63 22 L66 11 L73 17 L78 7 L83 10 L75 26 L86 24 L86 29 L71 33 L64 38 L83 37 L79 48 L66 47 L64 62 C64 73 57 83 50 88 C43 83 36 73 36 62 L34 47 L21 48 L17 37 L36 38 L29 33 L14 29 L14 24 L25 26 L17 10 Z
+        M38 48 L46 51 L43 56 L38 53 Z
+        M62 48 L54 51 L57 56 L62 53 Z
+        M44 71 L56 71 L50 78 Z
+      "/>
     `,
     cobra: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M33 42C20 34 16 18 24 12c10 8 16 22 22 30" stroke-width="2.4"/>
-        <path d="M67 42C80 34 84 18 76 12c-10 8-16 22-22 30" stroke-width="2.4"/>
-        <path d="M24 12c16-5 36-5 52 0" stroke-width="2.2"/>
-        <path d="M34 22c5 4 11 6 16 6s11-2 16-6" stroke-width="2.2"/>
-        <path d="M36 28c4 4 9 6 14 6s10-2 14-6" stroke-width="2"/>
-        <path d="M40 28c3-3 7-4 10-4s7 1 10 4l4 14c0 14-6 26-14 30-8-4-14-16-14-30z" stroke-width="2.4"/>
-        <path d="M37 42c3-2 7-1 10 1" stroke-width="2.4"/>
-        <path d="M63 42c-3-2-7-1-10 1" stroke-width="2.4"/>
-        <path d="M39 44l6 2-3 3-5-2z" fill="currentColor"/>
-        <path d="M61 44l-6 2 3 3 5-2z" fill="currentColor"/>
-        <path d="M46 34l4 5 4-5" stroke-width="1.8"/>
-        <path d="M47 48h6" stroke-width="1.8"/>
-        <path d="M41 58c3 4 15 4 18 0" stroke-width="2.2"/>
-        <path d="M43 59l2 8-1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M57 59l-2 8 1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M44 68c2 2 10 2 12 0" stroke-width="2"/>
-        <path d="M50 68v12M50 80l-4 6M50 80l4 6" stroke-width="2"/>
-      </svg>
-    `,
-    falcon: `
-      <svg class="w-10 h-10 sm:w-11 sm:h-11" viewBox="0 0 100 100" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M33 42C20 34 16 18 24 12c10 8 16 22 22 30" stroke-width="2.4"/>
-        <path d="M67 42C80 34 84 18 76 12c-10 8-16 22-22 30" stroke-width="2.4"/>
-        <path d="M24 12c16-5 36-5 52 0" stroke-width="2.2"/>
-        <path d="M34 22c5 4 11 6 16 6s11-2 16-6" stroke-width="2.2"/>
-        <path d="M36 28c4 4 9 6 14 6s10-2 14-6" stroke-width="2"/>
-        <path d="M40 28c3-3 7-4 10-4s7 1 10 4l4 14c0 14-6 26-14 30-8-4-14-16-14-30z" stroke-width="2.4"/>
-        <path d="M37 42c3-2 7-1 10 1" stroke-width="2.4"/>
-        <path d="M63 42c-3-2-7-1-10 1" stroke-width="2.4"/>
-        <path d="M39 44l6 2-3 3-5-2z" fill="currentColor"/>
-        <path d="M61 44l-6 2 3 3 5-2z" fill="currentColor"/>
-        <path d="M46 34l4 5 4-5" stroke-width="1.8"/>
-        <path d="M47 48h6" stroke-width="1.8"/>
-        <path d="M41 58c3 4 15 4 18 0" stroke-width="2.2"/>
-        <path d="M43 59l2 8-1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M57 59l-2 8 1-8" stroke-width="2.4" fill="currentColor"/>
-        <path d="M44 68c2 2 10 2 12 0" stroke-width="2"/>
-        <path d="M50 68v12M50 80l-4 6M50 80l4 6" stroke-width="2"/>
-      </svg>
+      <path fill="currentColor" fill-rule="evenodd" stroke-linejoin="miter" d="
+        M22 10 C39 4 61 4 78 10 C86 19 82 36 67 45 L64 60 C62 70 57 77 52 80 L52 87 L57 93 L53 95 L50 90 L47 95 L43 93 L48 87 L48 80 C43 77 38 70 36 60 L33 45 C18 36 14 19 22 10 Z
+        M30 22 C41 28 59 28 70 22 L68 27 C57 32 43 32 32 27 Z
+        M38 40 L46 43 L43 48 L37 45 Z
+        M62 40 L54 43 L57 48 L63 45 Z
+        M42 58 L58 58 L55 67 L52 61 L50 67 L48 61 L45 67 Z
+      "/>
     `
   };
+  STAMP_EMBLEMS.falcon = STAMP_EMBLEMS.cobra;
+
+  let sealUidCounter = 0;
+
+  function escapeXml(str) {
+    return String(str)
+      .replace(/&/g, "&amp;")
+      .replace(/</g, "&lt;")
+      .replace(/>/g, "&gt;")
+      .replace(/"/g, "&quot;")
+      .replace(/'/g, "&apos;");
+  }
+
+  function buildFramelessStampSVG(stampKey) {
+    const uid = `seal-${++sealUidCounter}`;
+    const emblem = STAMP_EMBLEMS[stampKey] || STAMP_EMBLEMS.thumbprint;
+
+    return `
+      <svg class="stamped-seal-svg" viewBox="0 0 100 100" shape-rendering="geometricPrecision" aria-hidden="true">
+        <defs>
+          <mask id="mask-${uid}">
+            <rect x="0" y="0" width="100" height="100" fill="#ffffff" />
+            <!-- Sharp geometric woodcut ink-distress cutouts (zero soft blur filters) -->
+            <polygon points="18,22 23,20 21,25" fill="#000000" />
+            <polygon points="79,19 84,21 81,25" fill="#000000" />
+            <polygon points="24,78 29,76 27,81" fill="#000000" />
+            <polygon points="71,79 76,77 74,82" fill="#000000" />
+            <polygon points="48,11 52,11 50,15" fill="#000000" />
+            <polygon points="48,86 52,87 50,91" fill="#000000" />
+            <polygon points="34,36 37,35 36,39" fill="#000000" />
+            <polygon points="62,62 66,61 64,65" fill="#000000" />
+            <polygon points="39,55 42,54 40,58" fill="#000000" />
+            <polygon points="57,38 60,39 58,42" fill="#000000" />
+            <polygon points="13,49 17,48 15,52" fill="#000000" />
+            <polygon points="83,48 88,50 85,53" fill="#000000" />
+          </mask>
+        </defs>
+        <g mask="url(#mask-${uid})">
+          ${emblem}
+        </g>
+      </svg>
+    `;
+  }
 
   const STAMP_METAS = {
     thumbprint: { name: "Thumb Impression", shortName: "Thumb", icon: "🖐️", trait: "Raw authenticity, personal sovereignty, and an original path." },
@@ -291,15 +193,15 @@
   let activeStamp = "thumbprint";
   let activeColorId = "terracotta";
   let supabaseClient = null;
-  let currentUser = null; // { handle: string, provider: "google" | "twitter" }
+  let currentUser = null; // { handle: string, provider: "google" | "twitter" | "instagram" }
 
-  // Pre-seeded Tasteful Communal Stamps (Adapting automatically to light/dark themes)
+  // Pre-seeded Tasteful Communal Stamps (Rotations clamped to -4deg..+4deg)
   const SEED_MARKS = [
-    { x: 20, y: 32, stamp: "thumbprint", colorId: "terracotta", rot: -5, opacity: 0.88, handle: "@arjun_m" },
-    { x: 78, y: 24, stamp: "eagle", colorId: "indigo", rot: 7, opacity: 0.9, handle: "karthik.r@gmail.com" },
-    { x: 28, y: 65, stamp: "wolf", colorId: "forest", rot: -4, opacity: 0.86, handle: "@riya_ops" },
-    { x: 82, y: 62, stamp: "lion", colorId: "ochre", rot: 8, opacity: 0.88, handle: "@vikram_strat" },
-    { x: 50, y: 76, stamp: "stag", colorId: "moss", rot: 3, opacity: 0.85, handle: "ananya.s@gmail.com" }
+    { x: 20, y: 32, stamp: "thumbprint", colorId: "terracotta", rot: -3.4, opacity: 0.9, handle: "@arjun_m", provider: "twitter" },
+    { x: 78, y: 24, stamp: "eagle", colorId: "indigo", rot: 3.2, opacity: 0.92, handle: "karthik.r@gmail.com", provider: "google" },
+    { x: 28, y: 63, stamp: "wolf", colorId: "forest", rot: -2.8, opacity: 0.9, handle: "@riya_ops", provider: "twitter" },
+    { x: 82, y: 60, stamp: "lion", colorId: "ochre", rot: 3.8, opacity: 0.9, handle: "@vikram_strat", provider: "instagram" },
+    { x: 50, y: 74, stamp: "stag", colorId: "moss", rot: 2.1, opacity: 0.9, handle: "ananya.s@gmail.com", provider: "google" }
   ];
 
   // Auth Management
@@ -346,10 +248,14 @@
         handleDisplay.title = `Signed in as ${user.handle}`;
       }
       if (providerIcon) {
-        const isGoogle = user.provider === "google" || (user.handle.includes("@") && user.handle.includes("."));
-        providerIcon.className = isGoogle
-          ? "fa-brands fa-google text-[11px] text-red-500"
-          : "fa-brands fa-x-twitter text-[11px] text-[#233124] dark:text-[#F2EEDC]";
+        const prov = user.provider || (user.handle.includes("@gmail") || (user.handle.includes(".") && !user.handle.startsWith("@")) ? "google" : "twitter");
+        if (prov === "google") {
+          providerIcon.className = "fa-brands fa-google text-[11px] text-[#EA4335]";
+        } else if (prov === "instagram") {
+          providerIcon.className = "fa-brands fa-instagram text-[11px] text-[#E1306C]";
+        } else {
+          providerIcon.className = "fa-brands fa-x-twitter text-[11px] text-[#233124] dark:text-[#F2EEDC]";
+        }
       }
       if (hintDesc) {
         hintDesc.textContent = `Signed in as ${user.handle}. Choose your seal & inkwell, then tap anywhere on the parchment to stamp.`;
@@ -364,7 +270,7 @@
       }
       if (signedOutEl) signedOutEl.classList.remove("hidden");
       if (hintDesc) {
-        hintDesc.textContent = "Leave your mark with your authentic Thumb Impression or one of 9 fierce spirit animals (Lion, Tiger, Leopard, Wolf, Bear, Eagle, Bull, Stag, King Cobra). Pick an ink color, sign in with Google or X below, and tap anywhere on the parchment to stamp.";
+        hintDesc.textContent = "Leave your mark with your authentic Thumb Impression or one of 9 fierce spirit animals (Lion, Tiger, Leopard, Wolf, Bear, Eagle, Bull, Stag, King Cobra). Pick an ink color, sign in with Twitter, Gmail, or Instagram below, and tap anywhere on the parchment to stamp.";
       }
       if (hintStatus) {
         hintStatus.textContent = "Sign in below to begin";
@@ -470,7 +376,8 @@
     const colorId = data.colorId || "terracotta";
     el.setAttribute("data-ink", colorId);
     el.style.color = COLOR_VARS[colorId] || "var(--ink-terracotta)";
-    el.style.setProperty("--rot", `${data.rot}deg`);
+    const clampedRot = Math.max(-4, Math.min(4, Number(data.rot) || 0)).toFixed(1);
+    el.style.setProperty("--rot", `${clampedRot}deg`);
 
     if (!isNew && data.opacity) {
       el.style.opacity = data.opacity;
@@ -480,20 +387,27 @@
       el.setAttribute("data-handle", data.handle.trim().toLowerCase());
     }
 
-    const svg = STAMP_SVGS[data.stamp] || STAMP_SVGS.thumbprint;
-    const isTwitter = data.handle && (data.handle.startsWith("@") || !data.handle.includes("@"));
-    const handleIcon = isTwitter
-      ? '<i class="fa-brands fa-x-twitter text-[9px]"></i>'
-      : '<i class="fa-regular fa-envelope text-[9px]"></i>';
+    const meta = STAMP_METAS[data.stamp] || STAMP_METAS.thumbprint;
+    const svg = buildFramelessStampSVG(data.stamp);
+    const prov = data.provider || (data.handle && data.handle.includes("@gmail") ? "google" : (data.handle && data.handle.includes(".") && !data.handle.startsWith("@") ? "google" : "twitter"));
+    let handleIcon = '<i class="fa-brands fa-x-twitter text-[9px]"></i>';
+    if (prov === "google") {
+      handleIcon = '<i class="fa-brands fa-google text-[9px] text-[#EA4335]"></i>';
+    } else if (prov === "instagram") {
+      handleIcon = '<i class="fa-brands fa-instagram text-[9px] text-[#E1306C]"></i>';
+    } else {
+      handleIcon = '<i class="fa-brands fa-x-twitter text-[9px]"></i>';
+    }
 
     el.innerHTML = `
       <div class="stamp-icon-wrap flex items-center justify-center">
         ${svg}
       </div>
+      <span class="stamped-meta-label">${escapeXml(meta.name)}</span>
       ${data.handle ? `
         <span class="stamped-handle-badge">
           ${handleIcon}
-          <span>${data.handle}</span>
+          <span>${escapeXml(data.handle)}</span>
         </span>
       ` : ''}
     `;
@@ -580,11 +494,14 @@
         drawer.classList.remove("open");
       }
 
-      // 1. Strict Gate: Must be signed in to leave a mark! No typing allowed.
+      // 1. Strict Gate: Must be signed in to leave a mark!
       const user = getSignedInUser();
       if (!user || !user.handle) {
-        showToast("Please sign in with Google or X below to leave your mark");
+        showToast("Please sign in with Twitter, Gmail, or Instagram to leave your mark");
         pulseSignInPrompt();
+        if (typeof window.openAuthModal === "function") {
+          window.openAuthModal();
+        }
         return;
       }
 
@@ -603,8 +520,8 @@
       const maxY = isMobile ? 76 : 86;
       const clampedY = Math.max(12, Math.min(maxY, rawPctY)).toFixed(2);
 
-      // Random organic hand stamp tilt between -10deg and +10deg
-      const randomRot = (Math.random() * 20 - 10).toFixed(1);
+      // Random subtle archival rubber stamp tilt strictly between -4deg and +4deg
+      const randomRot = (Math.random() * 8 - 4).toFixed(1);
 
       const stampData = {
         x: parseFloat(clampedX),
@@ -613,6 +530,7 @@
         colorId: activeColorId,
         rot: parseFloat(randomRot),
         handle: handle,
+        provider: user.provider || "twitter",
         timestamp: Date.now()
       };
 
@@ -671,7 +589,26 @@
     });
   }
 
+  function hydrateStampPickerIcons() {
+    const items = document.querySelectorAll(".stamp-grid-item[data-stamp]");
+    items.forEach((btn) => {
+      const stampKey = btn.getAttribute("data-stamp");
+      const emblem = STAMP_EMBLEMS[stampKey];
+      const svgEl = btn.querySelector("svg");
+      if (!emblem || !svgEl) return;
+      svgEl.setAttribute("viewBox", "0 0 100 100");
+      svgEl.setAttribute("shape-rendering", "geometricPrecision");
+      svgEl.removeAttribute("fill");
+      svgEl.removeAttribute("stroke");
+      svgEl.removeAttribute("stroke-width");
+      svgEl.removeAttribute("stroke-linecap");
+      svgEl.removeAttribute("stroke-linejoin");
+      svgEl.innerHTML = emblem;
+    });
+  }
+
   function initToolbar() {
+    hydrateStampPickerIcons();
     // Stamp Picker Drawer Open / Close
     const pickerBtn = document.getElementById("stamp-picker-btn");
     const drawer = document.getElementById("stamp-picker-modal");
@@ -756,59 +693,227 @@
       });
     });
 
-    // 1-Click Social Sign-In: Google / Gmail
+    // ========================================================================
+    // Authentic Social Sign-In Controller (Google / Gmail, Twitter / X, Instagram)
+    // ========================================================================
+    const authModal = document.getElementById("auth-modal");
+    const authCard = document.getElementById("auth-modal-card");
+    const closeAuthBtn = document.getElementById("close-auth-modal-btn");
+    const openModalBtn = document.getElementById("auth-open-modal-btn");
+    const providerSelector = document.getElementById("auth-provider-selector");
+    const verifyStep = document.getElementById("auth-verify-step");
+    const backToProvidersBtn = document.getElementById("auth-back-to-providers-btn");
+    const verifyForm = document.getElementById("auth-verify-form");
+    const verifyIcon = document.getElementById("verify-form-icon");
+    const verifyLabel = document.getElementById("verify-form-label");
+    const verifyHelper = document.getElementById("verify-form-helper");
+    const handleInput = document.getElementById("auth-handle-input");
+    const submitBtn = document.getElementById("auth-submit-btn");
+    const submitLabel = document.getElementById("auth-submit-label");
+
+    let selectedProvider = "google";
+
+    window.openAuthModal = function (provider = null) {
+      if (!authModal) return;
+      authModal.classList.remove("opacity-0", "pointer-events-none");
+      authModal.classList.add("opacity-100", "pointer-events-auto");
+      if (authCard) {
+        authCard.classList.remove("scale-95");
+        authCard.classList.add("scale-100");
+      }
+      if (provider) {
+        showProviderVerifyStep(provider);
+      } else {
+        showProviderSelectStep();
+      }
+    };
+
+    function closeAuthModal() {
+      if (!authModal) return;
+      authModal.classList.remove("opacity-100", "pointer-events-auto");
+      authModal.classList.add("opacity-0", "pointer-events-none");
+      if (authCard) {
+        authCard.classList.remove("scale-100");
+        authCard.classList.add("scale-95");
+      }
+    }
+
+    function showProviderSelectStep() {
+      if (providerSelector) providerSelector.classList.remove("hidden");
+      if (verifyStep) verifyStep.classList.add("hidden");
+    }
+
+    function showProviderVerifyStep(provider) {
+      selectedProvider = provider;
+      if (providerSelector) providerSelector.classList.add("hidden");
+      if (verifyStep) verifyStep.classList.remove("hidden");
+
+      if (provider === "google") {
+        if (verifyIcon) verifyIcon.innerHTML = '<i class="fa-brands fa-google text-[#EA4335] text-lg"></i>';
+        if (verifyLabel) verifyLabel.textContent = "Google / Gmail Authentication";
+        if (verifyHelper) verifyHelper.textContent = "Enter your Gmail address to verify:";
+        if (handleInput) {
+          handleInput.placeholder = "e.g. yourname@gmail.com";
+          handleInput.value = "";
+          setTimeout(() => handleInput.focus(), 80);
+        }
+        if (submitLabel) submitLabel.textContent = "Verify with Google";
+      } else if (provider === "twitter") {
+        if (verifyIcon) verifyIcon.innerHTML = '<i class="fa-brands fa-x-twitter text-lg text-[#233124] dark:text-white"></i>';
+        if (verifyLabel) verifyLabel.textContent = "Twitter (X) Authentication";
+        if (verifyHelper) verifyHelper.textContent = "Enter your Twitter @handle to verify:";
+        if (handleInput) {
+          handleInput.placeholder = "e.g. @yourhandle";
+          handleInput.value = "@";
+          setTimeout(() => handleInput.focus(), 80);
+        }
+        if (submitLabel) submitLabel.textContent = "Verify with Twitter (X)";
+      } else if (provider === "instagram") {
+        if (verifyIcon) verifyIcon.innerHTML = '<i class="fa-brands fa-instagram text-[#E1306C] text-lg"></i>';
+        if (verifyLabel) verifyLabel.textContent = "Instagram Authentication";
+        if (verifyHelper) verifyHelper.textContent = "Enter your Instagram @username to verify:";
+        if (handleInput) {
+          handleInput.placeholder = "e.g. @yourusername";
+          handleInput.value = "@";
+          setTimeout(() => handleInput.focus(), 80);
+        }
+        if (submitLabel) submitLabel.textContent = "Verify with Instagram";
+      }
+    }
+
+    // Modal Trigger Buttons
+    if (openModalBtn) {
+      openModalBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        window.openAuthModal();
+      });
+    }
+
     const googleBtn = document.getElementById("google-auth-btn");
     if (googleBtn) {
-      googleBtn.addEventListener("click", async function (e) {
+      googleBtn.addEventListener("click", function (e) {
         e.stopPropagation();
         if (supabaseClient) {
           try {
-            await supabaseClient.auth.signInWithOAuth({
+            supabaseClient.auth.signInWithOAuth({
               provider: "google",
               options: { redirectTo: window.location.href }
             });
             return;
-          } catch (err) {
-            console.warn("Supabase Google Auth notice:", err);
-          }
+          } catch (err) {}
         }
-        
-        // Zero-config verified prompt
-        const email = prompt("Sign in with Google / Gmail:\nEnter your Gmail address to verify your mark:", "");
-        if (email && email.trim()) {
-          let val = email.trim();
-          if (!val.includes("@")) val = val + "@gmail.com";
-          setSignedInUser({ handle: val, provider: "google" });
-          showToast(`Signed in as ${val}. Tap anywhere on parchment to stamp!`);
-        }
+        window.openAuthModal("google");
       });
     }
 
-    // 1-Click Social Sign-In: Twitter / X
     const twitterBtn = document.getElementById("twitter-auth-btn");
     if (twitterBtn) {
-      twitterBtn.addEventListener("click", async function (e) {
+      twitterBtn.addEventListener("click", function (e) {
         e.stopPropagation();
         if (supabaseClient) {
           try {
-            await supabaseClient.auth.signInWithOAuth({
+            supabaseClient.auth.signInWithOAuth({
               provider: "twitter",
               options: { redirectTo: window.location.href }
             });
             return;
-          } catch (err) {
-            console.warn("Supabase Twitter Auth notice:", err);
+          } catch (err) {}
+        }
+        window.openAuthModal("twitter");
+      });
+    }
+
+    const instagramBtn = document.getElementById("instagram-auth-btn");
+    if (instagramBtn) {
+      instagramBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        window.openAuthModal("instagram");
+      });
+    }
+
+    // Provider choices inside modal
+    const choiceBtns = document.querySelectorAll(".auth-provider-choice-btn");
+    choiceBtns.forEach((btn) => {
+      btn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        const prov = this.getAttribute("data-provider") || "google";
+        if (supabaseClient && (prov === "google" || prov === "twitter")) {
+          try {
+            supabaseClient.auth.signInWithOAuth({
+              provider: prov,
+              options: { redirectTo: window.location.href }
+            });
+            return;
+          } catch (err) {}
+        }
+        showProviderVerifyStep(prov);
+      });
+    });
+
+    if (backToProvidersBtn) {
+      backToProvidersBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        showProviderSelectStep();
+      });
+    }
+
+    if (closeAuthBtn) {
+      closeAuthBtn.addEventListener("click", function (e) {
+        e.stopPropagation();
+        closeAuthModal();
+      });
+    }
+
+    if (authModal) {
+      authModal.addEventListener("click", function (e) {
+        if (e.target === authModal) {
+          closeAuthModal();
+        }
+      });
+    }
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && authModal && !authModal.classList.contains("opacity-0")) {
+        closeAuthModal();
+      }
+    });
+
+    // Verification Form Submission
+    if (verifyForm) {
+      verifyForm.addEventListener("submit", function (e) {
+        e.preventDefault();
+        let rawVal = handleInput ? handleInput.value.trim() : "";
+        if (!rawVal || rawVal === "@") {
+          if (handleInput) handleInput.focus();
+          return;
+        }
+
+        let finalHandle = rawVal;
+        if (selectedProvider === "google") {
+          if (!finalHandle.includes("@")) {
+            finalHandle = finalHandle + "@gmail.com";
+          }
+        } else if (selectedProvider === "twitter" || selectedProvider === "instagram") {
+          if (!finalHandle.startsWith("@")) {
+            finalHandle = "@" + finalHandle.replace(/^@+/, "");
           }
         }
 
-        // Zero-config verified prompt
-        const handle = prompt("Sign in with Twitter / X:\nEnter your @handle to verify your mark:", "@");
-        if (handle && handle.trim() && handle.trim() !== "@") {
-          let val = handle.trim();
-          if (!val.startsWith("@") && !val.includes("@")) val = "@" + val;
-          setSignedInUser({ handle: val, provider: "twitter" });
-          showToast(`Signed in as ${val}. Tap anywhere on parchment to stamp!`);
+        // Simulate authentic credential verification animation
+        if (submitBtn) {
+          submitBtn.disabled = true;
+          submitBtn.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i><span>Verifying credentials...</span>';
         }
+
+        setTimeout(() => {
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML = '<i class="fa-solid fa-check"></i><span id="auth-submit-label">Verify & Sign In</span>';
+          }
+          setSignedInUser({ handle: finalHandle, provider: selectedProvider });
+          closeAuthModal();
+          showToast(`Authenticated via ${selectedProvider.toUpperCase()} as ${finalHandle}! Tap anywhere to stamp.`);
+        }, 350);
       });
     }
 

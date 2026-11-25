@@ -93,31 +93,174 @@
        Distant Painted Peaks + Multi-Altitude Drifting Clouds + Woodland Foothills
        ======================================================================== -->
   <div class="mountain-horizon" aria-hidden="true">
-    <!-- Layer 1: Distant Mountain Range -->
-    <div class="mountain-layer mountain-distant"></div>
-
-    <!-- Layer 2: High Cloud Drift (Drifting across mountain peaks) -->
+    <!-- Painted Cumulus & Mist Clouds (matching the soft painted sky aesthetic at the top) -->
     <div class="cloud-drift-track cloud-track-high">
       <div class="cloud-band cloud-band-cumulus"></div>
       <div class="cloud-band cloud-band-cumulus"></div>
     </div>
-
-    <!-- Layer 3: Mid-Mountain Hills & Valleys -->
-    <div class="mountain-layer mountain-mid"></div>
-
-    <!-- Layer 4: Valley Mist & Flowing Clouds (Weaving between peaks and foothills) -->
     <div class="cloud-drift-track cloud-track-mid">
       <div class="cloud-band cloud-band-mist"></div>
       <div class="cloud-band cloud-band-mist"></div>
     </div>
 
-    <!-- Layer 5: Foreground Woodland / Pine Base -->
-    <div class="mountain-layer mountain-woodland"></div>
+    <!-- Full-Screen Edge-to-Edge Alpine Landscape (1440x260, Central Saddle x=560..880) -->
+    <div class="mountain-layer mountain-alpine-scene">
+      <svg class="alpine-meadow-horizon-svg w-full h-full block" viewBox="0 0 1440 260" preserveAspectRatio="xMidYMax slice" shape-rendering="geometricPrecision" aria-hidden="true">
+        <defs>
+          <!-- Soft edge filter for sun disc -->
+          <filter id="sun-soft-edge" x="-25%" y="-25%" width="150%" height="150%">
+            <feGaussianBlur stdDeviation="1.4" />
+          </filter>
 
-    <!-- Layer 6: Ambient Ground Fog Veil -->
-    <div class="cloud-drift-track cloud-track-low">
-      <div class="cloud-band cloud-band-fog"></div>
-      <div class="cloud-band cloud-band-fog"></div>
+          <!-- Light Mode (Sunrise): Sunlit apricot halo (#FDE68A at 48% center opacity, 0% well below top) -->
+          <radialGradient id="sunrise-glow-grad"
+            cx="720" cy="200" r="220"
+            gradientUnits="userSpaceOnUse"
+            gradientTransform="translate(720 200) scale(2.8 0.92) translate(-720 -200)">
+            <stop offset="0%"   stop-color="#FDE68A" stop-opacity="0.48" />
+            <stop offset="48%"  stop-color="#FDE68A" stop-opacity="0.18" />
+            <stop offset="100%" stop-color="#FDE68A" stop-opacity="0" />
+          </radialGradient>
+
+          <!-- Dark Mode (Sunset): Warm amber-terracotta horizon glow (#FB923C at 48% center opacity, 0% well below top) -->
+          <radialGradient id="sunset-glow-grad"
+            cx="720" cy="208" r="225"
+            gradientUnits="userSpaceOnUse"
+            gradientTransform="translate(720 208) scale(2.8 0.90) translate(-720 -208)">
+            <stop offset="0%"   stop-color="#FB923C" stop-opacity="0.48" />
+            <stop offset="46%"  stop-color="#FB923C" stop-opacity="0.16" />
+            <stop offset="100%" stop-color="#FB923C" stop-opacity="0" />
+          </radialGradient>
+        </defs>
+
+        <!-- 1. Sky is 100% transparent — page parchment / olive-charcoal flows seamlessly -->
+
+        <!-- 2. Wide Diffused Sunrise / Sunset Glow -->
+        <rect id="sunrise-glow" x="0" y="0" width="1440" height="260" fill="url(#sunrise-glow-grad)" />
+        <rect id="sunset-glow" x="0" y="0" width="1440" height="260" fill="url(#sunset-glow-grad)" />
+
+        <!-- 3. Prominent Sun Disc behind the Central Pass (x=720, r=34) -->
+        <g id="layer-saddle-sun">
+          <circle id="horizon-sun-disc" cx="720" cy="94" r="34" filter="url(#sun-soft-edge)" />
+        </g>
+
+        <!-- 4. Distant Edge-to-Edge Continuous Alpine Ridge Layer (x=0..1440) -->
+        <path id="ridge-distant" class="ink-ridge-distant"
+          d="M0 260 L0 102 L55 78 L128 112 L195 66 L268 104 L335 58 L412 106 L478 74 L548 104 L610 82 L668 102 L720 96 L776 100 L835 78 L898 102 L958 64 L1035 108 L1115 68 L1196 110 L1274 62 L1358 102 L1418 76 L1440 88 L1440 260 Z" />
+
+        <!-- 5. Mid Edge-to-Edge Continuous Mountain Chain (No wide center gap) -->
+        <path id="ridge-mid" class="ink-ridge-mid"
+          d="M0 260 L0 112 L70 68 L142 114 L210 54 L286 108 L360 46 L432 98 L495 64 L560 98 L632 72 L684 102 L720 106 L758 100 L808 70 L880 96 L985 40 L1068 106 L1140 62 L1212 108 L1285 52 L1354 96 L1405 66 L1440 84 L1440 260 Z" />
+
+        <!-- 6. Crisp Shadow Rock Facets on All Major & Central Peaks (#262C27) -->
+        <g id="layer-rock-shadows" class="rock-facet-shadow">
+          <!-- Left Himalayan massif shadow faces -->
+          <polygon points="70,68 142,114 114,148 70,132" />
+          <polygon points="210,54 286,108 248,150 210,136" />
+          <polygon points="360,46 432,98 398,154 360,138" />
+          <polygon points="495,64 560,98 532,146 495,134" />
+          <!-- Connected central range shadow faces -->
+          <polygon points="632,72 684,102 662,144 632,132" />
+          <polygon points="808,70 880,96 848,144 808,132" />
+          <!-- Right Swiss Alpine spire & secondary peak shadow faces -->
+          <polygon points="985,40 1068,106 1028,156 985,144" />
+          <polygon points="1140,62 1212,108 1178,158 1140,142" />
+          <polygon points="1285,52 1354,96 1318,154 1285,138" />
+          <polygon points="1405,66 1440,84 1440,144 1405,132" />
+        </g>
+
+        <!-- 7. Foreground Edge-to-Edge Mountain Shoulders (Connected through Center) -->
+        <path id="ridge-foreground" class="ink-ridge-foreground"
+          d="M0 260 L0 148 L88 114 L172 152 L252 108 L334 150 L418 104 L506 142 L592 118 L668 138 L720 132 L776 138 L860 116 L948 112 L1036 154 L1124 116 L1214 156 L1304 110 L1388 148 L1440 128 L1440 260 Z" />
+
+        <!-- 8. Sculpted Jagged Snow Caps across Full Width (including Central Peaks) -->
+        <g id="layer-snow-ridges">
+          <!-- Peak 1 (x=70, y=68) -->
+          <polygon class="snow-ridge-highlight" points="70,68 38,88 52,92 60,104 70,96" />
+          <polygon class="snow-ridge-shadow"    points="70,68 70,96 84,104 92,92 106,91" />
+          <!-- Peak 2 (x=210, y=54) -->
+          <polygon class="snow-ridge-highlight" points="210,54 170,84 186,88 196,102 210,92" />
+          <polygon class="snow-ridge-shadow"    points="210,54 210,92 224,104 234,90 250,84" />
+          <!-- Peak 3 (x=360, y=46) -->
+          <polygon class="snow-ridge-highlight" points="360,46 316,82 332,86 344,100 360,88" />
+          <polygon class="snow-ridge-shadow"    points="360,46 360,88 376,102 388,86 404,80" />
+          <!-- Peak 4 (x=495, y=64) -->
+          <polygon class="snow-ridge-highlight" points="495,64 462,88 476,92 484,104 495,94" />
+          <polygon class="snow-ridge-shadow"    points="495,64 495,94 508,104 518,94 530,98" />
+          <!-- Central-Left Peak (x=632, y=72) -->
+          <polygon class="snow-ridge-highlight" points="632,72 602,90 614,93 622,102 632,94" />
+          <polygon class="snow-ridge-shadow"    points="632,72 632,94 644,102 652,92 664,90" />
+          <!-- Central-Right Peak (x=808, y=70) -->
+          <polygon class="snow-ridge-highlight" points="808,70 778,89 790,92 798,101 808,93" />
+          <polygon class="snow-ridge-shadow"    points="808,70 808,93 820,101 828,90 842,88" />
+          <!-- Peak 5: Swiss Alpine Spire (x=985, y=40) -->
+          <polygon class="snow-ridge-highlight" points="985,40 946,74 962,78 972,94 985,82" />
+          <polygon class="snow-ridge-shadow"    points="985,40 985,82 1000,96 1012,82 1028,74" />
+          <!-- Peak 6 (x=1140, y=62) -->
+          <polygon class="snow-ridge-highlight" points="1140,62 1106,86 1120,90 1128,102 1140,92" />
+          <polygon class="snow-ridge-shadow"    points="1140,62 1140,92 1154,102 1164,90 1178,86" />
+          <!-- Peak 7 (x=1285, y=52) -->
+          <polygon class="snow-ridge-highlight" points="1285,52 1246,82 1262,86 1272,98 1285,88" />
+          <polygon class="snow-ridge-shadow"    points="1285,52 1285,88 1300,100 1312,86 1326,80" />
+          <!-- Peak 8 (x=1405, y=66) -->
+          <polygon class="snow-ridge-highlight" points="1405,66 1378,86 1390,90 1396,98 1405,92" />
+          <polygon class="snow-ridge-shadow"    points="1405,66 1405,92 1418,98 1428,88 1440,84" />
+        </g>
+
+        <!-- 9. Preserved V-Wing Birds (flying above connected central saddle) -->
+        <g id="layer-birds" class="ink-birds-drift">
+          <path class="bird-v" d="M652 92 Q656 88 660 92 Q664 88 668 92" />
+          <path class="bird-v" d="M694 82 Q697 78 700 82 Q703 78 706 82" />
+          <path class="bird-v" d="M744 88 Q747 84 750 88 Q753 84 756 88" />
+        </g>
+
+        <!-- 11. Preserved Back Meadow Ridge with Pine Conifers & Walking Trekker (x ≈ 620) -->
+        <g id="layer-meadow-back" class="ink-meadow-back">
+          <path d="M0 260 V218 C140 210 290 222 452 212 C545 205 590 203 626 203 C668 203 710 214 766 218 C836 223 898 208 980 210 C1128 215 1280 222 1440 215 V260 Z" />
+          <path d="
+            M108 222 L115 202 L122 222 M110 212 L115 196 L120 212
+            M272 220 L280 196 L288 220 M274 208 L280 190 L286 208
+            M516 208 L522 188 L528 208 M518 198 L522 182 L526 198
+            M530 206 L536 190 L542 206
+            M884 214 L891 192 L898 214 M886 203 L891 186 L896 203
+            M904 212 L910 188 L916 212 M906 201 L910 182 L914 201
+            M1140 216 L1148 194 L1156 216 M1142 205 L1148 188 L1154 205
+            M1294 220 L1302 196 L1310 220 M1296 209 L1302 190 L1308 209
+          " />
+          <g id="alpine-trekker" class="alpine-trekker-walker">
+            <circle cx="620" cy="183" r="2.2" />
+            <path d="M618.5 185 L622 185.6 L621.2 193 L618.2 192.5 Z" />
+            <path d="M618 192.5 L615.5 201 L617.3 201 L619.5 194 L622.2 201 L624 201 L621.2 192.5 Z" />
+            <line x1="622" y1="186" x2="626.5" y2="201" stroke-width="1.2" stroke-linecap="round" />
+          </g>
+        </g>
+
+        <!-- 12. Preserved Foreground Meadow Silhouette — deepest ink, bottom edge anchor -->
+        <g id="layer-meadow-foreground" class="ink-meadow-foreground">
+          <path d="M0 260 V232 C142 224 288 234 448 227 C562 221 660 230 758 224 C862 217 978 230 1130 224 C1264 218 1364 230 1440 225 V260 Z" />
+          <path d="
+            M40 234 L47 214 L54 234 M43 224 L47 208 L51 224
+            M374 230 L382 208 L390 230 M376 220 L382 202 L388 220
+            M1030 228 L1038 206 L1046 228 M1032 217 L1038 200 L1044 217
+            M1364 230 L1372 208 L1380 230 M1366 219 L1372 202 L1378 219
+            M508 232 L511 220 L514 232 M518 232 L521 218 L524 232 M560 230 L563 218 L566 230
+            M636 230 L639 218 L642 230 M692 232 L695 218 L698 232 M756 228 L759 217 L762 228
+            M824 228 L827 217 L830 228 M874 228 L877 217 L880 228 M926 230 L929 218 L932 230
+          " />
+          <g class="meadow-sway-cluster meadow-sway-1">
+            <path d="M214 234 L211 215 L217 234 M220 234 L223 210 L226 234 M229 234 L234 217 L237 234 Z" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-2">
+            <path d="M578 228 L575 210 L580 228 M583 228 L586 205 L589 228 M593 228 L598 212 L601 228 Z" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-3">
+            <path d="M792 226 L789 208 L794 226 M797 226 L800 203 L803 226 M807 226 L812 210 L815 226 Z" />
+          </g>
+          <g class="meadow-sway-cluster meadow-sway-4">
+            <path d="M1210 228 L1207 210 L1212 228 M1215 228 L1218 205 L1221 228 M1224 228 L1229 212 L1232 228 Z" />
+          </g>
+        </g>
+      </svg>
     </div>
   </div>
 
@@ -170,11 +313,41 @@
         <p class="max-w-xl mx-auto font-serif text-sm sm:text-base md:text-lg text-[#4C5848] dark:text-[#E2DECD] leading-relaxed px-2 sm:px-0">
           Supply chain consultant at <strong class="text-[#233124] dark:text-[#F2EEDC] font-semibold">Genpact</strong> delivering multi-million-dollar transformations for Fortune 500 energy and aerospace leaders, and an <strong class="text-[#233124] dark:text-[#F2EEDC] font-semibold">IIM Sirmaur MBA</strong> with a <strong class="text-[#75482E] dark:text-[#d89667] font-semibold">GMAT 760 (Top 1% globally)</strong>. Beyond operations, I explore high-altitude trails, fund rural girl-child education, run distance mileage on Strava, and write on strategy.
         </p>
+
+        <!-- Refined 3-Column Parchment Metric Strip -->
+        <div class="hero-metric-strip max-w-2xl mx-auto grid grid-cols-1 sm:grid-cols-3 rounded-2xl border border-[#829078]/35 dark:border-[#A4B39E]/25 bg-[#FAF8F1]/85 dark:bg-[#16211A]/85 backdrop-blur-md divide-y sm:divide-y-0 sm:divide-x divide-[#829078]/25 dark:divide-[#A4B39E]/20 shadow-sm overflow-hidden" role="region" aria-label="Key Career & Academic Highlights">
+          <div class="px-4 py-3 sm:py-3.5 text-center transition-colors hover:bg-[#FAF8F1] dark:hover:bg-[#1C2B22]/90">
+            <div class="font-mono text-base sm:text-lg font-semibold tracking-tight text-[#75482E] dark:text-[#d89667]">
+              $30M+ / yr
+            </div>
+            <div class="font-serif text-xs sm:text-[13px] text-[#4C5848] dark:text-[#E2DECD] mt-0.5">
+              Audited Supply Chain Savings
+            </div>
+          </div>
+
+          <div class="px-4 py-3 sm:py-3.5 text-center transition-colors hover:bg-[#FAF8F1] dark:hover:bg-[#1C2B22]/90">
+            <div class="font-mono text-base sm:text-lg font-semibold tracking-tight text-[#75482E] dark:text-[#d89667]">
+              GMAT 760
+            </div>
+            <div class="font-serif text-xs sm:text-[13px] text-[#4C5848] dark:text-[#E2DECD] mt-0.5">
+              99th Percentile · IIM Sirmaur MBA
+            </div>
+          </div>
+
+          <div class="px-4 py-3 sm:py-3.5 text-center transition-colors hover:bg-[#FAF8F1] dark:hover:bg-[#1C2B22]/90">
+            <div class="font-mono text-base sm:text-lg font-semibold tracking-tight text-[#75482E] dark:text-[#d89667]">
+              12 &rarr; 3 Wks
+            </div>
+            <div class="font-serif text-xs sm:text-[13px] text-[#4C5848] dark:text-[#E2DECD] mt-0.5">
+              75% Cycle Time Compression
+            </div>
+          </div>
+        </div>
       </div>
 
       <!-- Line of Archival Folders (Desktop PC File Explorer Interaction) -->
       <div class="space-y-2.5">
-        <div class="grid grid-cols-2 sm:grid-cols-5 gap-3 sm:gap-4 max-w-3xl mx-auto pt-1">
+        <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-6 gap-3 sm:gap-4 max-w-4xl mx-auto pt-1">
           
           <!-- Folder 1: Professional Experience -->
           <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="professional" onclick="openFolder('professional')" title="Open Professional Experience">
@@ -233,7 +406,7 @@
           </button>
 
           <!-- Folder 5: Travel (Treks & Vacations) -->
-          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors col-span-2 sm:col-span-1" data-folder="travel" onclick="openFolder('travel')" title="Open Travel & Expeditions">
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="travel" onclick="openFolder('travel')" title="Open Travel & Expeditions">
             <div class="folder-graphic">
               <div class="folder-tab-top"></div>
               <div class="folder-back"></div>
@@ -246,13 +419,24 @@
             <div class="folder-title">travel</div>
           </button>
 
+          <!-- Folder 6: The Mountain Ascent (Milestones Trail) -->
+          <button type="button" class="folder-container p-2.5 rounded-2xl hover:bg-[#FAF8F1]/60 dark:hover:bg-white/5 transition-colors" data-folder="ascent" onclick="openFolder('ascent')" title="Open The Mountain Ascent & Milestones">
+            <div class="folder-graphic">
+              <div class="folder-tab-top"></div>
+              <div class="folder-back"></div>
+              <div class="folder-paper paper-2"></div>
+              <div class="folder-paper paper-1"></div>
+              <div class="folder-front">
+                <i class="fa-solid fa-mountain folder-front-icon"></i>
+              </div>
+            </div>
+            <div class="folder-title">ascent</div>
+          </button>
+
         </div>
 
-        <!-- "Leave Your Mark" Section (Mentioning fingerprint or spirit animal seals) -->
-        <div class="flex flex-col sm:flex-row items-center sm:justify-end gap-2 max-w-3xl mx-auto pt-3 sm:pt-4">
-          <span class="text-[11px] font-serif italic text-[#4C5848] dark:text-[#A4B39E] text-center sm:text-right">
-            Leave your mark with your thumb impression or spirit animal face
-          </span>
+        <!-- "Leave Your Mark" Button -->
+        <div class="flex items-center justify-center sm:justify-end max-w-4xl mx-auto pt-3 sm:pt-4">
           <a id="open-mark-btn" href="mark.html" class="group inline-flex items-center gap-2 px-4 py-2 sm:px-3.5 sm:py-1.5 rounded-full text-xs font-serif bg-[#FAF8F1]/90 dark:bg-[#121A15]/90 border border-[#829078]/40 hover:border-[#75482E] dark:hover:border-[#d89667] text-[#233124] dark:text-[#F2EEDC] hover:text-[#75482E] dark:hover:text-[#d89667] transition-all shadow-sm hover:shadow-md cursor-pointer active:scale-95 shrink-0" title="Leave your mark with a fingerprint or spirit animal rubber stamp">
             <span class="w-2 h-2 rounded-full bg-[#75482E] dark:bg-[#d89667] group-hover:scale-125 transition-transform animate-pulse"></span>
             <i class="fa-solid fa-fingerprint text-[#75482E] dark:text-[#d89667] text-sm"></i>
@@ -265,7 +449,8 @@
     </div>
 
     <!-- Bottom of the Page: Clean Row of Social Icons + Minimal Footer -->
-    <footer class="editorial-footer pt-6 pb-2 px-4 rounded-3xl border border-[#829078]/25 space-y-3.5 text-center mt-6">
+    <!-- Bottom of the Page: Clean Row of Social Icons + Minimal Footer (Upper Sky Zone above Meadow Horizon) -->
+    <footer class="editorial-footer pt-5 pb-4 px-4 mb-40 sm:mb-44 rounded-3xl border border-[#829078]/25 space-y-3.5 text-center mt-6">
       
       <!-- Icons Row (Just the icons as requested!) -->
       <div class="flex items-center justify-center flex-wrap gap-3 sm:gap-4">
@@ -358,6 +543,7 @@
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">Life Away From Work</button>
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="writings" onclick="openFolder('writings')">Articles</button>
             <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="travel" onclick="openFolder('travel')">Travel</button>
+            <button type="button" class="dossier-nav-tab px-2.5 py-1 rounded-lg transition-colors cursor-pointer" data-folder="ascent" onclick="openFolder('ascent')">Ascent</button>
           </div>
 
           <!-- View Full CV button -->
@@ -382,15 +568,16 @@
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="extracurriculars" onclick="openFolder('extracurriculars')">03 Life Away</button>
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="writings" onclick="openFolder('writings')">04 Articles</button>
         <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="travel" onclick="openFolder('travel')">05 Travel</button>
+        <button type="button" class="dossier-nav-tab px-2 py-0.5 rounded-md whitespace-nowrap" data-folder="ascent" onclick="openFolder('ascent')">06 Ascent</button>
       </div>
 
       <!-- Scrollable Dossier Content Area -->
-      <div id="dossier-scroll-area" class="p-4 sm:p-6 md:p-8 overflow-y-auto space-y-6">
+      <div id="dossier-scroll-area" class="overflow-y-auto">
         
         <!-- ==================================================================
              FOLDER 1: Professional Experience
              ================================================================== -->
-        <div id="folder-content-professional" class="space-y-6">
+        <div id="folder-content-professional" class="p-4 sm:p-6 md:p-8 space-y-6">
           
           <!-- Genpact Leadership Banner -->
           <div class="p-5 sm:p-6 rounded-2xl bg-[#F2EEDC] dark:bg-[#16211A] border border-[#829078]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -413,75 +600,171 @@
             </button>
           </div>
 
-          <!-- 4 Quantified Impact Bento Cards -->
-          <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <!-- 4 Quantified Impact Bento Cards (Expandable: Challenge -> Methodology -> Impact) -->
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 items-start">
             
             <!-- Card 1: Cycle Time Compression -->
-            <div class="spotlight-card p-5 sm:p-6 space-y-3">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">Q1-2024 Best Project</span>
-                <span class="text-[#4C5848] dark:text-[#A4B39E]">Chemical Division ($400M)</span>
+            <div class="spotlight-card exp-spotlight-card">
+              <button type="button" class="exp-card-trigger w-full text-left p-5 sm:p-6 space-y-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]" aria-expanded="false" aria-controls="exp-detail-1">
+                <div class="flex items-center justify-between gap-2 text-xs font-mono">
+                  <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">Q1-2024 Best Project</span>
+                  <span class="text-[#4C5848] dark:text-[#A4B39E]">Chemical Division ($400M)</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
+                  12 &rarr; 3 Weeks
+                </div>
+                <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
+                  75% Order Cycle Time Compression • +20-30% OTIF
+                </div>
+                <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Spearheaded cycle time optimization across North America for orders worth ~$600M. Synchronized parts planning and CXO fulfillment, capturing ~$10M/year recurring client savings.
+                </p>
+                <div class="pt-1 flex items-center justify-between text-[11px] font-mono text-[#75482E] dark:text-[#d89667]">
+                  <span class="exp-card-toggle-label">Challenge → Methodology → Impact</span>
+                  <i class="fa-solid fa-chevron-down exp-card-chevron text-[10px]"></i>
+                </div>
+              </button>
+              <div id="exp-detail-1" class="exp-card-collapse" aria-hidden="true">
+                <div class="exp-card-collapse-inner">
+                  <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#829078]/25 space-y-2.5 text-xs font-serif text-[#4C5848] dark:text-[#E2DECD]">
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Challenge</span>
+                      12-week North America order turnaround across a ~$600M portfolio with fragmented regional parts handoffs.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Methodology</span>
+                      Synchronized multi-site parts planning, bottleneck triage, and executive CXO fulfillment governance.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Impact</span>
+                      Compressed lead time by 75% (12 &rarr; 3 weeks), lifted OTIF by 20–30%, captured ~$10M/yr savings, and won Best Project (Q1-2024) + Genpact Bronze Medal.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
-                12 &rarr; 3 Weeks
-              </div>
-              <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
-                75% Order Cycle Time Compression • +20-30% OTIF
-              </div>
-              <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Spearheaded cycle time optimization across North America for orders worth ~$600M. Synchronized parts planning and CXO fulfillment, capturing ~$10M/year recurring client savings.
-              </p>
             </div>
 
             <!-- Card 2: PCP Predictive Cost Model -->
-            <div class="spotlight-card p-5 sm:p-6 space-y-3">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="px-2 py-0.5 rounded bg-[#75482E]/15 text-[#75482E] dark:text-[#d89667] font-semibold">Proprietary IP</span>
-                <span class="text-[#4C5848] dark:text-[#A4B39E]">Wirelines Division ($250M)</span>
+            <div class="spotlight-card exp-spotlight-card">
+              <button type="button" class="exp-card-trigger w-full text-left p-5 sm:p-6 space-y-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]" aria-expanded="false" aria-controls="exp-detail-2">
+                <div class="flex items-center justify-between gap-2 text-xs font-mono">
+                  <span class="px-2 py-0.5 rounded bg-[#75482E]/15 text-[#75482E] dark:text-[#d89667] font-semibold">Proprietary IP</span>
+                  <span class="text-[#4C5848] dark:text-[#A4B39E]">Wirelines Division ($250M)</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
+                  ~$10M/annum
+                </div>
+                <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
+                  Direct Raw Material Procurement Savings
+                </div>
+                <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Engineered the <strong>Product Cost Pacing (PCP)</strong> predictive model in 90 days. Enabled procurement leaders to acquire materials ahead of market inflation spikes; adopted globally.
+                </p>
+                <div class="pt-1 flex items-center justify-between text-[11px] font-mono text-[#75482E] dark:text-[#d89667]">
+                  <span class="exp-card-toggle-label">Challenge → Methodology → Impact</span>
+                  <i class="fa-solid fa-chevron-down exp-card-chevron text-[10px]"></i>
+                </div>
+              </button>
+              <div id="exp-detail-2" class="exp-card-collapse" aria-hidden="true">
+                <div class="exp-card-collapse-inner">
+                  <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#829078]/25 space-y-2.5 text-xs font-serif text-[#4C5848] dark:text-[#E2DECD]">
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Challenge</span>
+                      Reactive raw-material buying exposed the $250M Wirelines unit to abrupt commodity inflation spikes.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Methodology</span>
+                      Built the Product Cost Pacing (PCP) predictive timing model in 90 days to align bulk buys ahead of price swings.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Impact</span>
+                      Delivered ~$10M/annum in direct procurement savings, scaled globally across units, and won $3M/yr in new Genpact revenue.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
-                ~$10M/annum
-              </div>
-              <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
-                Direct Raw Material Procurement Savings
-              </div>
-              <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Engineered the <strong>Product Cost Pacing (PCP)</strong> predictive model in 90 days. Enabled procurement leaders to acquire materials ahead of market inflation spikes; adopted globally.
-              </p>
             </div>
 
             <!-- Card 3: Circular ESG Sourcing -->
-            <div class="spotlight-card p-5 sm:p-6 space-y-3">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">Mission 2030</span>
-                <span class="text-[#4C5848] dark:text-[#A4B39E]">Pump Division ($1.2B)</span>
+            <div class="spotlight-card exp-spotlight-card">
+              <button type="button" class="exp-card-trigger w-full text-left p-5 sm:p-6 space-y-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]" aria-expanded="false" aria-controls="exp-detail-3">
+                <div class="flex items-center justify-between gap-2 text-xs font-mono">
+                  <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">Mission 2030</span>
+                  <span class="text-[#4C5848] dark:text-[#A4B39E]">Pump Division ($1.2B)</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
+                  ~$2M/yr Saved
+                </div>
+                <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
+                  Circular Economy Reclaimed Parts Strategy
+                </div>
+                <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Pioneered circular sourcing of certified reclaimed components over new virgin materials in high-wear oilfield pumps, slashing CO2 emissions while authoring executive ESG playbooks.
+                </p>
+                <div class="pt-1 flex items-center justify-between text-[11px] font-mono text-[#75482E] dark:text-[#d89667]">
+                  <span class="exp-card-toggle-label">Challenge → Methodology → Impact</span>
+                  <i class="fa-solid fa-chevron-down exp-card-chevron text-[10px]"></i>
+                </div>
+              </button>
+              <div id="exp-detail-3" class="exp-card-collapse" aria-hidden="true">
+                <div class="exp-card-collapse-inner">
+                  <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#829078]/25 space-y-2.5 text-xs font-serif text-[#4C5848] dark:text-[#E2DECD]">
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Challenge</span>
+                      High-wear oilfield pump replacements relied exclusively on costly virgin materials, driving spend and landfill waste.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Methodology</span>
+                      Qualified circular sourcing of certified reclaimed parts and authored executive ESG deployment playbooks.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Impact</span>
+                      Saved ~$2M/yr in North America (plus ~$500K via global strategic sourcing), advancing Mission 2030 zero-waste-to-landfill targets.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
-                ~$2M/yr Saved
-              </div>
-              <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
-                Circular Economy Reclaimed Parts Strategy
-              </div>
-              <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Pioneered circular sourcing of certified reclaimed components over new virgin materials in high-wear oilfield pumps, slashing CO2 emissions while authoring executive ESG playbooks.
-              </p>
             </div>
 
             <!-- Card 4: Inventory Digitalization -->
-            <div class="spotlight-card p-5 sm:p-6 space-y-3">
-              <div class="flex items-center justify-between text-xs font-mono">
-                <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">5,000 Man-Hours</span>
-                <span class="text-[#4C5848] dark:text-[#A4B39E]">Power BI Governance</span>
+            <div class="spotlight-card exp-spotlight-card">
+              <button type="button" class="exp-card-trigger w-full text-left p-5 sm:p-6 space-y-3 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]" aria-expanded="false" aria-controls="exp-detail-4">
+                <div class="flex items-center justify-between gap-2 text-xs font-mono">
+                  <span class="px-2 py-0.5 rounded bg-[#829078]/20 text-[#233124] dark:text-[#F2EEDC] font-semibold">5,000 Man-Hours</span>
+                  <span class="text-[#4C5848] dark:text-[#A4B39E]">Power BI Governance</span>
+                </div>
+                <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
+                  $100M+ Tracked
+                </div>
+                <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
+                  Quarterly Inventory Visibility across Power BI & SAP
+                </div>
+                <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
+                  Consolidated fragmented multi-facility ERP reporting into a synchronized enterprise Power BI analytics governance platform within 4 months, saving 5k man-hours.
+                </p>
+                <div class="pt-1 flex items-center justify-between text-[11px] font-mono text-[#75482E] dark:text-[#d89667]">
+                  <span class="exp-card-toggle-label">Challenge → Methodology → Impact</span>
+                  <i class="fa-solid fa-chevron-down exp-card-chevron text-[10px]"></i>
+                </div>
+              </button>
+              <div id="exp-detail-4" class="exp-card-collapse" aria-hidden="true">
+                <div class="exp-card-collapse-inner">
+                  <div class="px-5 sm:px-6 pb-5 sm:pb-6 pt-3 border-t border-[#829078]/25 space-y-2.5 text-xs font-serif text-[#4C5848] dark:text-[#E2DECD]">
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Challenge</span>
+                      Siloed plant-level SAP extracts masked quarterly working capital and forced heavy manual spreadsheet consolidation.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Methodology</span>
+                      Unified SAP ERP reporting into an automated enterprise Power BI governance layer inside 4 months.
+                    </div>
+                    <div>
+                      <span class="font-mono uppercase tracking-wider text-[10px] text-[#75482E] dark:text-[#d89667] font-semibold block">Impact</span>
+                      Tracked $100M+ in quarterly inventory with live governance metrics and eliminated 5,000 manual man-hours.
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div class="text-2xl sm:text-3xl font-serif text-[#233124] dark:text-[#F2EEDC]">
-                $100M+ Tracked
-              </div>
-              <div class="text-xs font-mono text-[#75482E] dark:text-[#d89667]">
-                Quarterly Inventory Visibility across Power BI & SAP
-              </div>
-              <p class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#A4B39E] leading-relaxed">
-                Consolidated fragmented multi-facility ERP reporting into a synchronized enterprise Power BI analytics governance platform within 4 months, saving 5k man-hours.
-              </p>
             </div>
 
           </div>
@@ -506,7 +789,7 @@
         <!-- ==================================================================
              FOLDER 2: Academic Rigor & Education
              ================================================================== -->
-        <div id="folder-content-education" class="space-y-5 hidden">
+        <div id="folder-content-education" class="p-4 sm:p-6 md:p-8 space-y-5 hidden">
           
           <!-- IIM Sirmaur Card -->
           <div class="spotlight-card p-5 sm:p-7 space-y-4">
@@ -563,7 +846,7 @@
         <!-- ==================================================================
              FOLDER 3: Extra Curriculars & Social Impact
              ================================================================== -->
-        <div id="folder-content-extracurriculars" class="space-y-5 hidden">
+        <div id="folder-content-extracurriculars" class="p-4 sm:p-6 md:p-8 space-y-5 hidden">
           
           <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
             
@@ -644,7 +927,7 @@
         <!-- ==================================================================
              FOLDER 4: Articles & Thought Leadership (Medium)
              ================================================================== -->
-        <div id="folder-content-writings" class="space-y-5 hidden">
+        <div id="folder-content-writings" class="p-4 sm:p-6 md:p-8 space-y-5 hidden">
           
           <!-- Medium Profile Callout -->
           <div class="p-5 sm:p-6 rounded-2xl bg-[#F2EEDC] dark:bg-[#16211A] border border-[#829078]/30 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
@@ -735,7 +1018,7 @@
         <!-- ==================================================================
              FOLDER 5: Travel, Expeditions & Vacations
              ================================================================== -->
-        <div id="folder-content-travel" class="space-y-6 hidden">
+        <div id="folder-content-travel" class="p-4 sm:p-6 md:p-8 space-y-6 hidden">
           
           <!-- Sub-Navigation Tabs: Treks & Adventures vs Vacations -->
           <div class="flex items-center justify-between border-b border-[#829078]/25 pb-3">
@@ -893,6 +1176,162 @@
 
         </div>
 
+        <!-- ==================================================================
+             FOLDER 6: The Mountain Ascent (Milestones & Expedition Route)
+             ================================================================== -->
+        <div id="folder-content-ascent" class="p-4 sm:p-6 md:p-8 space-y-4 sm:space-y-5 hidden">
+
+          <!-- Clean Category Filter Bar & Route Controls -->
+          <div class="transit-control-bar pb-3 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2.5">
+            
+            <!-- 3 Category Filter Pills -->
+            <div class="flex flex-wrap items-center gap-1.5 max-w-full" role="tablist" aria-label="Filter milestones by category">
+              <button type="button" class="transit-filter-pill is-active" data-filter="all" onclick="setTransitFilter('all')" role="tab" aria-selected="true">
+                All Stops
+              </button>
+              <button type="button" class="transit-filter-pill" data-filter="career" onclick="setTransitFilter('career')" role="tab" aria-selected="false">
+                Career &amp; Strategy
+              </button>
+              <button type="button" class="transit-filter-pill" data-filter="travel" onclick="setTransitFilter('travel')" role="tab" aria-selected="false">
+                Travel &amp; Endurance
+              </button>
+            </div>
+
+            <!-- Route Progress Indicator + Prev / Next Controls -->
+            <div class="flex items-center justify-between sm:justify-end gap-2 shrink-0">
+              <span id="transit-stop-counter" class="px-2.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#829078]/15 text-[#233124] dark:text-[#F2EEDC] border border-[#829078]/25">
+                Stop 01 / 14
+              </span>
+              <div class="flex items-center gap-1.5">
+                <button id="transit-prev-btn" type="button" onclick="stepTransitStop(-1)" class="transit-ctrl-btn px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-[#FAF8F1] dark:bg-black/30 border border-[#829078]/35 hover:border-[#75482E] dark:hover:border-[#E28C52] text-[#233124] dark:text-[#F2EEDC] cursor-pointer inline-flex items-center gap-1.5" aria-label="Previous stop" title="Previous Stop (←)">
+                  <i class="fa-solid fa-chevron-left text-[10px]"></i>
+                  <span>Prev</span>
+                </button>
+                <button id="transit-next-btn" type="button" onclick="stepTransitStop(1)" class="transit-ctrl-btn px-3 py-1 rounded-lg text-xs font-mono font-semibold bg-[#75482E] hover:bg-[#965b38] dark:bg-[#E28C52] dark:hover:bg-[#f0a470] text-[#FAF8F1] dark:text-[#0B110D] cursor-pointer inline-flex items-center gap-1.5 shadow-sm" aria-label="Next stop" title="Next Stop (→)">
+                  <span>Next</span>
+                  <i class="fa-solid fa-chevron-right text-[10px]"></i>
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Vintage Illustrated Transit & Flight-Route SVG Map -->
+          <div class="transit-map-frame">
+            
+            <!-- Cartographic Top Legend Strip -->
+            <div class="px-3.5 sm:px-4 py-2 border-b border-[#829078]/20 flex items-center justify-between flex-wrap gap-2 text-[10px] font-mono text-[#4C5848] dark:text-[#A4B39E]">
+              <div class="flex items-center gap-3 flex-wrap">
+                <span class="inline-flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rounded-full border-2 border-[#75482E] dark:border-[#E28C52] bg-[#FAF8F1] dark:bg-[#121A15] inline-block"></span>
+                  <span>Career &amp; Strategy Hub</span>
+                </span>
+                <span class="inline-flex items-center gap-1.5">
+                  <span class="w-2.5 h-2.5 rotate-45 border border-[#44543B] dark:border-[#96B88B] bg-[#59624C]/25 inline-block"></span>
+                  <span>Travel &amp; Endurance Stop</span>
+                </span>
+              </div>
+              <span class="sm:hidden text-[10px] text-[#75482E] dark:text-[#E28C52] font-semibold">Swipe route &harr;</span>
+              <span class="hidden sm:inline tracking-widest uppercase opacity-75">Folio VI · Transit &amp; Expedition Atlas</span>
+            </div>
+
+            <!-- Horizontal Touch-Scrollable Map Canvas -->
+            <div id="transit-map-scroller" class="transit-map-scroller">
+              <svg id="transit-svg-map" class="block w-full min-w-[920px] sm:min-w-[1040px] h-[230px] sm:h-[260px]" viewBox="0 0 1220 260" role="region" aria-label="Interactive illustrated milestone transit map">
+                
+                <!-- Subtle Cartographic Grid & Coordinates -->
+                <g aria-hidden="true">
+                  <rect x="14" y="12" width="1192" height="236" rx="10" fill="none" stroke="currentColor" stroke-opacity="0.16" class="text-[#829078]" />
+                  <!-- Latitude lines -->
+                  <line x1="14" y1="68" x2="1206" y2="68" class="transit-grid-line" stroke-dasharray="2 4" />
+                  <line x1="14" y1="130" x2="1206" y2="130" class="transit-grid-line" />
+                  <line x1="14" y1="192" x2="1206" y2="192" class="transit-grid-line" stroke-dasharray="2 4" />
+                  <!-- Longitude meridians -->
+                  <line x1="200" y1="12" x2="200" y2="248" class="transit-grid-line" />
+                  <line x1="445" y1="12" x2="445" y2="248" class="transit-grid-line" />
+                  <line x1="690" y1="12" x2="690" y2="248" class="transit-grid-line" />
+                  <line x1="935" y1="12" x2="935" y2="248" class="transit-grid-line" />
+                  <line x1="1110" y1="12" x2="1110" y2="248" class="transit-grid-line" stroke-dasharray="2 4" />
+                  <!-- Meridian Labels -->
+                  <text x="206" y="25" class="transit-coord-label">77°E · IND</text>
+                  <text x="451" y="25" class="transit-coord-label">55°E · DXB</text>
+                  <text x="696" y="25" class="transit-coord-label">105°E · HAN</text>
+                  <text x="941" y="25" class="transit-coord-label">30°N · VOF</text>
+                  <text x="1116" y="25" class="transit-coord-label">98°W · USA</text>
+                </g>
+
+                <!-- Corner Compass Rose -->
+                <g transform="translate(50, 44)" aria-hidden="true" class="text-[#75482E] dark:text-[#E28C52]" opacity="0.72">
+                  <circle cx="0" cy="0" r="18" fill="none" stroke="currentColor" stroke-width="0.9" stroke-dasharray="2 2" />
+                  <circle cx="0" cy="0" r="12" fill="none" stroke="currentColor" stroke-width="0.7" opacity="0.6" />
+                  <path d="M0 -21 L3.5 -4 L21 0 L3.5 4 L0 21 L-3.5 4 L-21 0 L-3.5 -4 Z" fill="none" stroke="currentColor" stroke-width="1.1" />
+                  <polygon points="0,-21 3.5,-4 0,0" fill="currentColor" />
+                  <text x="0" y="-23" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5" font-weight="700" fill="currentColor">N</text>
+                </g>
+
+                <!-- Curved Flight/Rail Arcs Layer (populated by js/main.js) -->
+                <g id="transit-arcs-layer"></g>
+
+                <!-- 14 Interactive Waypoint Nodes Layer (populated by js/main.js) -->
+                <g id="transit-nodes-layer"></g>
+
+                <!-- Sleek Animated Transit Marker gliding along curved arc -->
+                <g id="transit-active-marker" class="transit-active-marker-group" transform="translate(76, 174)" aria-hidden="true">
+                  <circle cx="0" cy="0" r="17" fill="currentColor" opacity="0.14" class="text-[#75482E] dark:text-[#E28C52]" />
+                  <circle cx="0" cy="0" r="11" fill="#75482E" stroke="#FAF8F1" stroke-width="2" class="dark:fill-[#E28C52] dark:stroke-[#121A15]" />
+                  <path d="M-4 -3.5 L5 0 L-4 3.5 L-2 0 Z" fill="#FAF8F1" class="dark:fill-[#0B110D]" />
+                </g>
+
+              </svg>
+            </div>
+
+          </div>
+
+          <!-- Perforated Boarding-Pass & Ink-Stamped Dispatch Manifest Card -->
+          <div id="transit-dispatch-card" class="transit-dispatch-card grid grid-cols-1 md:grid-cols-12">
+            
+            <!-- Left / Main Manifest Story Copy -->
+            <div class="md:col-span-8 p-4 sm:p-6 space-y-2.5 flex flex-col justify-center">
+              <div class="flex items-center flex-wrap gap-2 text-[11px] font-mono">
+                <span id="dispatch-manifest-num" class="text-[#829078] uppercase tracking-widest">
+                  Manifest #01
+                </span>
+                <span id="dispatch-corridor" class="px-2.5 py-0.5 rounded-md bg-[#75482E]/10 dark:bg-[#E28C52]/15 text-[#75482E] dark:text-[#E28C52] border border-[#75482E]/25 dark:border-[#E28C52]/30 font-bold tracking-wider">
+                  MAA &rarr; ORG
+                </span>
+                <span id="dispatch-category-tag" class="px-2 py-0.5 rounded-full text-[10px] uppercase tracking-wider bg-[#829078]/15 text-[#4C5848] dark:text-[#A4B39E] border border-[#829078]/25">
+                  Career &amp; Strategy Hub
+                </span>
+              </div>
+
+              <h3 id="dispatch-title" class="text-lg sm:text-xl md:text-2xl font-serif font-bold text-[#233124] dark:text-[#F2EEDC] leading-snug">
+                Graduated from SRM University with Distinction
+              </h3>
+
+              <p id="dispatch-summary" class="text-xs sm:text-sm font-serif text-[#4C5848] dark:text-[#C5D0BF] leading-relaxed">
+                Completed Bachelor of Technology with academic distinction, establishing engineering fundamentals, systems modeling, and first-principles reasoning.
+              </p>
+            </div>
+
+            <!-- Right / Perforated Boarding-Pass Stub with Customs / Postmark Ink Stamp -->
+            <div class="dispatch-perforated-divider md:col-span-4 p-4 sm:p-5 flex flex-col items-center justify-center bg-[#F2EEDC]/55 dark:bg-[#0E1612]/55">
+              <div id="dispatch-ink-stamp" class="dispatch-ink-stamp stamp-customs text-center">
+                <div id="dispatch-stamp-sub" class="text-[8.5px] font-mono uppercase tracking-[0.18em] opacity-85">
+                  ADVISORY LOG
+                </div>
+                <div id="dispatch-stamp-code" class="text-xs sm:text-sm font-mono font-bold tracking-widest my-0.5">
+                  ORIGINS
+                </div>
+                <div id="dispatch-stamp-date" class="text-[10px] font-mono uppercase tracking-wider border-t border-current/40 pt-0.5">
+                  MAY 2019
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
       </div>
 
       <!-- Dossier Window Bottom Bar -->
@@ -929,7 +1368,7 @@
           </div>
         </div>
         <div class="flex items-center gap-2 shrink-0">
-          <button type="button" onclick="window.print()" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#829078]/20 hover:bg-[#829078]/30 text-[#233124] dark:text-[#F2EEDC] transition-colors flex items-center gap-1.5 cursor-pointer">
+          <button type="button" onclick="window.print()" aria-label="Print or save CV as PDF" title="Print or save CV as PDF" class="px-2.5 sm:px-3 py-1.5 rounded-lg text-xs font-mono font-bold bg-[#829078]/20 hover:bg-[#829078]/30 text-[#233124] dark:text-[#F2EEDC] transition-colors flex items-center gap-1.5 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-[#75482E] dark:focus-visible:ring-[#d89667]">
             <i class="fa-solid fa-print"></i>
             <span class="hidden sm:inline">Print / PDF</span>
           </button>
@@ -944,7 +1383,6 @@
           <h2 class="editorial-heading text-xl sm:text-2xl font-bold text-[#233124] dark:text-[#F2EEDC]">T.H.H. Thapase</h2>
           <div class="text-xs font-serif text-[#4C5848] dark:text-[#A4B39E] mt-1 flex flex-wrap gap-x-4 gap-y-1">
             <span><i class="fa-solid fa-location-dot mr-1 text-[#75482E]"></i> Bangalore, India</span>
-            <span><i class="fa-solid fa-phone mr-1 text-[#4C5848]"></i> +91 9566009174</span>
             <span><i class="fa-solid fa-envelope mr-1 text-[#75482E]"></i> thapase@gmail.com</span>
             <span><i class="fa-brands fa-linkedin mr-1 text-[#4C5848]"></i> linkedin.com/in/t-h-h-thapase-strategy-consultant</span>
           </div>

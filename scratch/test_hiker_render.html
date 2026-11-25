@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Test Thapase Silhouette</title>
+  <style>
+    body {
+      background: #eee4c8;
+      display: flex;
+      gap: 40px;
+      padding: 50px;
+      font-family: sans-serif;
+    }
+    .box {
+      border: 1px solid #ccc;
+      padding: 20px;
+      text-align: center;
+      background: #FAF8F1;
+      border-radius: 12px;
+    }
+    .box.dark {
+      background: #0b110d;
+      color: #fff;
+    }
+    .silhouette-preview {
+      width: 120px;
+      height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .silhouette-preview svg {
+      width: 80px;
+      height: 110px;
+    }
+    .box.light .silhouette-preview {
+      color: #1a2717;
+    }
+    .box.dark .silhouette-preview {
+      color: #E2DECD;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="box light">
+    <h3>Thapase Silhouette (Light Mode)</h3>
+    <div class="silhouette-preview">
+      <svg viewBox="0 0 54 72" fill="currentColor">
+        <!-- Swept-back Pompadour Hair (Thapase Signature Quiff) -->
+        <path d="M 23 9 C 22 4, 26 1.5, 31 2.5 C 36 3.5, 38 6.5, 37 10.5 C 36 12.5, 33 13.5, 31 12.5 C 27 12.5, 24 11.5, 23 9 Z" />
+        <!-- Facial Profile: Forehead, Nose, Trimmed Beard & Strong Jaw -->
+        <path d="M 31 10 C 33 10, 35 11.5, 36 13.5 L 38 15 L 36.5 16 C 37 17.5, 35.5 18.5, 34 19.5 C 34.5 20.5, 33 21.5, 30.5 21.5 C 28 21.5, 26.5 18.5, 26.5 16 C 26.5 13.5, 28 10, 31 10 Z" />
+        <!-- Neck & Collar -->
+        <path d="M 27 20 L 32 21 L 34 26 L 24 26 Z" />
+        <!-- Athletic Torso & Fitted V-Neck Shirt -->
+        <path d="M 21 26 C 24 24.5, 34 24.5, 37 26.5 C 36 33, 34 40, 32 44 L 22.5 44 C 21.5 39, 20.5 32, 21 26 Z" />
+        <!-- Forward Arm with Sports Watch -->
+        <path d="M 33 27 C 36 29, 39.5 33, 40.5 37 C 41.5 40, 39 42, 37 42 C 35.5 41, 35 37, 33 34 Z" />
+        <rect x="38" y="38" width="3.5" height="2.2" rx="1" fill="#75482E" />
+        <!-- Back Arm -->
+        <path d="M 23 27 C 19.5 30, 16.5 34, 15.5 38 C 14.5 41, 16.5 42, 18.5 41 C 19.5 38, 20.5 34, 23 30 Z" />
+        <!-- Running Shorts -->
+        <path d="M 21.5 43 L 33 43 L 34 50 L 29 50.5 L 28.5 46 L 25.5 46 L 25 50.5 L 20.5 50 Z" />
+        <!-- Lead Leg & Running Shoe -->
+        <path d="M 30 50 C 31.5 54, 32.5 58, 33.5 62 L 35.5 67 L 42 67.5 C 43 68, 42 70.5, 38.5 70.5 L 32 70.5 C 30 69.5, 30 66.5, 29.5 63 C 29 58, 29 54, 29.5 50 Z" />
+        <!-- Trail Leg & Running Shoe -->
+        <path d="M 23 50 C 21 54, 18 58, 16 62 L 13.5 66.5 L 8.5 67.5 C 7.5 67, 8.5 65.5, 10.5 65 L 13.5 63.5 C 15.5 59.5, 19 55, 22 50 Z" />
+      </svg>
+    </div>
+  </div>
+
+  <div class="box dark">
+    <h3>Thapase Silhouette (Dark Mode)</h3>
+    <div class="silhouette-preview">
+      <svg viewBox="0 0 54 72" fill="currentColor">
+        <!-- Swept-back Pompadour Hair (Thapase Signature Quiff) -->
+        <path d="M 23 9 C 22 4, 26 1.5, 31 2.5 C 36 3.5, 38 6.5, 37 10.5 C 36 12.5, 33 13.5, 31 12.5 C 27 12.5, 24 11.5, 23 9 Z" />
+        <!-- Facial Profile: Forehead, Nose, Trimmed Beard & Strong Jaw -->
+        <path d="M 31 10 C 33 10, 35 11.5, 36 13.5 L 38 15 L 36.5 16 C 37 17.5, 35.5 18.5, 34 19.5 C 34.5 20.5, 33 21.5, 30.5 21.5 C 28 21.5, 26.5 18.5, 26.5 16 C 26.5 13.5, 28 10, 31 10 Z" />
+        <!-- Neck & Collar -->
+        <path d="M 27 20 L 32 21 L 34 26 L 24 26 Z" />
+        <!-- Athletic Torso & Fitted V-Neck Shirt -->
+        <path d="M 21 26 C 24 24.5, 34 24.5, 37 26.5 C 36 33, 34 40, 32 44 L 22.5 44 C 21.5 39, 20.5 32, 21 26 Z" />
+        <!-- Forward Arm with Sports Watch -->
+        <path d="M 33 27 C 36 29, 39.5 33, 40.5 37 C 41.5 40, 39 42, 37 42 C 35.5 41, 35 37, 33 34 Z" />
+        <rect x="38" y="38" width="3.5" height="2.2" rx="1" fill="#E28C52" />
+        <!-- Back Arm -->
+        <path d="M 23 27 C 19.5 30, 16.5 34, 15.5 38 C 14.5 41, 16.5 42, 18.5 41 C 19.5 38, 20.5 34, 23 30 Z" />
+        <!-- Running Shorts -->
+        <path d="M 21.5 43 L 33 43 L 34 50 L 29 50.5 L 28.5 46 L 25.5 46 L 25 50.5 L 20.5 50 Z" />
+        <!-- Lead Leg & Running Shoe -->
+        <path d="M 30 50 C 31.5 54, 32.5 58, 33.5 62 L 35.5 67 L 42 67.5 C 43 68, 42 70.5, 38.5 70.5 L 32 70.5 C 30 69.5, 30 66.5, 29.5 63 C 29 58, 29 54, 29.5 50 Z" />
+        <!-- Trail Leg & Running Shoe -->
+        <path d="M 23 50 C 21 54, 18 58, 16 62 L 13.5 66.5 L 8.5 67.5 C 7.5 67, 8.5 65.5, 10.5 65 L 13.5 63.5 C 15.5 59.5, 19 55, 22 50 Z" />
+      </svg>
+    </div>
+  </div>
+
+</body>
+</html>

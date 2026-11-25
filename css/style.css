@@ -1,4 +1,4 @@
-/* ==========================================================================
+﻿/* ==========================================================================
    T.H.H. Thapase — Editorial Mountain & Paper Design System
    Exact Visual Replica of https://parivansjalia.com/
    Typography: Bellefair Serif | Background: Continuous Sky Drift & Mountains
@@ -17,6 +17,10 @@
   /* Parivan Vansjalia Exact Palette */
   --paper: #f2eedc;
   --ink: #233124;
+  --ink-primary: var(--ink);
+  --ridge-ink: #5a4236;
+  --cloud-tint: #75482e;
+  --meadow-grass: #2D2926;
   --muted: #4c5848;
   --accent: #75482e;
   --accent-hover: #965b38;
@@ -51,6 +55,10 @@
 .dark {
   --paper: #121a15;
   --ink: #f2eedc;
+  --ink-primary: #8ea693;
+  --ridge-ink: #b98b73;
+  --cloud-tint: #c49b8f;
+  --meadow-grass: #0b100d;
   --muted: #a4b39e;
   --accent: #d89667;
   --accent-hover: #f1b387;
@@ -143,70 +151,321 @@ body {
 }
 
 /* ==========================================================================
-   Living Mountain Horizon & Drifting Clouds Landscape Scape
-   Synchronized Multi-Layer Parallax Landscape with Continuous Cloud Motion
+   Editorial Archival Ink Mountain Horizon & Meadow Landscape
+   Restrained monotonous ink silhouettes — no jarring color blocks.
+   Theme: html.light = sunrise, html.dark = sunset (amber-terracotta only).
    ========================================================================== */
+
+/* Preserved fallback variables for mark.html background horizon */
+:root {
+  --mountain-lit: #faf8f1;
+  --mountain-shadow: rgba(35, 49, 36, 0.50);
+  --mountain-subshadow: rgba(35, 49, 36, 0.34);
+}
+html.dark {
+  --mountain-lit: #24352a;
+  --mountain-shadow: rgba(6, 11, 8, 0.84);
+  --mountain-subshadow: rgba(6, 11, 8, 0.62);
+}
+
+/* Mountain horizon strip — fixed to viewport bottom, behind content */
 .mountain-horizon {
   position: fixed;
   bottom: 0;
   left: 0;
   right: 0;
-  height: clamp(10rem, 30vh, 22rem);
+  height: clamp(11.5rem, 24vh, 15rem);
   pointer-events: none;
   z-index: -1;
   overflow: hidden;
 }
 
-/* Individual Mountain Layers */
+@media (min-width: 1024px) {
+  .mountain-horizon {
+    height: clamp(15.625rem, 28vh, 16.875rem);
+  }
+}
+
 .mountain-layer {
   position: absolute;
   left: 0;
   right: 0;
   bottom: 0;
-  background-repeat: no-repeat;
-  background-position: center bottom;
-  background-size: cover;
   pointer-events: none;
   will-change: transform;
 }
 
-/* Layer 1: Distant Painted Peak Ridge */
-.mountain-distant {
+.mountain-alpine-scene,
+.mountain-woodland,
+.mountain-meadows {
   height: 100%;
-  background-image: url('../assets/images/mountains.webp');
-  opacity: 0.88;
-  z-index: 1;
-}
-
-.dark .mountain-distant {
-  opacity: 0.72;
-  filter: brightness(0.82) contrast(1.1);
-}
-
-/* Layer 3: Mid-Mountain Hills & Valleys */
-.mountain-mid {
-  height: 85%;
-  background-image: url('../assets/images/mountains.webp');
-  opacity: 0.65;
+  opacity: 1;
   z-index: 3;
 }
 
-.dark .mountain-mid {
-  opacity: 0.55;
-  filter: brightness(0.78) contrast(1.15);
+.alpine-meadow-horizon-svg,
+.meadow-horizon-svg {
+  color: var(--ink-primary);
+  transition: color 0.5s ease;
 }
 
-/* Layer 5: Foreground Woodland / Pine Ridge */
-.mountain-woodland {
-  height: clamp(3.5rem, 9vh, 6.5rem);
-  background-image: url('../assets/images/woodland-intact.webp');
-  opacity: 0.95;
-  z-index: 5;
+/* -------------------------------------------------------------------------
+   Sky Glow — visible sunrise (light) & monotonous sunset (dark)
+   SVG sky stays 100% transparent; page background shows through.
+   ------------------------------------------------------------------------- */
+#sunrise-glow {
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+#sunset-glow {
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+html.dark #sunrise-glow {
+  opacity: 0;
+}
+html.dark #sunset-glow {
+  opacity: 1;
 }
 
-.dark .mountain-woodland {
+/* Prominent sun disc behind central saddle (x=720, r=36) */
+#horizon-sun-disc {
+  fill: #F59E0B;
+  opacity: 0.90;
+  transform: translateY(0px);
+  transition: opacity 0.5s ease, transform 0.5s ease, fill 0.5s ease;
+}
+html.dark #horizon-sun-disc {
+  fill: #EA580C;
+  opacity: 0.85;
+  transform: translateY(18px);
+}
+
+/* -------------------------------------------------------------------------
+   Full-Width Alpine Ridge Layers & Rock Facets
+   Crisp alpine slate-charcoal (#3E463F lit / #262C27 shadow)
+   ------------------------------------------------------------------------- */
+.ink-ridge-distant {
+  fill: #525C54;
+  opacity: 0.42;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .ink-ridge-distant {
+  fill: #2A332C;
+  opacity: 0.60;
+}
+
+.ink-ridge-mid {
+  fill: #3E463F;
+  opacity: 0.96;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .ink-ridge-mid {
+  fill: #3E463F;
+  opacity: 0.92;
+}
+
+.rock-facet-shadow {
+  fill: #262C27;
   opacity: 0.88;
-  filter: brightness(0.65) contrast(1.2);
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .rock-facet-shadow {
+  fill: #262C27;
+  opacity: 0.94;
+}
+
+.ink-ridge-foreground {
+  fill: #2B332C;
+  opacity: 0.94;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .ink-ridge-foreground {
+  fill: #1C241E;
+  opacity: 0.96;
+}
+
+/* -------------------------------------------------------------------------
+   Sculpted Jagged Snow Caps
+   Light: Ivory parchment (#FAF6EE) / cool slate-blue shadows (#94A3B8)
+   Dark:  Peach-terracotta alpenglow (#F4A27E) / deep slate shadows (#334155)
+   ------------------------------------------------------------------------- */
+.snow-ridge-highlight {
+  fill: #FAF6EE;
+  opacity: 0.96;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+.snow-ridge-shadow {
+  fill: #94A3B8;
+  opacity: 0.86;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .snow-ridge-highlight {
+  fill: #F4A27E;
+  opacity: 0.88;
+}
+html.dark .snow-ridge-shadow {
+  fill: #334155;
+  opacity: 0.88;
+}
+
+/* -------------------------------------------------------------------------
+   Drifting Alpine Clouds — discrete flat-bottomed clouds gliding smoothly
+   ------------------------------------------------------------------------- */
+.mist-ribbon-a {
+  fill: #FFFDF8;
+  opacity: 0.42;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+.mist-ribbon-b {
+  fill: #FFFDF8;
+  opacity: 0.28;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .mist-ribbon-a {
+  fill: #CBD5C8;
+  opacity: 0.24;
+}
+html.dark .mist-ribbon-b {
+  fill: #CBD5C8;
+  opacity: 0.16;
+}
+.mist-drift-track-a {
+  animation: mistDriftSlow 38s linear infinite;
+  will-change: transform;
+}
+.mist-drift-track-b {
+  animation: mistDriftSlow 54s linear infinite reverse;
+  will-change: transform;
+}
+
+@keyframes mistDriftSlow {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-1440px); }
+}
+
+/* -------------------------------------------------------------------------
+   Minimalist V-Wing Birds — 3 tiny strokes using dark ink in both themes
+   ------------------------------------------------------------------------- */
+.bird-v {
+  fill: none;
+  stroke: var(--meadow-grass);
+  stroke-width: 1.4;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: stroke 0.5s ease;
+}
+
+.ink-birds-drift {
+  opacity: 0.50;
+  animation: inkBirdsGlide 38s ease-in-out infinite;
+  will-change: transform;
+}
+
+@keyframes inkBirdsGlide {
+  0%   { transform: translate(-20px, 2px); }
+  30%  { transform: translate(0px, -4px); }
+  60%  { transform: translate(22px, 2px); }
+  100% { transform: translate(-20px, 2px); }
+}
+
+/* -------------------------------------------------------------------------
+   Back & Foreground Meadows + Trekker
+   var(--meadow-grass) stays dark in both themes:
+     light: #2D2926  |  dark: #0b100d
+   ------------------------------------------------------------------------- */
+.ink-meadow-back {
+  fill: var(--meadow-grass);
+  opacity: 0.70;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .ink-meadow-back {
+  fill: var(--meadow-grass);
+  opacity: 0.90;
+}
+
+.ink-meadow-foreground {
+  fill: var(--meadow-grass);
+  opacity: 0.90;
+  transition: fill 0.5s ease, opacity 0.5s ease;
+}
+html.dark .ink-meadow-foreground {
+  fill: var(--meadow-grass);
+  opacity: 0.98;
+}
+
+/* Trekker silhouette — uses same dark meadow-grass ink in both themes */
+.alpine-trekker-walker {
+  fill: var(--meadow-grass);
+  stroke: none;
+  transform-box: fill-box;
+  transform-origin: center bottom;
+  animation: trekkerWalkPace 12s ease-in-out infinite;
+  transition: fill 0.5s ease;
+}
+html.dark .alpine-trekker-walker {
+  fill: var(--meadow-grass);
+}
+
+@keyframes trekkerWalkPace {
+  0%   { transform: translate(0px, 0px); }
+  25%  { transform: translate(5px, -0.8px); }
+  50%  { transform: translate(10px, 0px); }
+  75%  { transform: translate(5px, -0.7px); }
+  100% { transform: translate(0px, 0px); }
+}
+
+/* Wind-sway grass clusters */
+.meadow-sway-cluster {
+  transform-box: fill-box;
+  transform-origin: center bottom;
+}
+
+.meadow-sway-1 { animation: meadowWindSwayA 6.4s ease-in-out infinite; }
+.meadow-sway-2 { animation: meadowWindSwayB 7.8s ease-in-out 0.9s infinite; }
+.meadow-sway-3 { animation: meadowWindSwayA 7.1s ease-in-out 1.7s infinite; }
+.meadow-sway-4 { animation: meadowWindSwayB 6.8s ease-in-out 0.4s infinite; }
+
+@keyframes meadowWindSwayA {
+  0%, 100% { transform: rotate(0deg); }
+  50%       { transform: rotate(2.1deg); }
+}
+
+@keyframes meadowWindSwayB {
+  0%, 100% { transform: rotate(-0.4deg); }
+  50%       { transform: rotate(-2.2deg); }
+}
+
+/* Respect prefers-reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  .mist-drift-track-a,
+  .mist-drift-track-b,
+  .cloud-track-high,
+  .cloud-track-mid,
+  .ink-birds-drift,
+  .alpine-trekker-walker,
+  .meadow-sway-1,
+  .meadow-sway-2,
+  .meadow-sway-3,
+  .meadow-sway-4 {
+    animation: none !important;
+  }
+  #sunrise-glow,
+  #sunset-glow,
+  #horizon-sun-disc,
+  .ink-ridge-distant,
+  .ink-ridge-mid,
+  .ink-ridge-foreground,
+  .rock-facet-shadow,
+  .snow-ridge-highlight,
+  .snow-ridge-shadow,
+  .mist-ribbon-a,
+  .mist-ribbon-b,
+  .bird-v,
+  .ink-meadow-back,
+  .ink-meadow-foreground {
+    transition: none !important;
+  }
 }
 
 /* ==========================================================================
@@ -232,46 +491,62 @@ body {
   pointer-events: none;
 }
 
-/* Layer 2: High Mountain Clouds (Drifting right across distant peaks) */
+/* Layer 2: High Mountain Clouds (Painted sky clouds drifting slowly over the upper peaks) */
 .cloud-track-high {
-  z-index: 2;
-  height: 65%;
-  bottom: 24%;
-  animation: driftCloudsRight 110s linear infinite;
+  z-index: 5;
+  height: 56%;
+  bottom: 42%;
+  animation: driftCloudsRight 150s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 72%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 72%, transparent 100%);
 }
 
 .cloud-band-cumulus {
-  background-image: url('../assets/images/clouds-cumulus-transparent.png');
-  background-size: auto 90%;
-  background-position: left center;
+  background-image: url('../assets/images/continuous-sky.webp');
+  background-size: 100% 100%;
+  background-position: center top;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
   opacity: 0.45;
-  filter: blur(1px);
+  filter: contrast(1.35) brightness(1.06);
+}
+
+.cloud-band-cumulus:nth-child(even) {
+  transform: scaleX(-1);
 }
 
 .dark .cloud-band-cumulus {
-  opacity: 0.22;
-  filter: blur(1px) brightness(1.2);
+  opacity: 0.18;
+  filter: contrast(1.4) brightness(0.88);
 }
 
-/* Layer 4: Mid-Altitude Valley Mist (Drifting left between ridges) */
+/* Layer 4: Mid-Altitude Valley Mist (Painted sky clouds drifting slowly across mid-upper slopes) */
 .cloud-track-mid {
   z-index: 4;
-  height: 55%;
-  bottom: 12%;
-  animation: driftCloudsLeft 75s linear infinite;
+  height: 48%;
+  bottom: 26%;
+  animation: driftCloudsLeft 120s linear infinite;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 75%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0%, black 30%, black 75%, transparent 100%);
 }
 
 .cloud-band-mist {
-  background-image: url('../assets/images/clouds-mist-transparent.png');
-  background-size: auto 95%;
-  background-position: right bottom;
-  opacity: 0.52;
-  filter: blur(0.8px);
+  background-image: url('../assets/images/continuous-sky.webp');
+  background-size: 100% 100%;
+  background-position: center center;
+  background-repeat: no-repeat;
+  mix-blend-mode: screen;
+  opacity: 0.34;
+  filter: contrast(1.35) brightness(1.04);
+}
+
+.cloud-band-mist:nth-child(even) {
+  transform: scaleX(-1);
 }
 
 .dark .cloud-band-mist {
-  opacity: 0.3;
-  filter: blur(0.8px) brightness(1.25);
+  opacity: 0.14;
+  filter: contrast(1.4) brightness(0.85);
 }
 
 /* Layer 6: Ambient Ground Fog Veil (Hovering softly at tree line) */
@@ -432,6 +707,52 @@ a:hover {
 .spotlight-card > * {
   position: relative;
   z-index: 2;
+}
+
+/* Expandable Professional Experience Cards (Challenge -> Methodology -> Impact) */
+.exp-spotlight-card .exp-card-trigger {
+  min-height: 44px;
+}
+
+.exp-spotlight-card .exp-card-chevron {
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.exp-spotlight-card.is-expanded {
+  border-color: var(--card-border-highlight);
+  background: var(--card-bg-hover);
+}
+
+.exp-spotlight-card.is-expanded .exp-card-chevron {
+  transform: rotate(180deg);
+}
+
+.exp-card-collapse {
+  display: grid;
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows 0.32s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.25s ease;
+}
+
+.exp-spotlight-card.is-expanded .exp-card-collapse {
+  grid-template-rows: 1fr;
+  opacity: 1;
+}
+
+.exp-card-collapse-inner {
+  overflow: hidden;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .spotlight-card,
+  .exp-spotlight-card .exp-card-chevron,
+  .exp-card-collapse,
+  .hero-metric-strip > div {
+    transition: none !important;
+  }
+  .spotlight-card:hover {
+    transform: none !important;
+  }
 }
 
 /* Desktop Hover vs Mobile Touch */
@@ -674,13 +995,26 @@ a:hover {
 
 /* Labels */
 .folder-title {
+  display: inline-block;
+  padding: 0.18rem 0.6rem;
+  border-radius: 9999px;
+  background: rgba(250, 248, 241, 0.86);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  border: 1px solid rgba(130, 144, 120, 0.25);
   font-family: var(--font-editorial);
-  font-size: 1.05rem;
-  font-weight: 500;
+  font-size: 1rem;
+  font-weight: 600;
   line-height: 1.2;
-  color: var(--ink);
-  transition: color 0.2s ease;
+  color: #17221A;
+  transition: color 0.2s ease, background-color 0.2s ease, border-color 0.2s ease;
   text-align: center;
+}
+
+.dark .folder-title {
+  background: rgba(18, 26, 21, 0.76);
+  border-color: rgba(164, 179, 158, 0.2);
+  color: var(--ink);
 }
 
 .folder-meta {
@@ -803,6 +1137,42 @@ a:hover {
   flex-direction: column;
   align-items: center;
   transition: color 0.4s ease;
+}
+
+.stamped-seal-svg {
+  width: 70px;
+  height: 70px;
+  mix-blend-mode: multiply;
+  filter: drop-shadow(0.5px 0.5px 0 rgba(35, 49, 36, 0.28));
+  shape-rendering: geometricPrecision;
+}
+
+@media (min-width: 640px) {
+  .stamped-seal-svg {
+    width: 82px;
+    height: 82px;
+  }
+}
+
+.dark .stamped-seal-svg {
+  mix-blend-mode: screen;
+  filter: drop-shadow(0.5px 0.5px 0 rgba(0, 0, 0, 0.72));
+}
+
+.stamped-meta-label {
+  margin-top: 2px;
+  font-family: var(--font-mono);
+  font-size: 8px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stamped-mark.is-new {
+    animation: none !important;
+  }
 }
 
 /* Adaptive Ink Color Bindings for Stamped Marks */
@@ -947,6 +1317,312 @@ a:hover {
   box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
+/* ==========================================================================
+   The Ascent — Illustrated Transit Map & Perforated Dispatch Manifest
+   ========================================================================== */
+.transit-control-bar {
+  border-bottom: 1px solid rgba(130, 144, 120, 0.25);
+}
+
+.transit-filter-pill {
+  min-height: 36px;
+  padding: 0.35rem 0.75rem;
+  border-radius: 9999px;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 500;
+  color: #4C5848;
+  background: rgba(250, 248, 241, 0.75);
+  border: 1px solid rgba(130, 144, 120, 0.35);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  white-space: nowrap;
+}
+.dark .transit-filter-pill {
+  color: #A4B39E;
+  background: rgba(18, 26, 21, 0.75);
+  border-color: rgba(164, 179, 158, 0.28);
+}
+.transit-filter-pill:hover {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.transit-filter-pill.is-active {
+  background: #75482E;
+  border-color: #75482E;
+  color: #FAF8F1;
+  font-weight: 600;
+  box-shadow: 0 2px 8px rgba(117, 72, 46, 0.28);
+}
+.dark .transit-filter-pill.is-active {
+  background: #E28C52;
+  border-color: #E28C52;
+  color: #0B110D;
+  font-weight: 700;
+  box-shadow: 0 2px 10px rgba(226, 140, 82, 0.35);
+}
+
+.transit-ctrl-btn {
+  min-height: 36px;
+  min-width: 36px;
+  transition: transform 0.2s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.2s ease, background-color 0.2s ease;
+}
+.transit-ctrl-btn:hover {
+  transform: translateY(-1px);
+}
+.transit-ctrl-btn:active {
+  transform: scale(0.96);
+}
+
+.transit-filter-pill:focus-visible,
+.transit-ctrl-btn:focus-visible,
+.transit-node:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* Panoramic Cartographic Frame */
+.transit-map-frame {
+  position: relative;
+  border-radius: 1.15rem;
+  border: 1px solid rgba(130, 144, 120, 0.38);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(255, 253, 246, 0.85), rgba(242, 238, 220, 0.92)),
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(130, 144, 120, 0.06) 28px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7), 0 4px 14px rgba(57, 45, 38, 0.07);
+  overflow: hidden;
+}
+.dark .transit-map-frame {
+  border-color: rgba(164, 179, 158, 0.25);
+  background:
+    radial-gradient(circle at 20% 20%, rgba(26, 39, 31, 0.92), rgba(16, 25, 19, 0.96)),
+    repeating-linear-gradient(0deg, transparent, transparent 27px, rgba(164, 179, 158, 0.05) 28px);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04), 0 6px 20px rgba(0, 0, 0, 0.35);
+}
+
+.transit-map-scroller {
+  width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(117, 72, 46, 0.35) transparent;
+}
+.transit-map-scroller::-webkit-scrollbar {
+  height: 6px;
+}
+.transit-map-scroller::-webkit-scrollbar-thumb {
+  background: rgba(117, 72, 46, 0.32);
+  border-radius: 9999px;
+}
+.dark .transit-map-scroller::-webkit-scrollbar-thumb {
+  background: rgba(226, 140, 82, 0.35);
+}
+
+/* SVG Cartography Tokens */
+.transit-grid-line {
+  stroke: rgba(130, 144, 120, 0.22);
+  stroke-width: 1;
+}
+.dark .transit-grid-line {
+  stroke: rgba(164, 179, 158, 0.14);
+}
+.transit-coord-label {
+  fill: rgba(76, 88, 72, 0.68);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+}
+.dark .transit-coord-label {
+  fill: rgba(164, 179, 158, 0.55);
+}
+
+.transit-arc-base {
+  fill: none;
+  stroke: rgba(117, 72, 46, 0.32);
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+  stroke-linecap: round;
+}
+.dark .transit-arc-base {
+  stroke: rgba(226, 140, 82, 0.32);
+}
+
+.transit-arc-active {
+  fill: none;
+  stroke: #75482E;
+  stroke-width: 2.4;
+  stroke-dasharray: 5 4;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.dark .transit-arc-active {
+  stroke: #E28C52;
+}
+
+.transit-node {
+  cursor: pointer;
+  transition: opacity 0.25s ease;
+}
+.transit-node.is-dimmed {
+  opacity: 0.26;
+}
+.transit-node-outer,
+.transit-node-core,
+.transit-node-halo {
+  transition: transform 0.22s cubic-bezier(0.16, 1, 0.3, 1), stroke-width 0.2s ease, opacity 0.2s ease;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.transit-node:hover .transit-node-outer,
+.transit-node.is-active .transit-node-outer {
+  transform: scale(1.22);
+}
+.transit-node-label-date {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 9.5px;
+  font-weight: 600;
+  fill: #75482E;
+}
+.dark .transit-node-label-date {
+  fill: #E28C52;
+}
+.transit-node.is-travel .transit-node-label-date {
+  fill: #44543B;
+}
+.dark .transit-node.is-travel .transit-node-label-date {
+  fill: #96B88B;
+}
+.transit-node-label-code {
+  font-family: 'Bellefair', Georgia, serif;
+  font-size: 12px;
+  fill: #233124;
+}
+.dark .transit-node-label-code {
+  fill: #F2EEDC;
+}
+
+.transit-active-marker-group {
+  pointer-events: none;
+}
+
+/* Perforated Boarding-Pass Dispatch Manifest Card */
+.transit-dispatch-card {
+  position: relative;
+  border-radius: 1.25rem;
+  border: 1px solid rgba(130, 144, 120, 0.42);
+  background: rgba(250, 248, 241, 0.94);
+  box-shadow: 0 8px 24px rgba(57, 45, 38, 0.08);
+  overflow: hidden;
+  transition: border-color 0.25s ease, background-color 0.25s ease;
+}
+.dark .transit-dispatch-card {
+  border-color: rgba(164, 179, 158, 0.28);
+  background: rgba(22, 33, 26, 0.92);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.42);
+}
+
+/* Perforated Tear Line Between Dispatch Manifest & Ink Stamp Stub */
+.dispatch-perforated-divider {
+  position: relative;
+  border-top: 1.5px dashed rgba(130, 144, 120, 0.45);
+}
+.dispatch-perforated-divider::before,
+.dispatch-perforated-divider::after {
+  content: '';
+  position: absolute;
+  top: -9px;
+  width: 16px;
+  height: 16px;
+  border-radius: 9999px;
+  background: #FAF8F1;
+  border: 1px solid rgba(130, 144, 120, 0.42);
+  z-index: 2;
+}
+.dispatch-perforated-divider::before {
+  left: -9px;
+}
+.dispatch-perforated-divider::after {
+  right: -9px;
+}
+.dark .dispatch-perforated-divider {
+  border-top-color: rgba(164, 179, 158, 0.3);
+}
+.dark .dispatch-perforated-divider::before,
+.dark .dispatch-perforated-divider::after {
+  background: #121A15;
+  border-color: rgba(164, 179, 158, 0.28);
+}
+
+@media (min-width: 768px) {
+  .dispatch-perforated-divider {
+    border-top: none;
+    border-left: 1.5px dashed rgba(130, 144, 120, 0.45);
+  }
+  .dark .dispatch-perforated-divider {
+    border-left-color: rgba(164, 179, 158, 0.3);
+  }
+  .dispatch-perforated-divider::before {
+    top: -9px;
+    left: -9px;
+    right: auto;
+  }
+  .dispatch-perforated-divider::after {
+    top: auto;
+    bottom: -9px;
+    left: -9px;
+    right: auto;
+  }
+}
+
+/* Authentic Dual-Theme Passport & Customs Ink Stamps (mirrors mark.html --ink-* palette) */
+.dispatch-ink-stamp {
+  --stamp-color: var(--ink-terracotta);
+  --stamp-rot: -5deg;
+  color: var(--stamp-color);
+  border-color: var(--stamp-color);
+  transform: rotate(var(--stamp-rot));
+  opacity: 0.9;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.2s ease;
+  user-select: none;
+}
+
+.dispatch-ink-stamp.stamp-customs {
+  border: 2px solid var(--stamp-color);
+  border-radius: 0.6rem;
+  padding: 0.55rem 0.9rem;
+  box-shadow: inset 0 0 0 2px transparent, 0 0 0 1px color-mix(in srgb, var(--stamp-color) 28%, transparent);
+  background: color-mix(in srgb, var(--stamp-color) 5%, transparent);
+}
+
+.dispatch-ink-stamp.stamp-postmark {
+  width: 112px;
+  height: 112px;
+  border-radius: 9999px;
+  border: 2px solid var(--stamp-color);
+  outline: 1.5px dashed var(--stamp-color);
+  outline-offset: -6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5rem;
+  text-align: center;
+  background: color-mix(in srgb, var(--stamp-color) 5%, transparent);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .transit-filter-pill,
+  .transit-ctrl-btn,
+  .transit-arc-active,
+  .transit-node,
+  .transit-node-outer,
+  .transit-dispatch-card,
+  .dispatch-ink-stamp {
+    transition: none !important;
+  }
+}
+
 @keyframes inkPress {
   0% {
     transform: translate(-50%, -50%) scale(1.6) rotate(var(--rot, 0deg));
@@ -1076,33 +1752,70 @@ a:hover {
   box-shadow: 0 6px 14px rgba(117, 72, 46, 0.2);
 }
 
+@media (max-width: 639px) {
+  .transit-filter-pill {
+    padding: 0.35rem 0.6rem;
+    font-size: 10.5px;
+  }
+}
+
 /* ==========================================================================
    Print / PDF Optimization
    ========================================================================== */
 @media print {
-  body {
+  html, body {
     background: #FFFFFF !important;
     color: #000000 !important;
+    height: auto !important;
+    overflow: visible !important;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
   }
-  .scene, .mountain-horizon, header, #site-toast, .no-print {
+  .scene,
+  .painted-sky-drift,
+  .sky-base-image,
+  .mountain-horizon,
+  .mountain-layer,
+  .cloud-drift-track,
+  .cloud-band,
+  main,
+  #dossier-window,
+  header,
+  footer,
+  #site-toast,
+  .no-print,
+  #close-cv-modal-btn,
+  #dismiss-cv-modal-btn,
+  #cv-modal button {
     display: none !important;
   }
   #cv-modal {
     position: static !important;
     display: block !important;
-    background: transparent !important;
+    background: #FFFFFF !important;
+    backdrop-filter: none !important;
     padding: 0 !important;
+    margin: 0 !important;
   }
   #cv-modal > div {
     max-height: none !important;
     max-width: 100% !important;
     border: none !important;
+    border-radius: 0 !important;
     box-shadow: none !important;
-    background: transparent !important;
+    background: #FFFFFF !important;
     color: #000000 !important;
+    overflow: visible !important;
+  }
+  #cv-modal .overflow-y-auto {
+    overflow: visible !important;
+    max-height: none !important;
+    padding: 0 !important;
   }
   #cv-modal * {
     color: #000000 !important;
-    border-color: #E2E8F0 !important;
+    background: transparent !important;
+    border-color: #CBD5E1 !important;
+    box-shadow: none !important;
   }
 }

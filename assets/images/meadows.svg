@@ -1,0 +1,80 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 180" preserveAspectRatio="none" width="100%" height="100%">
+  <defs>
+    <!-- Back Meadow Hill Gradient -->
+    <linearGradient id="backMeadowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#4e6e41" stop-opacity="0.96"/>
+      <stop offset="60%" stop-color="#3c5532" stop-opacity="0.98"/>
+      <stop offset="100%" stop-color="#263820" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Foreground Lush Meadow Gradient -->
+    <linearGradient id="frontMeadowGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3d5733" stop-opacity="0.98"/>
+      <stop offset="50%" stop-color="#2d4226" stop-opacity="0.99"/>
+      <stop offset="100%" stop-color="#1e2d1a" stop-opacity="1"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ======================================================================
+       BACK MEADOW HILLS (Gentle rolling slopes)
+       ====================================================================== -->
+  <path d="M0 180 V75 
+           C120 60, 240 50, 380 68 
+           C520 85, 640 45, 780 55 
+           C920 65, 1060 40, 1200 58 
+           C1340 76, 1480 48, 1620 54 
+           C1740 60, 1840 70, 1920 62 
+           V180 Z" 
+        fill="url(#backMeadowGrad)" stroke="#23351e" stroke-width="1.8"/>
+
+  <!-- Wild Grass Blades on Back Meadow Ridge -->
+  <g stroke="#5f8551" stroke-width="1.5" stroke-linecap="round" opacity="0.85">
+    <!-- Cluster 1 -->
+    <line x1="180" y1="58" x2="178" y2="48"/><line x1="183" y1="58" x2="185" y2="46"/><line x1="187" y1="59" x2="191" y2="50"/>
+    <!-- Cluster 2 -->
+    <line x1="380" y1="68" x2="377" y2="58"/><line x1="383" y1="68" x2="385" y2="56"/><line x1="388" y1="69" x2="393" y2="60"/>
+    <!-- Cluster 3 -->
+    <line x1="640" y1="46" x2="637" y2="35"/><line x1="643" y1="46" x2="645" y2="33"/><line x1="648" y1="47" x2="653" y2="38"/>
+    <!-- Cluster 4 -->
+    <line x1="920" y1="64" x2="917" y2="54"/><line x1="923" y1="64" x2="925" y2="52"/><line x1="928" y1="65" x2="933" y2="56"/>
+    <!-- Cluster 5 -->
+    <line x1="1200" y1="58" x2="1197" y2="48"/><line x1="1203" y1="58" x2="1205" y2="45"/><line x1="1208" y1="59" x2="1213" y2="50"/>
+    <!-- Cluster 6 -->
+    <line x1="1480" y1="48" x2="1477" y2="38"/><line x1="1483" y1="48" x2="1485" y2="35"/><line x1="1488" y1="49" x2="1493" y2="40"/>
+    <!-- Cluster 7 -->
+    <line x1="1740" y1="60" x2="1737" y2="50"/><line x1="1743" y1="60" x2="1745" y2="48"/><line x1="1748" y1="61" x2="1753" y2="52"/>
+  </g>
+
+  <!-- ======================================================================
+       FOREGROUND MEADOW ROLLING KNOLLS
+       ====================================================================== -->
+  <path d="M0 180 V105 
+           C150 90, 280 115, 420 98 
+           C560 82, 700 112, 850 92 
+           C1000 75, 1140 108, 1290 88 
+           C1440 70, 1580 102, 1720 86 
+           C1820 75, 1880 92, 1920 85 
+           V180 Z" 
+        fill="url(#frontMeadowGrad)" stroke="#1a2816" stroke-width="2"/>
+
+  <!-- Wild Grass Tufts Across Foreground Ridge -->
+  <g stroke="#679157" stroke-width="1.8" stroke-linecap="round">
+    <!-- Knolls 1 -->
+    <path d="M80 100 l-3 -12 m3 12 l4 -14 m-4 14 l8 -10" />
+    <path d="M220 108 l-4 -14 m4 14 l3 -16 m-3 16 l7 -11" />
+    <path d="M350 102 l-3 -13 m3 13 l4 -15 m-4 13 l6 -9" />
+    <!-- Knolls 2 -->
+    <path d="M510 88 l-4 -15 m4 15 l3 -17 m-3 17 l8 -12" />
+    <path d="M660 105 l-3 -13 m3 13 l4 -15 m-4 14 l7 -10" />
+    <path d="M780 96 l-4 -14 m4 14 l3 -16 m-3 16 l6 -11" />
+    <!-- Knolls 3 -->
+    <path d="M960 84 l-4 -16 m4 16 l3 -18 m-3 18 l8 -13" />
+    <path d="M1100 102 l-3 -13 m3 13 l4 -15 m-4 14 l7 -10" />
+    <path d="M1230 92 l-4 -15 m4 15 l3 -17 m-3 17 l8 -12" />
+    <!-- Knolls 4 -->
+    <path d="M1390 78 l-4 -16 m4 16 l3 -18 m-3 18 l7 -12" />
+    <path d="M1540 98 l-3 -13 m3 13 l4 -15 m-4 14 l8 -11" />
+    <path d="M1680 88 l-4 -15 m4 15 l3 -17 m-3 17 l7 -12" />
+    <path d="M1840 82 l-4 -14 m4 14 l3 -16 m-3 16 l6 -11" />
+  </g>
+</svg>

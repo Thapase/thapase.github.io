@@ -1,0 +1,126 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 500" preserveAspectRatio="none" width="100%" height="100%">
+  <defs>
+    <!-- Distant Mountain Gradient -->
+    <linearGradient id="distPeakGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#556954" stop-opacity="0.95"/>
+      <stop offset="45%" stop-color="#465845" stop-opacity="0.92"/>
+      <stop offset="100%" stop-color="#2d3b2c" stop-opacity="0.98"/>
+    </linearGradient>
+
+    <!-- Mid Mountain Ridge Gradient -->
+    <linearGradient id="midPeakGrad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#3c4e3b" stop-opacity="0.98"/>
+      <stop offset="60%" stop-color="#2b392a" stop-opacity="0.99"/>
+      <stop offset="100%" stop-color="#1f2a1e" stop-opacity="1"/>
+    </linearGradient>
+
+    <!-- Snow Cap Shading Gradient -->
+    <linearGradient id="snowGrad" x1="0" y1="0" x2="0.3" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF" stop-opacity="0.98"/>
+      <stop offset="65%" stop-color="#F2EFE6" stop-opacity="0.94"/>
+      <stop offset="100%" stop-color="#D9E3E8" stop-opacity="0.85"/>
+    </linearGradient>
+
+    <!-- Shadowed Snow Flank Gradient -->
+    <linearGradient id="snowShadow" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#DDE6EC" stop-opacity="0.95"/>
+      <stop offset="100%" stop-color="#A8BCC9" stop-opacity="0.8"/>
+    </linearGradient>
+  </defs>
+
+  <!-- ======================================================================
+       LAYER 1: DISTANT HIGH SNOW PEAKS
+       ====================================================================== -->
+  <path d="M0 500 V230 
+           L65 170 L140 210 L230 110 L310 180 L420 80 L520 160 L610 95 L720 220 
+           L840 70 L960 190 L1080 40 L1190 150 L1280 85 L1390 195 L1490 60 
+           L1600 170 L1710 100 L1810 180 L1920 130 V500 Z" 
+        fill="url(#distPeakGrad)" stroke="#233124" stroke-width="1.8" stroke-linejoin="round"/>
+
+  <!-- Snow Caps on Distant Peaks -->
+  <!-- Peak 1: X=230, Y=110 -->
+  <polygon points="230,110 205,150 218,145 228,158 238,148 255,155 248,135" fill="url(#snowGrad)"/>
+  <polygon points="230,110 205,150 218,145 230,128" fill="url(#snowShadow)"/>
+
+  <!-- Peak 2: X=420, Y=80 -->
+  <polygon points="420,80 385,130 402,122 415,138 425,126 448,136 438,110" fill="url(#snowGrad)"/>
+  <polygon points="420,80 385,130 400,124 418,102" fill="url(#snowShadow)"/>
+
+  <!-- Peak 3: X=610, Y=95 -->
+  <polygon points="610,95 580,140 595,132 608,148 620,135 638,142 628,118" fill="url(#snowGrad)"/>
+  <polygon points="610,95 580,140 595,132 605,115" fill="url(#snowShadow)"/>
+
+  <!-- Peak 4: X=840, Y=70 -->
+  <polygon points="840,70 800,125 818,118 832,135 845,120 875,132 860,105" fill="url(#snowGrad)"/>
+  <polygon points="840,70 800,125 818,118 836,95" fill="url(#snowShadow)"/>
+
+  <!-- Peak 5 (Monarch Peak): X=1080, Y=40 -->
+  <polygon points="1080,40 1030,105 1052,95 1070,120 1088,100 1125,115 1108,80" fill="url(#snowGrad)"/>
+  <polygon points="1080,40 1030,105 1052,95 1076,72" fill="url(#snowShadow)"/>
+  <!-- Mountain Crevasse Inks -->
+  <path d="M1080 40 L1076 115 M1076 72 L1095 90" stroke="#1f2c20" stroke-width="1.5" fill="none"/>
+
+  <!-- Peak 6: X=1280, Y=85 -->
+  <polygon points="1280,85 1245,138 1262,130 1276,145 1290,132 1312,140 1300,112" fill="url(#snowGrad)"/>
+  <polygon points="1280,85 1245,138 1262,130 1276,108" fill="url(#snowShadow)"/>
+
+  <!-- Peak 7: X=1490, Y=60 -->
+  <polygon points="1490,60 1445,120 1465,112 1482,130 1498,115 1530,128 1512,95" fill="url(#snowGrad)"/>
+  <polygon points="1490,60 1445,120 1465,112 1486,88" fill="url(#snowShadow)"/>
+  <path d="M1490 60 L1485 125" stroke="#1f2c20" stroke-width="1.5" fill="none"/>
+
+  <!-- Peak 8: X=1710, Y=100 -->
+  <polygon points="1710,100 1675,148 1690,140 1705,155 1718,142 1738,150 1728,125" fill="url(#snowGrad)"/>
+  <polygon points="1710,100 1675,148 1690,140 1705,122" fill="url(#snowShadow)"/>
+
+  <!-- ======================================================================
+       LAYER 2: MID-GROUND SHARP SNOWY CRAGS & RIDGES
+       ====================================================================== -->
+  <path d="M0 500 V290 
+           L95 240 L190 280 L320 180 L440 250 L560 160 L690 260 L810 150 
+           L930 240 L1040 130 L1160 230 L1270 140 L1380 230 L1510 130 
+           L1640 220 L1760 150 L1860 210 L1920 170 V500 Z" 
+        fill="url(#midPeakGrad)" stroke="#1a251b" stroke-width="2" stroke-linejoin="round"/>
+
+  <!-- Mid Peak Snow Caps -->
+  <!-- Mid Peak 1: X=320, Y=180 -->
+  <polygon points="320,180 288,225 304,218 318,232 328,222 350,230 338,205" fill="url(#snowGrad)"/>
+  <polygon points="320,180 288,225 304,218 316,200" fill="url(#snowShadow)"/>
+
+  <!-- Mid Peak 2: X=560, Y=160 -->
+  <polygon points="560,160 525,210 542,202 556,220 568,208 592,216 580,190" fill="url(#snowGrad)"/>
+  <polygon points="560,160 525,210 542,202 555,182" fill="url(#snowShadow)"/>
+
+  <!-- Mid Peak 3: X=810, Y=150 -->
+  <polygon points="810,150 772,202 790,195 806,212 818,198 845,208 832,180" fill="url(#snowGrad)"/>
+  <polygon points="810,150 772,202 790,195 805,175" fill="url(#snowShadow)"/>
+
+  <!-- Mid Peak 4 (Hero Center Peak): X=1040, Y=130 -->
+  <polygon points="1040,130 998,188 1018,178 1035,200 1050,185 1080,195 1065,162" fill="url(#snowGrad)"/>
+  <polygon points="1040,130 998,188 1018,178 1036,158" fill="url(#snowShadow)"/>
+  <path d="M1040 130 L1035 195" stroke="#141d14" stroke-width="1.8" fill="none"/>
+
+  <!-- Mid Peak 5: X=1270, Y=140 -->
+  <polygon points="1270,140 1230,195 1250,188 1265,205 1278,192 1305,202 1292,172" fill="url(#snowGrad)"/>
+  <polygon points="1270,140 1230,195 1250,188 1266,168" fill="url(#snowShadow)"/>
+
+  <!-- Mid Peak 6: X=1510, Y=130 -->
+  <polygon points="1510,130 1468,186 1488,178 1505,198 1520,184 1548,194 1535,165" fill="url(#snowGrad)"/>
+  <polygon points="1510,130 1468,186 1488,178 1506,158" fill="url(#snowShadow)"/>
+  <path d="M1510 130 L1505 192" stroke="#141d14" stroke-width="1.8" fill="none"/>
+
+  <!-- Mid Peak 7: X=1760, Y=150 -->
+  <polygon points="1760,150 1722,202 1740,195 1756,212 1768,198 1795,208 1782,180" fill="url(#snowGrad)"/>
+  <polygon points="1760,150 1722,202 1740,195 1755,175" fill="url(#snowShadow)"/>
+
+  <!-- Subtle Ridge Ink Lines Across Mountain Massif -->
+  <g stroke="#1a261c" stroke-width="1.4" opacity="0.45" stroke-linecap="round">
+    <line x1="320" y1="230" x2="350" y2="310"/>
+    <line x1="560" y1="220" x2="600" y2="330"/>
+    <line x1="810" y1="210" x2="840" y2="340"/>
+    <line x1="1040" y1="200" x2="1080" y2="350"/>
+    <line x1="1270" y1="205" x2="1300" y2="340"/>
+    <line x1="1510" y1="195" x2="1550" y2="330"/>
+    <line x1="1760" y1="210" x2="1790" y2="320"/>
+  </g>
+</svg>
